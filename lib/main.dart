@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
       locale: Get.deviceLocale,
       //for setting localization strings
       fallbackLocale: const Locale('en', 'US'),
-      title: 'mkulima_connect',
+      title: 'mkulima_connect_app',
       initialBinding: InitialBindings(),
       initialRoute: AppRoutes.initialRoute,
       getPages: AppRoutes.pages,
