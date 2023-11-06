@@ -1,13 +1,16 @@
-import 'controller/login_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:mkulima_connect/core/app_export.dart';
-import 'package:mkulima_connect/domain/googleauth/google_auth_helper.dart';
-import 'package:mkulima_connect/domain/facebookauth/facebook_auth_helper.dart';
+import 'package:flutter/widgets.dart';
 
-// ignore: must_be_immutable
-class LoginScreen extends GetWidget<LoginController> {
-                          
-late Color myColor;
+class LoginPage extends StatefulWidget {
+  //const LoginPage({super.key});
+  const LoginPage({Key? key}) : super(key: key);
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  late Color myColor;
   late Size mediaSize;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -88,7 +91,7 @@ late Color myColor;
               color: myColor, fontSize: 32, fontWeight: FontWeight.w500),
         ),
         _buildGreyText("Please login with your information"),
-        const SizedBox(height: 40),
+        const SizedBox(height: 60),
         _buildGreyText("Email address"),
         _buildInputField(emailController),
         const SizedBox(height: 40),
@@ -100,8 +103,6 @@ late Color myColor;
         _buildLoginButton(),
         const SizedBox(height: 20),
         _buildOtherLogin(),
-         const SizedBox(height: 20),
-        _buildRegister()
       ],
     );
   }
@@ -133,7 +134,9 @@ late Color myColor;
             Checkbox(
                 value: rememberUser,
                 onChanged: (value) {
-                 
+                  setState(() {
+                    rememberUser = value!;
+                  });
                 }),
             _buildGreyText("Remember me"),
           ],
@@ -176,70 +179,6 @@ late Color myColor;
           )
         ],
       ),
-    );
-  }
-
-    Widget _buildRegister() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(
-          
-        ),
-        TextButton(
-            onPressed: () { onTapRegister();}, child: Text("Get Registered",
-             style: TextStyle(
-              color: myColor, fontSize: 16, fontWeight: FontWeight.w500),
-        ))
-      ],
-    );
-  }
-
-  
-
-
-
-
-
- onTapRegister() {
-    Get.toNamed(
-       AppRoutes.registerFormEmptyScreen,
-    );
-  }
-
-  onTapArrowleft11() {
-    Get.back();
-  }
-
-  onTapContinuewithemail() {
-    Get.toNamed(
-      AppRoutes.formEmptyScreen,
-    );
-  }
-
-  onTapImgGoogle() async {
-    await GoogleAuthHelper().googleSignInProcess().then((googleUser) {
-      if (googleUser != null) {
-        //TODO Actions to be performed after signin
-      } else {
-        Get.snackbar('Error', 'user data is empty');
-      }
-    }).catchError((onError) {
-      Get.snackbar('Error', onError.toString());
-    });
-  }
-
-  onTapImgFacebook() async {
-    await FacebookAuthHelper().facebookSignInProcess().then((facebookUser) {
-      //TODO Actions to be performed after signin
-    }).catchError((onError) {
-      Get.snackbar('Error', onError.toString());
-    });
-  }
-
-  onTapTxtRegister() {
-    Get.toNamed(
-      AppRoutes.registerFormEmptyScreen,
     );
   }
 }

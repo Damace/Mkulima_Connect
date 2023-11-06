@@ -149,6 +149,8 @@ class AppRoutes {
 
   static const String loginScreen = '/login_screen';
 
+  static const String LoginPage = '/login_page';
+
   static const String formEmptyScreen = '/form_empty_screen';
 
   static const String notificationListPage = '/notification_list_page';
@@ -250,6 +252,13 @@ class AppRoutes {
       page: () => SplashScreen(),
       bindings: [
         SplashBinding(),
+      ],
+    ),
+      GetPage(
+      name: loginScreen,
+      page: () => LoginScreen(),
+      bindings: [
+        LoginBinding(),
       ],
     ),
     GetPage(
@@ -364,13 +373,11 @@ class AppRoutes {
         ExtraInformationBinding(),
       ],
     ),
-    GetPage(
-      name: loginScreen,
-      page: () => LoginScreen(),
-      bindings: [
-        LoginBinding(),
-      ],
-    ),
+  
+
+//
+
+
     GetPage(
       name: formEmptyScreen,
       page: () => FormEmptyScreen(),

@@ -1,11 +1,27 @@
-import 'package:mkulima_connect/core/app_export.dart';import 'package:mkulima_connect/presentation/register_form_empty_screen/models/register_form_empty_model.dart';import 'package:flutter/material.dart';class RegisterFormEmptyController extends GetxController {TextEditingController fullnameController = TextEditingController();
+import 'package:mkulima_connect/core/app_export.dart';
+import 'package:mkulima_connect/presentation/register_form_empty_screen/models/register_form_empty_model.dart';
+import 'package:flutter/material.dart';
 
-TextEditingController emailController = TextEditingController();
+class RegisterFormEmptyController extends GetxController {
+  TextEditingController fullnameController = TextEditingController();
 
-TextEditingController passwordController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
 
-Rx<RegisterFormEmptyModel> registerFormEmptyModelObj = RegisterFormEmptyModel().obs;
+  TextEditingController passwordController = TextEditingController();
 
-@override void onReady() { super.onReady(); } 
-@override void onClose() { super.onClose(); fullnameController.dispose(); emailController.dispose(); passwordController.dispose(); } 
- }
+  Rx<RegisterFormEmptyModel> registerFormEmptyModelObj =
+      RegisterFormEmptyModel().obs;
+
+  @override
+  void onReady() {
+    super.onReady();
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+    fullnameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+  }
+}
