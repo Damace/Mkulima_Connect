@@ -19,9 +19,15 @@ dependencies:
   sms_autofill: ^2.0.0
   pin_input_text_field: 4.1.0
   intl: ^0.17.0
+  flutter_launcher_icons: ^0.13.1
 dev_dependencies: 
   flutter_test: 
     sdk: flutter
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/icon.png"    
 flutter: 
   uses-material-design: true
   assets: 

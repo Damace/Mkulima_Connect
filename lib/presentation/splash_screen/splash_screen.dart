@@ -18,10 +18,8 @@ class SplashScreen extends GetWidget<SplashController> {
                 height: size.height,
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                  image: const AssetImage("assets/images/bg.png"),
-                  fit: BoxFit.cover,
-                  colorFilter: ColorFilter.mode(
-                      myColor.withOpacity(0.4), BlendMode.dstATop),
+                  image: const AssetImage("assets/images/bg2.png"),
+
                   //image: AssetImage(ImageConstant.imgSplashscreen),
                 )),
                 child: Container(
@@ -29,15 +27,6 @@ class SplashScreen extends GetWidget<SplashController> {
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          InkWell(
-                            child: Image(
-                              image:
-                                  const AssetImage("assets/images/mclogo.png"),
-                              //height: getVerticalSize(100),
-                              //width: getHorizontalSize(136)
-                            ),
-                          ),
-
                           /*
                           CustomImageView(
                               svgPath: ImageConstant.imgVectorGray100,

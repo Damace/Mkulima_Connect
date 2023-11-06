@@ -6,8 +6,7 @@ import 'package:mkulima_connect/domain/facebookauth/facebook_auth_helper.dart';
 
 // ignore: must_be_immutable
 class LoginScreen extends GetWidget<LoginController> {
-                          
-late Color myColor;
+  late Color myColor;
   late Size mediaSize;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -43,12 +42,25 @@ late Color myColor;
       child: const Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-
           InkWell(
-            child: Image(
-             image: const AssetImage("assets/images/mclogo.png"),),
+            child: Card(
+              elevation: 25,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(
+                      100))), // Apply elevation for a shadow effect
+
+              color: Color.fromARGB(
+                  255, 255, 255, 255), // Set the background color of the card
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Image(
+                  image: const AssetImage("assets/images/mclogo.png"),
+                  height: 120,
+                  width: 120,
+                ),
+              ),
+            ),
           ),
-          
         ],
       ),
     );
@@ -80,41 +92,41 @@ late Color myColor;
           style: TextStyle(
               color: myColor, fontSize: 32, fontWeight: FontWeight.w500),
         ),
-       
+
         _buildGreyText("Please login with your information"),
 
         const SizedBox(height: 20),
-      
-                   TextFormField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      labelText: "Email",
-                      prefixIcon: Icon(Icons.person),
-                    ),
-                    keyboardType: TextInputType.emailAddress,
-                    controller: controller.emailController,
-                    onSaved: (value) {
-                      //controller.email = value!;
-                    },
-                  ),
-                   const SizedBox(height: 20),
+
+        TextFormField(
+          decoration: InputDecoration(
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            labelText: "Email",
+            prefixIcon: Icon(Icons.person),
+          ),
+          keyboardType: TextInputType.emailAddress,
+          controller: controller.emailController,
+          onSaved: (value) {
+            //controller.email = value!;
+          },
+        ),
+        const SizedBox(height: 20),
         //_buildInputField(emailController),
-           TextFormField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      labelText: "Password",
-                      prefixIcon: Icon(Icons.email),
-                    ),
-                    keyboardType: TextInputType.emailAddress,
-                    controller: controller.emailController,
-                    onSaved: (value) {
-                      //controller.email = value!;
-                    },
-                  ),
+        TextFormField(
+          decoration: InputDecoration(
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            labelText: "Password",
+            prefixIcon: Icon(Icons.email),
+          ),
+          keyboardType: TextInputType.emailAddress,
+          controller: controller.emailController,
+          onSaved: (value) {
+            //controller.email = value!;
+          },
+        ),
 //        const SizedBox(height: 10),
 
         _buildRememberForgot(),
@@ -122,11 +134,9 @@ late Color myColor;
         _buildLoginButton(),
         const SizedBox(height: 20),
         _buildOtherLogin(),
-      
-         const SizedBox(height: 20),
-        _buildRegister(),
 
-        
+        const SizedBox(height: 20),
+        _buildRegister(),
       ],
     );
   }
@@ -155,11 +165,7 @@ late Color myColor;
       children: [
         Row(
           children: [
-            Checkbox(
-                value: rememberUser,
-                onChanged: (value) {
-                 
-                }),
+            Checkbox(value: rememberUser, onChanged: (value) {}),
             _buildGreyText("Remember me"),
           ],
         ),
@@ -171,13 +177,12 @@ late Color myColor;
 
   Widget _buildLoginButton() {
     return ElevatedButton(
-      
       onPressed: () {
         debugPrint("Email : ${emailController.text}");
         debugPrint("Password : ${passwordController.text}");
       },
       style: ElevatedButton.styleFrom(
-        backgroundColor:Color.fromARGB(255, 7, 105, 64) ,
+        backgroundColor: Color.fromARGB(255, 7, 105, 64),
         shape: const StadiumBorder(),
         elevation: 20,
         shadowColor: myColor,
@@ -206,31 +211,27 @@ late Color myColor;
     );
   }
 
-    Widget _buildRegister() {
+  Widget _buildRegister() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Row(
-          
-        ),
+        Row(),
         TextButton(
-            onPressed: () { onTapRegister();}, child: Text("Get Registered",
-             style: TextStyle(
-              color: myColor, fontSize: 16, fontWeight: FontWeight.w500),
-        ))
+            onPressed: () {
+              onTapRegister();
+            },
+            child: Text(
+              "Get Registered",
+              style: TextStyle(
+                  color: myColor, fontSize: 16, fontWeight: FontWeight.w500),
+            ))
       ],
     );
   }
 
-  
-
-
-
-
-
- onTapRegister() {
+  onTapRegister() {
     Get.toNamed(
-       AppRoutes.registerFormEmptyScreen,
+      AppRoutes.registerFormEmptyScreen,
     );
   }
 
