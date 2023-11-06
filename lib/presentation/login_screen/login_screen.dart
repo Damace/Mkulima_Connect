@@ -24,7 +24,7 @@ late Color myColor;
           image: const AssetImage("assets/images/bg.png"),
           fit: BoxFit.cover,
           colorFilter:
-              ColorFilter.mode(myColor.withOpacity(0.2), BlendMode.dstATop),
+              ColorFilter.mode(myColor.withOpacity(0.4), BlendMode.dstATop),
         ),
       ),
       child: Scaffold(
@@ -42,20 +42,13 @@ late Color myColor;
       width: mediaSize.width,
       child: const Column(
         mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(
-            Icons.location_on_sharp,
-            size: 100,
-            color: Colors.white,
+        children: <Widget>[
+
+          InkWell(
+            child: Image(
+             image: const AssetImage("assets/images/mclogo.png"),),
           ),
-          Text(
-            "GO MAP",
-            style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 40,
-                letterSpacing: 2),
-          )
+          
         ],
       ),
     );
@@ -87,21 +80,53 @@ late Color myColor;
           style: TextStyle(
               color: myColor, fontSize: 32, fontWeight: FontWeight.w500),
         ),
+       
         _buildGreyText("Please login with your information"),
-        const SizedBox(height: 40),
-        _buildGreyText("Email address"),
-        _buildInputField(emailController),
-        const SizedBox(height: 40),
-        _buildGreyText("Password"),
-        _buildInputField(passwordController, isPassword: true),
+
         const SizedBox(height: 20),
+      
+                   TextFormField(
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      labelText: "Email",
+                      prefixIcon: Icon(Icons.person),
+                    ),
+                    keyboardType: TextInputType.emailAddress,
+                    controller: controller.emailController,
+                    onSaved: (value) {
+                      //controller.email = value!;
+                    },
+                  ),
+                   const SizedBox(height: 20),
+        //_buildInputField(emailController),
+           TextFormField(
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      labelText: "Password",
+                      prefixIcon: Icon(Icons.email),
+                    ),
+                    keyboardType: TextInputType.emailAddress,
+                    controller: controller.emailController,
+                    onSaved: (value) {
+                      //controller.email = value!;
+                    },
+                  ),
+//        const SizedBox(height: 10),
+
         _buildRememberForgot(),
         const SizedBox(height: 20),
         _buildLoginButton(),
         const SizedBox(height: 20),
         _buildOtherLogin(),
+      
          const SizedBox(height: 20),
-        _buildRegister()
+        _buildRegister(),
+
+        
       ],
     );
   }
@@ -146,11 +171,13 @@ late Color myColor;
 
   Widget _buildLoginButton() {
     return ElevatedButton(
+      
       onPressed: () {
         debugPrint("Email : ${emailController.text}");
         debugPrint("Password : ${passwordController.text}");
       },
       style: ElevatedButton.styleFrom(
+        backgroundColor:Color.fromARGB(255, 7, 105, 64) ,
         shape: const StadiumBorder(),
         elevation: 20,
         shadowColor: myColor,

@@ -29,85 +29,7 @@ class HomePage extends StatelessWidget {
         child: Scaffold(
             resizeToAvoidBottomInset: false,
             backgroundColor: ColorConstant.whiteA700,
-            appBar: CustomAppBar(
-                height: getVerticalSize(74),
-                title: CustomDropDown(
-                    width: getHorizontalSize(162),
-                    focusNode: FocusNode(),
-                    icon: Container(
-                        margin: getMargin(left: 8, right: 16),
-                        child: CustomImageView(
-                            svgPath: ImageConstant.imgArrowdown10x10)),
-                    hintText: "msg_jakarta_indone".tr,
-                    margin: getMargin(left: 24),
-                    variant: DropDownVariant.OutlineBluegray50,
-                    items: controller.homeModelObj.value.dropdownItemList.value,
-                    prefix: Container(
-                        margin:
-                            getMargin(left: 16, top: 17, right: 8, bottom: 17),
-                        child: CustomImageView(
-                            svgPath: ImageConstant.imgLocation1)),
-                    prefixConstraints:
-                        BoxConstraints(maxHeight: getVerticalSize(50)),
-                    onChanged: (value) {
-                      controller.onSelected(value);
-                    }),
-                actions: [
-                  Card(
-                      clipBehavior: Clip.antiAlias,
-                      elevation: 0,
-                      margin: getMargin(left: 24),
-                      color: ColorConstant.gray100,
-                      shape: RoundedRectangleBorder(
-                          side: BorderSide(
-                              color: ColorConstant.gray100,
-                              width: getHorizontalSize(1)),
-                          borderRadius: BorderRadiusStyle.roundedBorder25),
-                      child: Container(
-                          height: getSize(50),
-                          width: getSize(50),
-                          padding: getPadding(
-                              left: 13, top: 10, right: 13, bottom: 10),
-                          decoration: AppDecoration.outlineGray1001.copyWith(
-                              borderRadius: BorderRadiusStyle.roundedBorder25),
-                          child:
-                              Stack(alignment: Alignment.topRight, children: [
-                            CustomImageView(
-                                svgPath: ImageConstant.imgNotification,
-                                height: getSize(20),
-                                width: getSize(20),
-                                alignment: Alignment.center,
-                                margin: getMargin(
-                                    left: 2, top: 5, right: 2, bottom: 5)),
-                            Align(
-                                alignment: Alignment.topRight,
-                                child: Container(
-                                    margin: getMargin(left: 12, bottom: 18),
-                                    padding: getPadding(all: 3),
-                                    decoration: AppDecoration.fillGray100
-                                        .copyWith(
-                                            borderRadius: BorderRadiusStyle
-                                                .roundedBorder8),
-                                    child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          Container(
-                                              height: getSize(6),
-                                              width: getSize(6),
-                                              decoration: BoxDecoration(
-                                                  color: ColorConstant.redA200,
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          getHorizontalSize(
-                                                              3))))
-                                        ])))
-                          ]))),
-                  AppbarCircleimage(
-                      imagePath: ImageConstant.imgShape50x5011,
-                      margin: getMargin(left: 8, right: 24))
-                ]),
+     
             body: SizedBox(
                 width: size.width,
                 child: SingleChildScrollView(
@@ -122,16 +44,6 @@ class HomePage extends StatelessWidget {
                                   margin: getMargin(left: 3, right: 69),
                                   child: RichText(
                                       text: TextSpan(children: [
-                                        TextSpan(
-                                            text: "lbl_hey".tr,
-                                            style: TextStyle(
-                                                color:
-                                                    ColorConstant.blueGray80001,
-                                                fontSize: getFontSize(25),
-                                                fontFamily: 'Raleway',
-                                                fontWeight: FontWeight.w500,
-                                                letterSpacing:
-                                                    getHorizontalSize(0.75))),
                                         TextSpan(
                                             text: " ",
                                             style: TextStyle(

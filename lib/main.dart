@@ -20,10 +20,15 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    //  final MaterialColor customPrimarySwatch = createCustomMaterialColor(Color(0xFF336699)); // Change the color code as needed
+
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        visualDensity: VisualDensity.standard,
+       // visualDensity: VisualDensity.comfortable,
+       // primarySwatch: Colors.fromARGB(1, 2, 2, 2)
+        primaryColor: Color.fromARGB(255, 7, 105, 64)
+       // primarySwatch: Color.fromARGB(255, 3, 31, 4),
       ),
       translations: AppLocalization(),
       locale: Get.deviceLocale,

@@ -158,10 +158,6 @@ class RegisterFormEmptyScreen extends GetWidget<RegisterFormEmptyController> {
 
 
 
-        //_buildGreyText("Password"),
-        //_buildInputField(passwordController, isPassword: true),
-        //const SizedBox(height: 10),
-        //_buildRememberForgot(),
         const SizedBox(height: 10),
         _buildLoginButton(),
         const SizedBox(height: 10),
