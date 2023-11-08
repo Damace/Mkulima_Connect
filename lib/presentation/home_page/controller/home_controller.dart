@@ -1,12 +1,35 @@
-import 'package:mkulima_connect/core/app_export.dart';import 'package:mkulima_connect/presentation/home_page/models/home_model.dart';import 'package:flutter/material.dart';class HomeController extends GetxController {HomeController(this.homeModelObj);
+import 'package:mkulima_connect/core/app_export.dart';
+import 'package:mkulima_connect/presentation/home_page/models/home_model.dart';
+import 'package:flutter/material.dart';
 
-TextEditingController formsearchemptyController = TextEditingController();
+class HomeController extends GetxController {
+  HomeController(this.homeModelObj);
 
-Rx<HomeModel> homeModelObj;
+  TextEditingController formsearchemptyController = TextEditingController();
 
-SelectionPopupModel? selectedDropDownValue;
+  Rx<HomeModel> homeModelObj;
 
-@override void onReady() { super.onReady(); } 
-@override void onClose() { super.onClose(); formsearchemptyController.dispose(); } 
-onSelected(dynamic value) { selectedDropDownValue = value as SelectionPopupModel; homeModelObj.value.dropdownItemList.value.forEach((element) {element.isSelected = false; if (element.id == value.id) {element.isSelected = true;}}); homeModelObj.value.dropdownItemList.refresh(); } 
- }
+  SelectionPopupModel? selectedDropDownValue;
+
+  @override
+  void onReady() {
+    super.onReady();
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+    formsearchemptyController.dispose();
+  }
+
+  onSelected(dynamic value) {
+    selectedDropDownValue = value as SelectionPopupModel;
+    homeModelObj.value.dropdownItemList.value.forEach((element) {
+      element.isSelected = false;
+      if (element.id == value.id) {
+        element.isSelected = true;
+      }
+    });
+    homeModelObj.value.dropdownItemList.refresh();
+  }
+}

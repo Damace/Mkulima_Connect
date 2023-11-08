@@ -19,10 +19,8 @@ class HomeContainerScreen extends GetWidget<HomeContainerController> {
                 onGenerateRoute: (routeSetting) => GetPageRoute(
                     page: () => getCurrentPage(routeSetting.name!),
                     transition: Transition.fadeIn)),
-
-
-
-            bottomNavigationBar:CustomBottomBar(onChanged: (BottomBarEnum type) {
+            bottomNavigationBar:
+                CustomBottomBar(onChanged: (BottomBarEnum type) {
               Get.toNamed(getCurrentRoute(type), id: 1);
             })));
   }
@@ -30,12 +28,18 @@ class HomeContainerScreen extends GetWidget<HomeContainerController> {
   ///Handling route cl on bottom click actions
   String getCurrentRoute(BottomBarEnum type) {
     switch (type) {
-      case BottomBarEnum.Iconhouseactive:
-        return AppRoutes.homePage;
       case BottomBarEnum.Search:
         return AppRoutes.exampleDataPage;
+
+      case BottomBarEnum.Search:
+        return AppRoutes.exampleDataPage;
+        
+      case BottomBarEnum.Iconhouseactive:
+        return AppRoutes.homePage;
+
       case BottomBarEnum.Favoritebluegray80001:
         return AppRoutes.verticalPage;
+
       case BottomBarEnum.User25x25:
         return AppRoutes.transactionTabContainerPage;
       default:

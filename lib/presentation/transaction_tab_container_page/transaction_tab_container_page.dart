@@ -74,8 +74,7 @@ class TransactionTabContainerPage extends StatelessWidget {
                                       CustomIconButton(
                                           height: 30,
                                           width: 30,
-                                          variant: IconButtonVariant
-                                              .FillBluegray80001,
+                                          variant: IconButtonVariant.FillGreenA400,
                                           shape:
                                               IconButtonShape.RoundedBorder17,
                                           padding:

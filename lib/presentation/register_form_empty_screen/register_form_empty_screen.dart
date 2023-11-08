@@ -50,19 +50,25 @@ class RegisterFormEmptyScreen extends GetWidget<RegisterFormEmptyController> {
       child: const Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
-            Icons.location_on_sharp,
-            size: 100,
-            color: Colors.white,
+          InkWell(
+            child: Card(
+              elevation: 25,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(
+                      100))), // Apply elevation for a shadow effect
+
+              color: Color.fromARGB(
+                  255, 255, 255, 255), // Set the background color of the card
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Image(
+                  image: const AssetImage("assets/images/mclogo.png"),
+                  height: 100,
+                  width: 100,
+                ),
+              ),
+            ),
           ),
-          Text(
-            "GO MAP",
-            style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 40,
-                letterSpacing: 2),
-          )
         ],
       ),
     );
@@ -207,6 +213,7 @@ class RegisterFormEmptyScreen extends GetWidget<RegisterFormEmptyController> {
         debugPrint("Password : ${passwordController.text}");
       },
       style: ElevatedButton.styleFrom(
+        backgroundColor: Color.fromARGB(255, 7, 105, 64),
         shape: const StadiumBorder(),
         elevation: 20,
         shadowColor: myColor,
@@ -238,7 +245,7 @@ class RegisterFormEmptyScreen extends GetWidget<RegisterFormEmptyController> {
   
  onTapHomepage() {
     Get.toNamed(
-       AppRoutes.homeContainerScreen,
+       AppRoutes.formOtpScreen,
     );
   }
 

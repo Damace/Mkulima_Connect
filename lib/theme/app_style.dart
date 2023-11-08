@@ -227,6 +227,15 @@ class AppStyle {
     fontWeight: FontWeight.w700,
   );
 
+   static TextStyle txtdefaultcolor = TextStyle(
+    color: ColorConstant.default_color,
+    fontSize: getFontSize(
+      12,
+    ),
+    fontFamily: 'Raleway',
+    fontWeight: FontWeight.w700,
+  );
+
   static TextStyle txtRalewayBold10 = TextStyle(
     color: ColorConstant.blueGray80001,
     fontSize: getFontSize(

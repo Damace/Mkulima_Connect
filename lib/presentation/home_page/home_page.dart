@@ -27,343 +27,185 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-            resizeToAvoidBottomInset: false,
-            backgroundColor: ColorConstant.whiteA700,
-     
-            body: SizedBox(
-                width: size.width,
+      resizeToAvoidBottomInset: false,
+      backgroundColor: ColorConstant.whiteA700,
+      body: Stack(children: [
+        Positioned(
+          top: 0,
+          right: 0,
+          left: 0,
+          child: Container(
+            height: 250,
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    // image: AssetImage("assets/images/mclogo.png"),
+                    image: const AssetImage("assets/images/top.png"),
+                    fit: BoxFit.fill)),
+            child: Container(
+              padding: EdgeInsets.only(top: 60, left: 20),
+              color: ColorConstant.default_color.withOpacity(.3),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  RichText(
+                      text: TextSpan(
+                          text: "Mkulima",
+                          style: TextStyle(
+                              fontSize: 25,
+                              letterSpacing: 2,
+                              color: Colors.yellow),
+                          children: [
+                        TextSpan(
+                            text: " Konekt",
+                            style: TextStyle(
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.yellow))
+                      ])),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    "Crops Buyers & Sellers Platform",
+                    style: TextStyle(letterSpacing: 1, color: Colors.white),
+                  )
+                ],
+              ),
+            ),
+          ),
+        ),
+        Positioned(
+          top: 145,
+          child: Container(
+            height: 150,
+            width: MediaQuery.of(context).size.width - 40,
+            margin: EdgeInsets.symmetric(horizontal: 20),
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(15),
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.black.withOpacity(0.3),
+                      blurRadius: 15,
+                      spreadRadius: 5),
+                ]),
+          ),
+        ),
+        Positioned(
+          top: MediaQuery.of(context).size.height-550,
+          left: 0,
+          right: 0,
+          child: Container(
+          //  scrollDirection: Axis.vertical,
+               // width: size.width,
                 child: SingleChildScrollView(
-                    child: Padding(
-                        padding: getPadding(left: 24, top: 39),
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Container(
-                                  width: getHorizontalSize(279),
-                                  margin: getMargin(left: 3, right: 69),
-                                  child: RichText(
-                                      text: TextSpan(children: [
-                                        TextSpan(
-                                            text: " ",
-                                            style: TextStyle(
-                                                color:
-                                                    ColorConstant.blueGray80001,
-                                                fontSize: getFontSize(25),
-                                                fontFamily: 'Raleway',
-                                                fontWeight: FontWeight.w600,
-                                                letterSpacing:
-                                                    getHorizontalSize(0.75))),
-                                        TextSpan(
-                                            text: "lbl_jonathan".tr,
-                                            style: TextStyle(
-                                                color:
-                                                    ColorConstant.blueGray80001,
-                                                fontSize: getFontSize(25),
-                                                fontFamily: 'Raleway',
-                                                fontWeight: FontWeight.w800,
-                                                letterSpacing:
-                                                    getHorizontalSize(0.75))),
-                                        TextSpan(
-                                            text: "msg_let_s_start_exp".tr,
-                                            style: TextStyle(
-                                                color:
-                                                    ColorConstant.blueGray80001,
-                                                fontSize: getFontSize(25),
-                                                fontFamily: 'Raleway',
-                                                fontWeight: FontWeight.w500,
-                                                letterSpacing:
-                                                    getHorizontalSize(0.75))),
-                                        TextSpan(
-                                            text: "lbl50".tr,
-                                            style: TextStyle(
-                                                color:
-                                                    ColorConstant.blueGray80001,
-                                                fontSize: getFontSize(25),
-                                                fontFamily: 'Raleway',
-                                                fontWeight: FontWeight.w600,
-                                                letterSpacing:
-                                                    getHorizontalSize(0.75)))
-                                      ]),
-                                      textAlign: TextAlign.left)),
-                              CustomSearchView(
-                                  focusNode: FocusNode(),
-                                  controller:
-                                      controller.formsearchemptyController,
-                                  hintText: "lbl_find_location".tr,
-                                  margin:
-                                      getMargin(left: 3, top: 13, right: 26),
-                                  variant: SearchViewVariant.OutlineIndigo100b2,
-                                  padding: SearchViewPadding.PaddingT26_1,
-                                  fontStyle: SearchViewFontStyle
-                                      .RalewayRegular12Indigo200,
-                                  prefix: Container(
-                                      margin: getMargin(
-                                          left: 18,
-                                          top: 27,
-                                          right: 14,
-                                          bottom: 28),
-                                      child: CustomImageView(
-                                          svgPath:
-                                              ImageConstant.imgSearchBlack900)),
-                                  prefixConstraints: BoxConstraints(
-                                      maxHeight: getVerticalSize(69)),
-                                  suffix: Container(
-                                      margin: getMargin(
-                                          left: 30,
-                                          top: 24,
-                                          right: 11,
-                                          bottom: 24),
-                                      child: CustomImageView(
-                                          svgPath: ImageConstant.imgUpload)),
-                                  suffixConstraints: BoxConstraints(
-                                      maxHeight: getVerticalSize(69))),
-                              Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Container(
-                                      height: getVerticalSize(78),
-                                      child: Obx(() => ListView.separated(
-                                          padding: getPadding(top: 27),
-                                          scrollDirection: Axis.horizontal,
-                                          separatorBuilder: (context, index) {
-                                            return SizedBox(
-                                                height: getVerticalSize(10));
-                                          },
-                                          itemCount: controller
-                                              .homeModelObj
-                                              .value
-                                              .category1ItemList
-                                              .value
-                                              .length,
-                                          itemBuilder: (context, index) {
-                                            Category1ItemModel model =
-                                                controller
+                   scrollDirection: Axis.vertical,
+                    child: Column(
+                      children: [
+                        Padding(
+                            padding: getPadding(left: 24, top: 25),
+                            child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  
+                                  Padding(
+                                      padding: getPadding(top: 20, right: 24),
+                                      child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text("Crops Category",
+                                                overflow: TextOverflow.ellipsis,
+                                                textAlign: TextAlign.left,
+                                                style: AppStyle.txtRalewayBold18
+                                                    .copyWith(
+                                                        letterSpacing:
+                                                            getHorizontalSize(
+                                                                0.54))),
+                                            Padding(
+                                                padding:
+                                                    getPadding(top: 6, bottom: 3),
+                                                child: Text("lbl_explore".tr,
+                                                    overflow: TextOverflow.ellipsis,
+                                                    textAlign: TextAlign.left,
+                                                    style: AppStyle
+                                                        .txtRalewaySemiBold10IndigoA400
+                                                        .copyWith(
+                                                            letterSpacing:
+                                                                getHorizontalSize(
+                                                                    0.3))))
+                                          ])),
+                                  Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Container(
+                                          height: getVerticalSize(107),
+                                          child: Obx(() => ListView.separated(
+                                              padding: getPadding(top: 17),
+                                              scrollDirection: Axis.horizontal,
+                                              separatorBuilder: (context, index) {
+                                                return SizedBox(
+                                                    height: getVerticalSize(15));
+                                              },
+                                              itemCount: controller
+                                                  .homeModelObj
+                                                  .value
+                                                  .layout25ItemList
+                                                  .value
+                                                  .length,
+                                              itemBuilder: (context, index) {
+                                                Layout25ItemModel model = controller
                                                     .homeModelObj
                                                     .value
-                                                    .category1ItemList
+                                                    .layout25ItemList
                                                     .value[index];
-                                            return Category1ItemWidget(model);
-                                          })))),
-                              Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Container(
-                                      height: getVerticalSize(199),
-                                      child: Obx(() => ListView.separated(
-                                          padding: getPadding(top: 19),
-                                          scrollDirection: Axis.horizontal,
-                                          separatorBuilder: (context, index) {
-                                            return SizedBox(
-                                                height: getVerticalSize(10));
-                                          },
-                                          itemCount: controller
-                                              .homeModelObj
-                                              .value
-                                              .listtextItemList
-                                              .value
-                                              .length,
+                                                return Layout25ItemWidget(model);
+                                              })))),
+                                  Padding(
+                                      padding: getPadding(top: 36),
+                                      child: Text("msg_explore_nearby".tr,
+                                          overflow: TextOverflow.ellipsis,
+                                          textAlign: TextAlign.left,
+                                          style: AppStyle.txtRalewayBold18.copyWith(
+                                              letterSpacing:
+                                                  getHorizontalSize(0.54)))),
+                                  Padding(
+                                      padding: getPadding(top: 17, right: 24),
+                                      child: Obx(() => GridView.builder(
+                                          shrinkWrap: true,
+                                          gridDelegate:
+                                              SliverGridDelegateWithFixedCrossAxisCount(
+                                                  mainAxisExtent:
+                                                      getVerticalSize(232),
+                                                  crossAxisCount: 2,
+                                                  mainAxisSpacing:
+                                                      getHorizontalSize(7),
+                                                  crossAxisSpacing:
+                                                      getHorizontalSize(7)),
+                                          physics: NeverScrollableScrollPhysics(),
+                                          scrollDirection: Axis.vertical,
+                                          itemCount: controller.homeModelObj.value
+                                              .homeItemList.value.length,
+                                            
                                           itemBuilder: (context, index) {
-                                            ListtextItemModel model = controller
+                                            HomeItemModel model = controller
                                                 .homeModelObj
                                                 .value
-                                                .listtextItemList
+                                                .homeItemList
                                                 .value[index];
-                                            return ListtextItemWidget(model,
-                                                onTapItemPromotion: () {
-                                              onTapItemPromotion();
+                                            return HomeItemWidget(model,
+                                                onTapColumnshape: () {
+                                              onTapColumnshape();
                                             });
-                                          })))),
-                              Padding(
-                                  padding: getPadding(top: 34, right: 23),
-                                  child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text("msg_featured_estate".tr,
-                                            overflow: TextOverflow.ellipsis,
-                                            textAlign: TextAlign.left,
-                                            style: AppStyle.txtRalewayBold18
-                                                .copyWith(
-                                                    letterSpacing:
-                                                        getHorizontalSize(
-                                                            0.54))),
-                                        Padding(
-                                            padding:
-                                                getPadding(top: 7, bottom: 2),
-                                            child: Text("lbl_view_all".tr,
-                                                overflow: TextOverflow.ellipsis,
-                                                textAlign: TextAlign.left,
-                                                style: AppStyle
-                                                    .txtRalewaySemiBold10IndigoA400
-                                                    .copyWith(
-                                                        letterSpacing:
-                                                            getHorizontalSize(
-                                                                0.3))))
-                                      ])),
-                              Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Container(
-                                      height: getVerticalSize(175),
-                                      child: Obx(() => ListView.separated(
-                                          padding: getPadding(top: 19),
-                                          scrollDirection: Axis.horizontal,
-                                          separatorBuilder: (context, index) {
-                                            return SizedBox(
-                                                height: getVerticalSize(10));
-                                          },
-                                          itemCount: controller
-                                              .homeModelObj
-                                              .value
-                                              .layout23ItemList
-                                              .value
-                                              .length,
-                                          itemBuilder: (context, index) {
-                                            Layout23ItemModel model = controller
-                                                .homeModelObj
-                                                .value
-                                                .layout23ItemList
-                                                .value[index];
-                                            return Layout23ItemWidget(model);
-                                          })))),
-                              Padding(
-                                  padding: getPadding(top: 36, right: 24),
-                                  child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text("lbl_top_locations".tr,
-                                            overflow: TextOverflow.ellipsis,
-                                            textAlign: TextAlign.left,
-                                            style: AppStyle.txtRalewayBold18
-                                                .copyWith(
-                                                    letterSpacing:
-                                                        getHorizontalSize(
-                                                            0.54))),
-                                        Padding(
-                                            padding:
-                                                getPadding(top: 7, bottom: 2),
-                                            child: Text("lbl_explore".tr,
-                                                overflow: TextOverflow.ellipsis,
-                                                textAlign: TextAlign.left,
-                                                style: AppStyle
-                                                    .txtRalewaySemiBold10IndigoA400
-                                                    .copyWith(
-                                                        letterSpacing:
-                                                            getHorizontalSize(
-                                                                0.3))))
-                                      ])),
-                              Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Container(
-                                      height: getVerticalSize(73),
-                                      child: Obx(() => ListView.separated(
-                                          padding: getPadding(top: 17),
-                                          scrollDirection: Axis.horizontal,
-                                          separatorBuilder: (context, index) {
-                                            return SizedBox(
-                                                height: getVerticalSize(10));
-                                          },
-                                          itemCount: controller
-                                              .homeModelObj
-                                              .value
-                                              .layout24ItemList
-                                              .value
-                                              .length,
-                                          itemBuilder: (context, index) {
-                                            Layout24ItemModel model = controller
-                                                .homeModelObj
-                                                .value
-                                                .layout24ItemList
-                                                .value[index];
-                                            return Layout24ItemWidget(model);
-                                          })))),
-                              Padding(
-                                  padding: getPadding(top: 36, right: 24),
-                                  child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text("msg_top_estate_agen".tr,
-                                            overflow: TextOverflow.ellipsis,
-                                            textAlign: TextAlign.left,
-                                            style: AppStyle.txtRalewayBold18
-                                                .copyWith(
-                                                    letterSpacing:
-                                                        getHorizontalSize(
-                                                            0.54))),
-                                        Padding(
-                                            padding:
-                                                getPadding(top: 6, bottom: 3),
-                                            child: Text("lbl_explore".tr,
-                                                overflow: TextOverflow.ellipsis,
-                                                textAlign: TextAlign.left,
-                                                style: AppStyle
-                                                    .txtRalewaySemiBold10IndigoA400
-                                                    .copyWith(
-                                                        letterSpacing:
-                                                            getHorizontalSize(
-                                                                0.3))))
-                                      ])),
-                              Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Container(
-                                      height: getVerticalSize(107),
-                                      child: Obx(() => ListView.separated(
-                                          padding: getPadding(top: 17),
-                                          scrollDirection: Axis.horizontal,
-                                          separatorBuilder: (context, index) {
-                                            return SizedBox(
-                                                height: getVerticalSize(15));
-                                          },
-                                          itemCount: controller
-                                              .homeModelObj
-                                              .value
-                                              .layout25ItemList
-                                              .value
-                                              .length,
-                                          itemBuilder: (context, index) {
-                                            Layout25ItemModel model = controller
-                                                .homeModelObj
-                                                .value
-                                                .layout25ItemList
-                                                .value[index];
-                                            return Layout25ItemWidget(model);
-                                          })))),
-                              Padding(
-                                  padding: getPadding(top: 36),
-                                  child: Text("msg_explore_nearby".tr,
-                                      overflow: TextOverflow.ellipsis,
-                                      textAlign: TextAlign.left,
-                                      style: AppStyle.txtRalewayBold18.copyWith(
-                                          letterSpacing:
-                                              getHorizontalSize(0.54)))),
-                              Padding(
-                                  padding: getPadding(top: 17, right: 24),
-                                  child: Obx(() => GridView.builder(
-                                      shrinkWrap: true,
-                                      gridDelegate:
-                                          SliverGridDelegateWithFixedCrossAxisCount(
-                                              mainAxisExtent:
-                                                  getVerticalSize(232),
-                                              crossAxisCount: 2,
-                                              mainAxisSpacing:
-                                                  getHorizontalSize(7),
-                                              crossAxisSpacing:
-                                                  getHorizontalSize(7)),
-                                      physics: NeverScrollableScrollPhysics(),
-                                      itemCount: controller.homeModelObj.value
-                                          .homeItemList.value.length,
-                                      itemBuilder: (context, index) {
-                                        HomeItemModel model = controller
-                                            .homeModelObj
-                                            .value
-                                            .homeItemList
-                                            .value[index];
-                                        return HomeItemWidget(model,
-                                            onTapColumnshape: () {
-                                          onTapColumnshape();
-                                        });
-                                      })))
-                            ]))))));
+                                          })))
+                                ])),
+                      ],
+                    ))
+                            ),
+
+        )
+      ]),
+    ));
   }
 
   onTapItemPromotion() {

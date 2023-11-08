@@ -154,7 +154,7 @@ class CustomButton extends StatelessWidget {
       case ButtonVariant.FillBluegray80001:
         return ColorConstant.blueGray80001;
       default:
-        return ColorConstant.indigoA400;
+        return ColorConstant.default_color;
     }
   }
 

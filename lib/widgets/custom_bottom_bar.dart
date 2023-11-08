@@ -7,16 +7,24 @@ class CustomBottomBar extends StatelessWidget {
   RxInt selectedIndex = 0.obs;
 
   List<BottomMenuModel> bottomMenuList = [
-    BottomMenuModel(
-      icon: ImageConstant.imgIconhouseactive,
+  
+     BottomMenuModel(
+      icon: ImageConstant.imgHome,
       type: BottomBarEnum.Iconhouseactive,
     ),
-    BottomMenuModel(
+
+     BottomMenuModel(
       icon: ImageConstant.imgSearch,
       type: BottomBarEnum.Search,
     ),
+
     BottomMenuModel(
-      icon: ImageConstant.imgFavoriteBlueGray80001,
+      icon: ImageConstant.imgMenu,
+      type: BottomBarEnum.User25x25,
+    ),
+   
+    BottomMenuModel(
+      icon: ImageConstant.imgNotification,
       type: BottomBarEnum.Favoritebluegray80001,
     ),
     BottomMenuModel(
@@ -36,7 +44,7 @@ class CustomBottomBar extends StatelessWidget {
       child: Obx(
         () => BottomNavigationBar(
           backgroundColor: Colors.transparent,
-          showSelectedLabels: false,
+          showSelectedLabels: true,
           showUnselectedLabels: false,
           elevation: 0,
           currentIndex: selectedIndex.value,
@@ -51,7 +59,7 @@ class CustomBottomBar extends StatelessWidget {
                 width: getSize(
                   25,
                 ),
-                color: ColorConstant.blueGray80001,
+                color: ColorConstant.default_color,
                 radius: BorderRadius.only(
                   bottomLeft: Radius.circular(
                     getHorizontalSize(
@@ -73,7 +81,7 @@ class CustomBottomBar extends StatelessWidget {
                 width: getHorizontalSize(
                   25,
                 ),
-                color: ColorConstant.indigoA400,
+                color: ColorConstant.default_color,
               ),
               label: '',
             );

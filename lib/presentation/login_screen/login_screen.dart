@@ -55,8 +55,8 @@ class LoginScreen extends GetWidget<LoginController> {
                 padding: const EdgeInsets.all(16.0),
                 child: Image(
                   image: const AssetImage("assets/images/mclogo.png"),
-                  height: 120,
-                  width: 120,
+                  height: 100,
+                  width: 100,
                 ),
               ),
             ),
@@ -178,6 +178,7 @@ class LoginScreen extends GetWidget<LoginController> {
   Widget _buildLoginButton() {
     return ElevatedButton(
       onPressed: () {
+        onTapprofile();
         debugPrint("Email : ${emailController.text}");
         debugPrint("Password : ${passwordController.text}");
       },
@@ -229,9 +230,16 @@ class LoginScreen extends GetWidget<LoginController> {
     );
   }
 
+   onTapprofile() {
+    Get.toNamed(
+      //AppRoutes.transactionTabContainerPage,
+      AppRoutes.transactionTabContainerPage
+    );
+  }
+
   onTapRegister() {
     Get.toNamed(
-      AppRoutes.registerFormEmptyScreen,
+      AppRoutes.homeContainerScreen,
     );
   }
 
