@@ -92,118 +92,95 @@ class HomePage extends StatelessWidget {
           ),
         ),
         Positioned(
-          top: MediaQuery.of(context).size.height-550,
-          left: 0,
-          right: 0,
-          child: Container(
-          //  scrollDirection: Axis.vertical,
-               // width: size.width,
-                child: SingleChildScrollView(
-                   scrollDirection: Axis.vertical,
-                    child: Column(
-                      children: [
-                        Padding(
-                            padding: getPadding(left: 24, top: 25),
-                            child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  
-                                  Padding(
-                                      padding: getPadding(top: 20, right: 24),
-                                      child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text("Crops Category",
-                                                overflow: TextOverflow.ellipsis,
-                                                textAlign: TextAlign.left,
-                                                style: AppStyle.txtRalewayBold18
-                                                    .copyWith(
-                                                        letterSpacing:
-                                                            getHorizontalSize(
-                                                                0.54))),
-                                            Padding(
-                                                padding:
-                                                    getPadding(top: 6, bottom: 3),
-                                                child: Text("lbl_explore".tr,
-                                                    overflow: TextOverflow.ellipsis,
-                                                    textAlign: TextAlign.left,
-                                                    style: AppStyle
-                                                        .txtRalewaySemiBold10IndigoA400
-                                                        .copyWith(
-                                                            letterSpacing:
-                                                                getHorizontalSize(
-                                                                    0.3))))
-                                          ])),
-                                  Align(
-                                      alignment: Alignment.centerRight,
-                                      child: Container(
-                                          height: getVerticalSize(107),
-                                          child: Obx(() => ListView.separated(
-                                              padding: getPadding(top: 17),
-                                              scrollDirection: Axis.horizontal,
-                                              separatorBuilder: (context, index) {
-                                                return SizedBox(
-                                                    height: getVerticalSize(15));
-                                              },
-                                              itemCount: controller
-                                                  .homeModelObj
-                                                  .value
-                                                  .layout25ItemList
-                                                  .value
-                                                  .length,
-                                              itemBuilder: (context, index) {
-                                                Layout25ItemModel model = controller
-                                                    .homeModelObj
-                                                    .value
-                                                    .layout25ItemList
-                                                    .value[index];
-                                                return Layout25ItemWidget(model);
-                                              })))),
-                                  Padding(
-                                      padding: getPadding(top: 36),
-                                      child: Text("msg_explore_nearby".tr,
-                                          overflow: TextOverflow.ellipsis,
-                                          textAlign: TextAlign.left,
-                                          style: AppStyle.txtRalewayBold18.copyWith(
-                                              letterSpacing:
-                                                  getHorizontalSize(0.54)))),
-                                  Padding(
-                                      padding: getPadding(top: 17, right: 24),
-                                      child: Obx(() => GridView.builder(
-                                          shrinkWrap: true,
-                                          gridDelegate:
-                                              SliverGridDelegateWithFixedCrossAxisCount(
-                                                  mainAxisExtent:
-                                                      getVerticalSize(232),
-                                                  crossAxisCount: 2,
-                                                  mainAxisSpacing:
-                                                      getHorizontalSize(7),
-                                                  crossAxisSpacing:
-                                                      getHorizontalSize(7)),
-                                          physics: NeverScrollableScrollPhysics(),
-                                          scrollDirection: Axis.vertical,
-                                          itemCount: controller.homeModelObj.value
-                                              .homeItemList.value.length,
-                                            
-                                          itemBuilder: (context, index) {
-                                            HomeItemModel model = controller
-                                                .homeModelObj
-                                                .value
-                                                .homeItemList
-                                                .value[index];
-                                            return HomeItemWidget(model,
-                                                onTapColumnshape: () {
-                                              onTapColumnshape();
-                                            });
-                                          })))
-                                ])),
-                      ],
-                    ))
-                            ),
+            top: MediaQuery.of(context).size.height - 570,
+            left: 0,
+            right: 0,
+            child: Container(
+              height: 240,
+              child: Column(
+                children: [
+                 
+                  Align(
+                      alignment: Alignment.centerRight,
+                      child: Container(
+                          height: getVerticalSize(107),
+                          child: Obx(() => ListView.separated(
+                              padding: getPadding(top: 17),
+                              scrollDirection: Axis.horizontal,
+                              separatorBuilder: (context, index) {
+                                return SizedBox(height: getVerticalSize(15));
+                              },
+                              itemCount: controller.homeModelObj.value
+                                  .layout25ItemList.value.length,
+                              itemBuilder: (context, index) {
+                                Layout25ItemModel model = controller
+                                    .homeModelObj
+                                    .value
+                                    .layout25ItemList
+                                    .value[index];
+                                return Layout25ItemWidget(model);
+                              })))),
+                              SizedBox(height: 20,),
 
-        )
+                                      Padding(
+                          padding: getPadding(bottom: 0,right: 124),
+                          child: Text("msg_explore_nearby".tr,
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.left,
+                              style: AppStyle.txtRalewayBold18.copyWith(
+                                  letterSpacing: getHorizontalSize(0.54)))),
+                ],
+              ),
+            )),
+        Positioned(
+            top: MediaQuery.of(context).size.height - 380,
+            left: 0,
+            right: 0,
+            child: Container(
+              height: 280,
+              child: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: Column(
+                    children: [
+              
+                      Padding(
+                          padding: getPadding(left: 24, top: 0),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Padding(
+                                    padding: getPadding(top: 17, right: 24),
+                                    child: Obx(() => GridView.builder(
+                                        shrinkWrap: true,
+                                        gridDelegate:
+                                            SliverGridDelegateWithFixedCrossAxisCount(
+                                                mainAxisExtent:
+                                                    getVerticalSize(232),
+                                                crossAxisCount: 2,
+                                                mainAxisSpacing:
+                                                    getHorizontalSize(7),
+                                                crossAxisSpacing:
+                                                    getHorizontalSize(7)),
+                                        physics: NeverScrollableScrollPhysics(),
+                                        scrollDirection: Axis.vertical,
+                                        itemCount: controller.homeModelObj.value
+                                            .homeItemList.value.length,
+                                        itemBuilder: (context, index) {
+                                          HomeItemModel model = controller
+                                              .homeModelObj
+                                              .value
+                                              .homeItemList
+                                              .value[index];
+                                          return HomeItemWidget(model,
+                                              onTapColumnshape: () {
+                                            onTapColumnshape();
+                                          });
+                                        })))
+                              ])),
+                    ],
+                  )),
+            ))
       ]),
     ));
   }
