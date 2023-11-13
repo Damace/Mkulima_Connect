@@ -24,7 +24,8 @@ class Layout25ItemWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               CustomImageView(
-                imagePath: ImageConstant.imgShape70x701,
+               // imagePath: ImageConstant.imgShape70x701,
+               imagePath: ImageConstant.imgShape70x701_palachichi,
                 height: getSize(
                   70,
                 ),
@@ -33,13 +34,13 @@ class Layout25ItemWidget extends StatelessWidget {
                 ),
                 radius: BorderRadius.circular(
                   getHorizontalSize(
-                    35,
+                    8,
                   ),
                 ),
               ),
               Padding(
                 padding: getPadding(
-                  top: 8,
+                  top: 15,
                 ),
                 child: Obx(
                   () => Text(

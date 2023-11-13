@@ -17,6 +17,9 @@ class ImageConstant {
 
   static String imgShape70x701 = 'assets/images/img_shape_70x70_1.png';
 
+  static String imgShape70x701_palachichi = 'assets/images/maize.jpeg';
+
+
   static String imgRewind22x22 = 'assets/images/img_rewind_22x22.svg';
 
   static String imgCilbathroom = 'assets/images/img_cilbathroom.png';
@@ -152,7 +155,7 @@ class ImageConstant {
 
   static String imgArrowdown10x10 = 'assets/images/img_arrowdown_10x10.svg';
 
-  static String imgShape160x1448 = 'assets/images/img_shape_160x144_8.png';
+  static String imgShape160x1448 = 'assets/images/palachichi.jpeg';
 
   static String imgShape161x1593 = 'assets/images/img_shape_161x159_3.png';
 
@@ -282,7 +285,7 @@ class ImageConstant {
 
   static String imgShape100x1001 = 'assets/images/img_shape_100x100_1.png';
 
-  static String imgShape140x1682 = 'assets/images/img_shape_140x168_2.png';
+  static String imgShape140x1682 = 'assets/images/maize.jpeg';
 
   static String imgShape140x1262 = 'assets/images/img_shape_140x126_2.png';
 
@@ -546,4 +549,9 @@ class ImageConstant {
   static String imgShape174x1442 = 'assets/images/img_shape_174x144_2.png';
 
   static String imageNotFound = 'assets/images/image_not_found.png';
+
+  static String imageTma = 'assets/images/TMA.jpg';
+  static String imageCrdb = 'assets/images/bank.png';
+  static String imageTfda = 'assets/images/TFDA.jpg';
+
 }

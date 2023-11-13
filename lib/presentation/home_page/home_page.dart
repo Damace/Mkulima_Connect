@@ -23,13 +23,24 @@ import 'package:mkulima_connect/widgets/custom_search_view.dart';
 class HomePage extends StatelessWidget {
   HomeController controller = Get.put(HomeController(HomeModel().obs));
 
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: ColorConstant.whiteA700,
-      body: Stack(children: [
+      
+      
+      
+          body: Obx(
+      () => controller.isLoading.value
+          ? Center(
+              child: CircularProgressIndicator(
+                color: ColorConstant.default_color,
+              ),
+            )
+          :Stack(children: [
         Positioned(
           top: 0,
           right: 0,
@@ -75,7 +86,7 @@ class HomePage extends StatelessWidget {
           ),
         ),
         Positioned(
-          top: 145,
+          top: 138,
           child: Container(
             height: 150,
             width: MediaQuery.of(context).size.width - 40,
@@ -89,6 +100,97 @@ class HomePage extends StatelessWidget {
                       blurRadius: 15,
                       spreadRadius: 5),
                 ]),
+            child: Column(
+              children: [
+
+                SizedBox(height: 28),
+
+
+                Padding(
+                  padding: const EdgeInsets.only(left: 10, right: 10),
+                  child: Container(
+                    height: getSize(52),
+                    width: double.infinity,
+                    decoration: BoxDecoration(color: Colors.transparent),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        CustomImageView(
+                          // imagePath: ImageConstant.imgShape70x701,
+                          imagePath: ImageConstant.imageTma,
+                          height: getSize(
+                            50,
+                          ),
+                          width: getSize(
+                            100,
+                          ),
+                          radius: BorderRadius.circular(
+                            getHorizontalSize(
+                              8,
+                            ),
+                          ),
+                          
+                        ),
+
+                            CustomImageView(
+                          // imagePath: ImageConstant.imgShape70x701,
+                          imagePath: ImageConstant.imageCrdb,
+                          height: getSize(
+                            50,
+                          ),
+                          width: getSize(
+                            100,
+                          ),
+                          radius: BorderRadius.circular(
+                            getHorizontalSize(
+                              8,
+                            ),
+                          ),
+                        ),
+                            CustomImageView(
+                          // imagePath: ImageConstant.imgShape70x701,
+                          imagePath: ImageConstant.imageTfda,
+                          height: getSize(
+                            50,
+                          ),
+                          width: getSize(
+                            100,
+                          ),
+                          radius: BorderRadius.circular(
+                            getHorizontalSize(
+                              8,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(height: 12),
+                TextButton(
+                  onPressed: () {
+                    // Handle button press
+                    print('TextButton pressed');
+                  },
+                  child: Text(
+                    'Other Service Providers >>',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold
+                    ),
+                  ),
+                  style: TextButton.styleFrom(
+                    backgroundColor: ColorConstant.default_color.withOpacity(0.8),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
         Positioned(
@@ -96,22 +198,22 @@ class HomePage extends StatelessWidget {
             left: 0,
             right: 0,
             child: Container(
-              height: 240,
+              height: 245,
               child: Column(
                 children: [
-                 
                   Align(
                       alignment: Alignment.centerRight,
                       child: Container(
-                          height: getVerticalSize(107),
+                          height: getVerticalSize(130),
+
+
                           child: Obx(() => ListView.separated(
-                              padding: getPadding(top: 17),
+                              padding: getPadding(top: 25),
                               scrollDirection: Axis.horizontal,
                               separatorBuilder: (context, index) {
-                                return SizedBox(height: getVerticalSize(15));
+                                return SizedBox(height: getVerticalSize(20));
                               },
-                              itemCount: controller.homeModelObj.value
-                                  .layout25ItemList.value.length,
+                              itemCount: controller.homeModelObj.value.layout25ItemList.value.length,
                               itemBuilder: (context, index) {
                                 Layout25ItemModel model = controller
                                     .homeModelObj
@@ -119,16 +221,21 @@ class HomePage extends StatelessWidget {
                                     .layout25ItemList
                                     .value[index];
                                 return Layout25ItemWidget(model);
-                              })))),
-                              SizedBox(height: 20,),
-
-                                      Padding(
-                          padding: getPadding(bottom: 0,right: 124),
-                          child: Text("msg_explore_nearby".tr,
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.left,
-                              style: AppStyle.txtRalewayBold18.copyWith(
-                                  letterSpacing: getHorizontalSize(0.54)))),
+                              })
+                              
+                              
+                              
+                              ))),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Padding(
+                      padding: getPadding(bottom: 0, right: 124),
+                      child: Text("msg_explore_nearby".tr,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.left,
+                          style: AppStyle.txtRalewayBold18.copyWith(
+                              letterSpacing: getHorizontalSize(0.54)))),
                 ],
               ),
             )),
@@ -142,7 +249,6 @@ class HomePage extends StatelessWidget {
                   scrollDirection: Axis.vertical,
                   child: Column(
                     children: [
-              
                       Padding(
                           padding: getPadding(left: 24, top: 0),
                           child: Column(
@@ -151,7 +257,10 @@ class HomePage extends StatelessWidget {
                               children: [
                                 Padding(
                                     padding: getPadding(top: 17, right: 24),
-                                    child: Obx(() => GridView.builder(
+                                    child: Obx(() => 
+                                    
+                                    
+                                    GridView.builder(
                                         shrinkWrap: true,
                                         gridDelegate:
                                             SliverGridDelegateWithFixedCrossAxisCount(
@@ -164,25 +273,25 @@ class HomePage extends StatelessWidget {
                                                     getHorizontalSize(7)),
                                         physics: NeverScrollableScrollPhysics(),
                                         scrollDirection: Axis.vertical,
-                                        itemCount: controller.homeModelObj.value
-                                            .homeItemList.value.length,
-                                        itemBuilder: (context, index) {
-                                          HomeItemModel model = controller
-                                              .homeModelObj
-                                              .value
-                                              .homeItemList
-                                              .value[index];
+                                        itemCount: controller.homeModelObj.value.homeItemList.value.length,
+ itemBuilder: (context, index) {HomeItemModel model = controller.homeModelObj.value.homeItemList.value[index];
                                           return HomeItemWidget(model,
                                               onTapColumnshape: () {
                                             onTapColumnshape();
                                           });
-                                        })))
+                                        })
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        ))
                               ])),
                     ],
                   )),
             ))
       ]),
-    ));
+    )));
   }
 
   onTapItemPromotion() {

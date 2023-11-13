@@ -1,6 +1,7 @@
-import 'package:get/get.dart';class HomeItemModel {Rx<String> priceTxt = Rx(" 220");
+import 'package:get/get.dart';
+class HomeItemModel {Rx<String> priceTxt = Rx(" 220");
 
-Rx<String> nameTxt = Rx("Wings Tower");
+Rx<String> nameTxt = Rx("Palachichi");
 
 Rx<String> ratingTxt = Rx("4.9");
 
