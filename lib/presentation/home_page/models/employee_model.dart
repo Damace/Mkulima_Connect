@@ -1,48 +1,57 @@
-class Employee {
-  String? address;
-  int? age;
-  String? email;
-  String? firstname;
-  String? gender;
-  int? id;
-  String? lastname;
-  String? password;
-  String? phoneNumber;
+// To parse this JSON data, do
+//
+//     final products = productsFromJson(jsonString);
 
-  Employee(
-      {this.address,
-      this.age,
-      this.email,
-      this.firstname,
-      this.gender,
-      this.id,
-      this.lastname,
-      this.password,
-      this.phoneNumber});
+import 'dart:convert';
 
-  Employee.fromJson(Map<String, dynamic> json) {
-    address = json['address'];
-    age = json['age'];
-    email = json['email'];
-    firstname = json['firstname'];
-    gender = json['gender'];
-    id = json['id'];
-    lastname = json['lastname'];
-    password = json['password'];
-    phoneNumber = json['phone_number'];
-  }
+List<Products> productsFromJson(String str) => List<Products>.from(json.decode(str).map((x) => Products.fromJson(x)));
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['address'] = this.address;
-    data['age'] = this.age;
-    data['email'] = this.email;
-    data['firstname'] = this.firstname;
-    data['gender'] = this.gender;
-    data['id'] = this.id;
-    data['lastname'] = this.lastname;
-    data['password'] = this.password;
-    data['phone_number'] = this.phoneNumber;
-    return data;
-  }
+String productsToJson(List<Products> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+
+class Products {
+    String address;
+    int age;
+    String email;
+    String firstname;
+    String gender;
+    int id;
+    String lastname;
+    String password;
+    String phoneNumber;
+
+    Products({
+        required this.address,
+        required this.age,
+        required this.email,
+        required this.firstname,
+        required this.gender,
+        required this.id,
+        required this.lastname,
+        required this.password,
+        required this.phoneNumber,
+    });
+
+    factory Products.fromJson(Map<String, dynamic> json) => Products(
+        address: json["address"],
+        age: json["age"],
+        email: json["email"],
+        firstname: json["firstname"],
+        gender: json["gender"],
+        id: json["id"],
+        lastname: json["lastname"],
+        password: json["password"],
+        phoneNumber: json["phone_number"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "address": address,
+        "age": age,
+        "email": email,
+        "firstname": firstname,
+        "gender": gender,
+        "id": id,
+        "lastname": lastname,
+        "password": password,
+        "phone_number": phoneNumber,
+    };
 }
