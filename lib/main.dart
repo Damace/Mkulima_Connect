@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
       locale: Get.deviceLocale,
       //for setting localization strings
       fallbackLocale: const Locale('en', 'US'),
-      title: 'vxvvnvklnvnlvnsdvnsdln',
+      title: 'MKonekt',
       initialBinding: InitialBindings(),
       initialRoute: AppRoutes.initialRoute,
       getPages: AppRoutes.pages,
