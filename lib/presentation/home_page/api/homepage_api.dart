@@ -1,21 +1,18 @@
-import 'dart:convert';
-
 import 'package:mkulima_connect/presentation/home_page/models/employee_model.dart';
 import 'package:http/http.dart' as http;
 
-class HomepageApi {
+class RemoteServices {
   static var client = http.Client();
 
-  static Future<List<Products>> fetchdata() async {
-    String url = "http://mwakalikamo.pythonanywhere.com/employees";
-
-    var response = await http.get(Uri.parse(url));
-
+  static Future<List<Products>?> fetchProducts() async {
+    var response = await client.get(Uri.parse(
+        'http://mwakalikamo.pythonanywhere.com/employees'));
     if (response.statusCode == 200) {
-      var jsonstring = response.body;
-      return productsFromJson(jsonstring);
+      var jsonString = response.body;
+      return productsFromJson(jsonString);
     } else {
-      throw Exception('Failed to load products');
+      //show error message
+      return null;
     }
   }
 }

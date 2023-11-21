@@ -1,6 +1,5 @@
 import 'package:mkulima_connect/core/app_export.dart';
 import 'package:mkulima_connect/presentation/home_container_screen/models/home_container_model.dart';
-import 'package:mkulima_connect/widgets/custom_bottom_bar.dart';
 
 class HomeContainerController extends GetxController {
   Rx<HomeContainerModel> homeContainerModelObj = HomeContainerModel().obs;

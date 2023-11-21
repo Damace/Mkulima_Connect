@@ -1,31 +1,18 @@
 import 'package:mkulima_connect/presentation/home_page/controller/product_controller.dart';
+import 'package:mkulima_connect/presentation/home_page/widgets/products_tile.dart';
 
-import '../home_page/widgets/category1_item_widget.dart';
-import '../home_page/widgets/home_item_widget.dart';
-import '../home_page/widgets/layout23_item_widget.dart';
-import '../home_page/widgets/layout24_item_widget.dart';
 import '../home_page/widgets/layout25_item_widget.dart';
-import '../home_page/widgets/listtext_item_widget.dart';
 import 'controller/home_controller.dart';
-import 'models/category1_item_model.dart';
-import 'models/home_item_model.dart';
 import 'models/home_model.dart';
-import 'models/layout23_item_model.dart';
-import 'models/layout24_item_model.dart';
 import 'models/layout25_item_model.dart';
-import 'models/listtext_item_model.dart';
 import 'package:flutter/material.dart';
 import 'package:mkulima_connect/core/app_export.dart';
-import 'package:mkulima_connect/widgets/app_bar/appbar_circleimage.dart';
-import 'package:mkulima_connect/widgets/app_bar/custom_app_bar.dart';
-import 'package:mkulima_connect/widgets/custom_drop_down.dart';
-import 'package:mkulima_connect/widgets/custom_search_view.dart';
 
 // ignore_for_file: must_be_immutable
 class HomePage extends StatelessWidget {
-  HomeController controller = Get.put(HomeController(HomeModel().obs));
-  final ProductController productController = Get.put(ProductController());
-  
+  //HomeController controller = Get.put(HomeController(HomeModel().obs));
+  // ProductController productController = Get.put(ProductController());
+  ProductController productController = Get.put(ProductController());
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +21,7 @@ class HomePage extends StatelessWidget {
             resizeToAvoidBottomInset: false,
             backgroundColor: ColorConstant.whiteA700,
             body: Obx(
-              () => controller.isLoading.value
+              () => productController.isLoading.value
                   ? Center(
                       child: CircularProgressIndicator(
                         color: ColorConstant.default_color,
@@ -203,30 +190,40 @@ class HomePage extends StatelessWidget {
                               children: [
                                 Align(
                                     alignment: Alignment.centerRight,
+
+//////////////////////////////////------------------------------------------------------
+
                                     child: Container(
                                         height: getVerticalSize(130),
-                                        child: Obx(() => ListView.separated(
+                                        child: ListView.separated(
                                             padding: getPadding(top: 25),
                                             scrollDirection: Axis.horizontal,
                                             separatorBuilder: (context, index) {
                                               return SizedBox(
                                                   height: getVerticalSize(20));
                                             },
-                                            itemCount: controller
-                                                .homeModelObj
-                                                .value
-                                                .layout25ItemList
-                                                .value
-                                                .length,
+                                            itemCount: productController
+                                                .productList.length,
                                             itemBuilder: (context, index) {
-                                              Layout25ItemModel model =
-                                                  controller
-                                                      .homeModelObj
-                                                      .value
-                                                      .layout25ItemList
-                                                      .value[index];
-                                              return Layout25ItemWidget(model);
-                                            })))),
+                                              return Card(
+                                                margin: EdgeInsets.all(8.0),
+                                                child: Container(
+                                                  width:
+                                                      100.0, // Adjust the width as needed
+                                                  padding: EdgeInsets.all(8.0),
+                                                  child: Center(
+                                                    child: Text(
+                                                        productController
+                                                            .productList[index]
+                                                            .firstname),
+                                                  ),
+                                                ),
+                                              );
+                                            }))
+
+                                    ////////////////////////////////--------------------------------------------------------
+
+                                    ),
                                 SizedBox(
                                   height: 10,
                                 ),
@@ -262,28 +259,54 @@ class HomePage extends StatelessWidget {
                                             children: [
                                               Padding(
                                                   padding: getPadding(
-                                                      top: 17, right: 24),
+                                                      top: 0, right: 24),
+                                                  child:
 
+// ----------------------------------------------------------------------------------------------------------------------------------------------------
 
-                                                  child: ListView.builder(
-                                                    itemCount: productController.productList.length,
-                                                    itemBuilder: (context, index) {
-                                                      return Column(
-                                                        children: <Widget>[
-                                                          Row(
-                                                            children: [
-                                                             Text(productController.productList[index].firstname),
-                                                            
-                                                            ],
-                                                          )
-                                                        ],
-                                                      );
-                                                      
-                                                    },
+                                                      Container(
+                                                    height:
+                                                        getVerticalSize(280),
+                                                    child: GridView.builder(
+                                                        gridDelegate:
+                                                            const SliverGridDelegateWithMaxCrossAxisExtent(
+                                                                maxCrossAxisExtent:
+                                                                    200,
+                                                                childAspectRatio:
+                                                                    3 / 2,
+                                                                crossAxisSpacing:
+                                                                    20,
+                                                                mainAxisSpacing:
+                                                                    20),
+                                                        itemCount:
+                                                            productController
+                                                                .productList
+                                                                .length,
+                                                        itemBuilder:
+                                                            (BuildContext ctx,
+                                                                index) {
+                                                          return Container(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            decoration: BoxDecoration(
+                                                                color: Colors
+                                                                    .amber,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            15)),
+                                                            child: Text(
+                                                                productController
+                                                                    .productList[
+                                                                        index]
+                                                                    .firstname),
+                                                          );
+                                                        }),
+                                                  )
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 
                                                   )
-                                                          )
                                             ])),
                                   ],
                                 )),
@@ -299,6 +322,26 @@ class HomePage extends StatelessWidget {
   onTapColumnshape() {
     Get.toNamed(
       AppRoutes.propertyDetailsScreen,
+    );
+  }
+}
+
+class CategoryCard extends StatelessWidget {
+  final String categoryName;
+
+  CategoryCard({required this.categoryName});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: EdgeInsets.all(8.0),
+      child: Container(
+        width: 100.0, // Adjust the width as needed
+        padding: EdgeInsets.all(8.0),
+        child: Center(
+          child: Text(categoryName),
+        ),
+      ),
     );
   }
 }
