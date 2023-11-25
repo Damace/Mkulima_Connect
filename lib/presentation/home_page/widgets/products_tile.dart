@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:mkulima_connect/presentation/home_page/models/employee_model.dart';
+import 'package:mkulima_connect/presentation/home_page/models/products_model.dart';
 
 class ProductTile extends StatelessWidget {
   final Products product;
@@ -25,7 +25,7 @@ class ProductTile extends StatelessWidget {
                     borderRadius: BorderRadius.circular(4),
                   ),
                   child: Image.network(
-                    product.address,
+                    product.details,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -52,7 +52,7 @@ class ProductTile extends StatelessWidget {
             ),
             SizedBox(height: 8),
             Text(
-              product.firstname,
+              product.name,
               maxLines: 2,
               style:
                   TextStyle(fontFamily: 'avenir', fontWeight: FontWeight.w800),
@@ -86,7 +86,7 @@ class ProductTile extends StatelessWidget {
 
 */
             SizedBox(height: 8),
-            Text('\$${product.address}',
+            Text('\$${product.name}',
                 style: TextStyle(fontSize: 32, fontFamily: 'avenir')),
           ],
         ),

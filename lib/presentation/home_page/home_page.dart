@@ -1,17 +1,11 @@
+import 'package:mkulima_connect/presentation/home_page/controller/category_controller.dart';
 import 'package:mkulima_connect/presentation/home_page/controller/product_controller.dart';
-import 'package:mkulima_connect/presentation/home_page/widgets/products_tile.dart';
-
-import '../home_page/widgets/layout25_item_widget.dart';
-import 'controller/home_controller.dart';
-import 'models/home_model.dart';
-import 'models/layout25_item_model.dart';
 import 'package:flutter/material.dart';
 import 'package:mkulima_connect/core/app_export.dart';
 
 // ignore_for_file: must_be_immutable
 class HomePage extends StatelessWidget {
-  //HomeController controller = Get.put(HomeController(HomeModel().obs));
-  // ProductController productController = Get.put(ProductController());
+  CategoryController categoryController = Get.put(CategoryController());
   ProductController productController = Get.put(ProductController());
 
   @override
@@ -156,6 +150,8 @@ class HomePage extends StatelessWidget {
                               SizedBox(height: 12),
                               TextButton(
                                 onPressed: () {
+                                  onTaOurpartners();
+
                                   // Handle button press
                                   print('TextButton pressed');
                                 },
@@ -202,20 +198,27 @@ class HomePage extends StatelessWidget {
                                               return SizedBox(
                                                   height: getVerticalSize(20));
                                             },
-                                            itemCount: productController
-                                                .productList.length,
+                                            itemCount: categoryController
+                                                .categoryList.length,
                                             itemBuilder: (context, index) {
-                                              return Card(
-                                                margin: EdgeInsets.all(8.0),
-                                                child: Container(
-                                                  width:
-                                                      100.0, // Adjust the width as needed
-                                                  padding: EdgeInsets.all(8.0),
-                                                  child: Center(
-                                                    child: Text(
-                                                        productController
-                                                            .productList[index]
-                                                            .firstname),
+                                              return InkWell(
+                                                onTap: () {
+                                                  onTapCategory();
+                                                },
+                                                child: Card(
+                                                  margin: EdgeInsets.all(8.0),
+                                                  child: Container(
+                                                    width:
+                                                        100.0, // Adjust the width as needed
+                                                    padding:
+                                                        EdgeInsets.all(8.0),
+                                                    child: Center(
+                                                      child: Text(
+                                                          categoryController
+                                                              .categoryList[
+                                                                  index]
+                                                              .image),
+                                                    ),
                                                   ),
                                                 ),
                                               );
@@ -285,27 +288,34 @@ class HomePage extends StatelessWidget {
                                                         itemBuilder:
                                                             (BuildContext ctx,
                                                                 index) {
-                                                          return Container(
-                                                            alignment: Alignment
-                                                                .center,
-                                                            decoration: BoxDecoration(
-                                                                color: Colors
-                                                                    .amber,
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            15)),
-                                                            child: Text(
-                                                                productController
-                                                                    .productList[
-                                                                        index]
-                                                                    .firstname),
+                                                          return InkWell(
+                                                            onTap: () {
+                                                              onTapColumnshape();
+                                                            },
+                                                            child: Container(
+                                                              alignment:Alignment.center,
+
+                                                              decoration: BoxDecoration(
+                                                                 borderRadius: BorderRadius.circular(15),
+                                                                  color: Colors.grey),
+                                                                  child: NetworkImage(productController.productList[index].imageOne),
+                                                                  fit: BoxFit.fill),
+
+
+
+
+
+
+
+                                                          
+
+                                                             
+                                                            ),
                                                           );
                                                         }),
                                                   )
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-
                                                   )
                                             ])),
                                   ],
@@ -319,9 +329,21 @@ class HomePage extends StatelessWidget {
     Get.toNamed(AppRoutes.promotionScreen);
   }
 
+  onTapCategory() {
+    Get.toNamed(
+      AppRoutes.categorylist,
+    );
+  }
+
   onTapColumnshape() {
     Get.toNamed(
       AppRoutes.propertyDetailsScreen,
+    );
+  }
+
+  onTaOurpartners() {
+    Get.toNamed(
+      AppRoutes.partnersList,
     );
   }
 }

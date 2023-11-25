@@ -1,10 +1,12 @@
+import 'package:mkulima_connect/presentation/category_list/categoryList.dart';
+import 'package:mkulima_connect/presentation/notification_list_page/notification_list_page.dart';
+import 'package:mkulima_connect/presentation/productListView/productList_screen.dart';
+import 'package:mkulima_connect/presentation/property_details_screen/property_details_screen.dart';
+import 'package:mkulima_connect/presentation/transaction_tab_container_page/transaction_tab_container_page.dart';
 import 'controller/home_container_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:mkulima_connect/core/app_export.dart';
-import 'package:mkulima_connect/presentation/example_data_page/example_data_page.dart';
 import 'package:mkulima_connect/presentation/home_page/home_page.dart';
-import 'package:mkulima_connect/presentation/transaction_tab_container_page/transaction_tab_container_page.dart';
-import 'package:mkulima_connect/presentation/vertical_page/vertical_page.dart';
 import 'package:mkulima_connect/widgets/custom_bottom_bar.dart';
 
 class HomeContainerScreen extends GetWidget<HomeContainerController> {
@@ -19,29 +21,37 @@ class HomeContainerScreen extends GetWidget<HomeContainerController> {
                 onGenerateRoute: (routeSetting) => GetPageRoute(
                     page: () => getCurrentPage(routeSetting.name!),
                     transition: Transition.fadeIn)),
-            bottomNavigationBar:
+
+                bottomNavigationBar:
                 CustomBottomBar(onChanged: (BottomBarEnum type) {
               Get.toNamed(getCurrentRoute(type), id: 1);
-            })));
+            })
+            
+            )
+            );
   }
 
   ///Handling route cl on bottom click actions
   String getCurrentRoute(BottomBarEnum type) {
     switch (type) {
-      case BottomBarEnum.Search:
-        return AppRoutes.exampleDataPage;
 
-      case BottomBarEnum.Search:
-        return AppRoutes.exampleDataPage;
-        
       case BottomBarEnum.Iconhouseactive:
         return AppRoutes.homePage;
 
-      case BottomBarEnum.Favoritebluegray80001:
-        return AppRoutes.verticalPage;
+      case BottomBarEnum.Search:
+        return AppRoutes.productList_screen;
 
       case BottomBarEnum.User25x25:
-        return AppRoutes.transactionTabContainerPage;
+        return AppRoutes.categorylist;
+
+      case BottomBarEnum.Notification:
+        return AppRoutes.notificationListPage;
+
+      case BottomBarEnum.Alex:
+         return AppRoutes.transactionTabContainerPage;
+        // return AppRoutes.propertyDetailsScreen;
+
+
       default:
         return "/";
     }
@@ -49,15 +59,32 @@ class HomeContainerScreen extends GetWidget<HomeContainerController> {
 
   ///Handling page based on route
   Widget getCurrentPage(String currentRoute) {
+
+
     switch (currentRoute) {
+
       case AppRoutes.homePage:
         return HomePage();
-      case AppRoutes.exampleDataPage:
-        return ExampleDataPage();
-      case AppRoutes.verticalPage:
-        return VerticalPage();
-      case AppRoutes.transactionTabContainerPage:
+
+
+      case AppRoutes.productList_screen:
+        return ProductScreen();
+
+
+     case AppRoutes.categorylist:
+        return CategoryListScreen();
+
+  
+      case AppRoutes.notificationListPage:
+        return NotificationListPage();
+
+
+     case AppRoutes.transactionTabContainerPage:
         return TransactionTabContainerPage();
+
+       //   case AppRoutes.propertyDetailsScreen:
+       //  return PropertyDetailsScreen();
+
       default:
         return DefaultWidget();
     }

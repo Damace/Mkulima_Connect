@@ -1,3 +1,9 @@
+import 'package:mkulima_connect/presentation/category_list/binding/categoryList_binding.dart';
+import 'package:mkulima_connect/presentation/category_list/categoryList.dart';
+import 'package:mkulima_connect/presentation/partiners/binding/partiner_binding.dart';
+import 'package:mkulima_connect/presentation/partiners/partnersList.dart';
+import 'package:mkulima_connect/presentation/productListView/binding/productList_binding.dart';
+import 'package:mkulima_connect/presentation/productListView/productList_screen.dart';
 import 'package:mkulima_connect/presentation/splash_screen/splash_screen.dart';
 import 'package:mkulima_connect/presentation/splash_screen/binding/splash_binding.dart';
 import 'package:mkulima_connect/presentation/product_tour_one_screen/product_tour_one_screen.dart';
@@ -244,7 +250,14 @@ class AppRoutes {
 
   static const String appNavigationScreen = '/app_navigation_screen';
 
+  static const String productList_screen = '/productList_screen';
+
+  static const String partnersList = '/partnersList';
+
+  static const String categorylist = '/categorylist';
+
   static const String initialRoute = '/initialRoute';
+
 
   static List<GetPage> pages = [
     GetPage(
@@ -623,12 +636,37 @@ class AppRoutes {
         AppNavigationBinding(),
       ],
     ),
+
+      GetPage(
+      name: productList_screen,
+      page: () => ProductScreen(),
+      bindings: [
+       ProductListBinding(),
+      ],
+    ),
+
     GetPage(
+      name: partnersList,
+      page: () => PartinersScreen(),
+      bindings: [
+       PartinersBinding(),
+      ],
+    ),
+    GetPage(
+      name: categorylist,
+      page: () => CategoryListScreen(),
+      bindings: [
+        CategoryListBinding(),
+      ],
+    ),
+        GetPage(
       name: initialRoute,
       page: () => SplashScreen(),
       bindings: [
         SplashBinding(),
       ],
     )
+
+
   ];
 }

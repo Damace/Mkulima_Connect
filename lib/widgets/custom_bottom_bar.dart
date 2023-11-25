@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mkulima_connect/core/app_export.dart';
 
+// ignore: must_be_immutable
 class CustomBottomBar extends StatelessWidget {
   CustomBottomBar({this.onChanged});
 
@@ -11,25 +12,27 @@ class CustomBottomBar extends StatelessWidget {
      BottomMenuModel(
       icon: ImageConstant.imgHome,
       type: BottomBarEnum.Iconhouseactive,
+      label: "Home"
     ),
-
      BottomMenuModel(
       icon: ImageConstant.imgSearch,
       type: BottomBarEnum.Search,
+      label: "Search"
     ),
-
     BottomMenuModel(
       icon: ImageConstant.imgMenu,
       type: BottomBarEnum.User25x25,
+      label: "Category"
     ),
-   
     BottomMenuModel(
       icon: ImageConstant.imgNotification,
-      type: BottomBarEnum.Favoritebluegray80001,
+      type: BottomBarEnum.Notification,
+      label: "Notification"
     ),
     BottomMenuModel(
       icon: ImageConstant.imgUser25x25,
-      type: BottomBarEnum.User25x25,
+      type: BottomBarEnum.Alex,
+      label: "User"
     )
   ];
 
@@ -60,6 +63,7 @@ class CustomBottomBar extends StatelessWidget {
                   25,
                 ),
                 color: ColorConstant.default_color,
+                
                 radius: BorderRadius.only(
                   bottomLeft: Radius.circular(
                     getHorizontalSize(
@@ -68,7 +72,7 @@ class CustomBottomBar extends StatelessWidget {
                   ),
                   bottomRight: Radius.circular(
                     getHorizontalSize(
-                      50,
+                      40,
                     ),
                   ),
                 ),
@@ -82,6 +86,7 @@ class CustomBottomBar extends StatelessWidget {
                   25,
                 ),
                 color: ColorConstant.default_color,
+                
               ),
               label: '',
             );
@@ -101,14 +106,15 @@ enum BottomBarEnum {
   Search,
   Favoritebluegray80001,
   User25x25,
+  Notification,
+  Alex,
 }
 
 class BottomMenuModel {
-  BottomMenuModel({required this.icon, required this.type});
-
+  BottomMenuModel({required this.icon, required this.type, required this.label});
   String icon;
-
   BottomBarEnum type;
+  String label;
 }
 
 class DefaultWidget extends StatelessWidget {
