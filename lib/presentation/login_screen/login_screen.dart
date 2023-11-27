@@ -21,7 +21,7 @@ class LoginScreen extends GetWidget<LoginController> {
         color: myColor,
         image: DecorationImage(
           image: const AssetImage("assets/images/bg.png"),
-          fit: BoxFit.cover,
+          fit: BoxFit.fill,
           colorFilter:
               ColorFilter.mode(myColor.withOpacity(0.4), BlendMode.dstATop),
         ),

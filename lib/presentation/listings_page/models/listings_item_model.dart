@@ -1,9 +1,11 @@
-import 'package:get/get.dart';class ListingsItemModel {Rx<String> priceTxt = Rx(" 370");
+import 'package:get/get.dart';
 
-Rx<String> nameTxt = Rx("Fairview Apartment");
+class ListingsItemModel {
+  Rx<String> priceTxt = Rx(" 370");
 
-Rx<String> ratingTxt = Rx("4.9");
+  Rx<String> nameTxt = Rx("Fairview Apartment");
 
-Rx<String>? id = Rx("");
+  Rx<String> ratingTxt = Rx("4.9");
 
- }
+  Rx<String>? id = Rx("");
+}
