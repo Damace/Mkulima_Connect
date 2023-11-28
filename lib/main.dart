@@ -14,6 +14,10 @@ void main() {
     PrefUtils().init()
   ]).then((value) {
     Logger.init(kReleaseMode ? LogMode.live : LogMode.debug);
+
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(statusBarColor: Colors.transparent)
+    );
     runApp(MyApp());
   });
 }

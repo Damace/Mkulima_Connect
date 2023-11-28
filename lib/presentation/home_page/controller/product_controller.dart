@@ -7,6 +7,8 @@ class ProductController extends GetxController {
   var isLoading = true.obs;
   var productList = <Products>[].obs;
 
+  get isAddLoading => null;
+
   @override
   void onInit() {
     fetchProducts();

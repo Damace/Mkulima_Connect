@@ -48,8 +48,8 @@ class HomeContainerScreen extends GetWidget<HomeContainerController> {
         return AppRoutes.notificationListPage;
 
       case BottomBarEnum.Alex:
-         return AppRoutes.transactionTabContainerPage;
-        // return AppRoutes.propertyDetailsScreen;
+        // return AppRoutes.transactionTabContainerPage;
+        return AppRoutes.propertyDetailsScreen;
 
 
       default:
@@ -79,11 +79,11 @@ class HomeContainerScreen extends GetWidget<HomeContainerController> {
         return NotificationListPage();
 
 
-     case AppRoutes.transactionTabContainerPage:
-        return TransactionTabContainerPage();
+    // case AppRoutes.transactionTabContainerPage:
+      //  return TransactionTabContainerPage();
 
-       //   case AppRoutes.propertyDetailsScreen:
-       //  return PropertyDetailsScreen();
+          case AppRoutes.propertyDetailsScreen:
+         return PropertyDetailsScreen();
 
       default:
         return DefaultWidget();
