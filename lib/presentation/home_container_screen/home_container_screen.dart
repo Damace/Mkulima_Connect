@@ -38,9 +38,6 @@ class HomeContainerScreen extends GetWidget<HomeContainerController> {
       case BottomBarEnum.Iconhouseactive:
         return AppRoutes.homePage;
 
-      case BottomBarEnum.Search:
-        return AppRoutes.productList_screen;
-
       case BottomBarEnum.User25x25:
         return AppRoutes.categorylist;
 
@@ -65,10 +62,6 @@ class HomeContainerScreen extends GetWidget<HomeContainerController> {
 
       case AppRoutes.homePage:
         return HomePage();
-
-
-      case AppRoutes.productList_screen:
-        return ProductScreen();
 
 
      case AppRoutes.categorylist:

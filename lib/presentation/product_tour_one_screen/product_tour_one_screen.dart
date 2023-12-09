@@ -29,11 +29,10 @@ class ProductTourOneScreen extends GetWidget<ProductTourOneController> {
                                     width: getHorizontalSize(66),
                                     text: "lbl_skip".tr,
                                     margin: getMargin(top: 13, bottom: 13),
-                                    variant: ButtonVariant.FillGray100,
+                                    variant: ButtonVariant.FillGreenA400,
                                     shape: ButtonShape.CircleBorder19,
                                     padding: ButtonPadding.PaddingAll10,
-                                    fontStyle: ButtonFontStyle
-                                        .MontserratRegular12Bluegray800,
+                                    fontStyle: ButtonFontStyle.RalewayRegular12WhiteA700_1,
                                     onTap: () {
                                       onTapSkip();
                                     })
@@ -47,28 +46,13 @@ class ProductTourOneScreen extends GetWidget<ProductTourOneController> {
                                     text: "msg_find_best_place2".tr,
                                     style: TextStyle(
                                         color: ColorConstant.blueGray80001,
-                                        fontSize: getFontSize(25),
+                                        fontSize: getFontSize(20),
                                         fontFamily: 'Raleway',
-                                        fontWeight: FontWeight.w500,
+                                        fontWeight: FontWeight.bold,
                                         letterSpacing:
                                             getHorizontalSize(0.75))),
-                                TextSpan(
-                                    text: "lbl_good_price".tr,
-                                    style: TextStyle(
-                                        color: ColorConstant.blueGray80001,
-                                        fontSize: getFontSize(25),
-                                        fontFamily: 'Raleway',
-                                        fontWeight: FontWeight.w800,
-                                        letterSpacing:
-                                            getHorizontalSize(0.75))),
-                                TextSpan(
-                                    text: "lbl49".tr,
-                                    style: TextStyle(
-                                        color: ColorConstant.blueGray80001,
-                                        fontSize: getFontSize(25),
-                                        fontFamily: 'Raleway',
-                                        fontWeight: FontWeight.w500,
-                                        letterSpacing: getHorizontalSize(0.75)))
+                          
+                      
                               ]),
                               textAlign: TextAlign.left)),
                       Container(
@@ -87,24 +71,39 @@ class ProductTourOneScreen extends GetWidget<ProductTourOneController> {
                               alignment: Alignment.bottomCenter,
                               children: [
                                 CustomImageView(
+                                  radius: BorderRadius.only(topLeft: Radius.circular(30),topRight: Radius.circular(30)),
                                     imagePath: ImageConstant
                                         .imgBackgroundillustration520x3751,
                                     height: getVerticalSize(520),
                                     width: getHorizontalSize(375),
                                     alignment: Alignment.center),
-                                CustomButton(
-                                    height: getVerticalSize(70),
-                                    width: getHorizontalSize(230),
-                                    text: "lbl_next".tr,
-                                    margin: getMargin(bottom: 24),
-                                    variant: ButtonVariant.FillIndigoA200,
-                                    onTap: () {
-                                      onTapNext();
-                                    },
-                                    alignment: Alignment.bottomCenter)
+                               _buildLoginButton()
                               ]))
                     ]))));
   }
+
+    Widget _buildLoginButton() {
+    return Padding(
+      padding:getPadding(right: 30,left: 30,bottom: 24),
+      child: ElevatedButton(
+        onPressed: () {
+    
+           onTapNext();
+        
+        },
+        style: ElevatedButton.styleFrom(
+      
+          backgroundColor:ColorConstant.default_color,
+          shape: const StadiumBorder(),
+          elevation: 50,
+          shadowColor: ColorConstant.default_color,
+          minimumSize: const Size.fromHeight(60),
+        ),
+        child: const Text("Next"),
+      ),
+    );
+  }
+
 
   onTapSkip() {
     Get.toNamed(

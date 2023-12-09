@@ -15,7 +15,7 @@ class ProductScreen extends GetWidget<ProductListController> {
             body: Center(
               
                // width: double.maxFinite,
-                child: Text("Search Items"
+                child: Text("Search ItemsJJJJJJJJJJJJJJJJJJJJ"
                     ))));
   }
 

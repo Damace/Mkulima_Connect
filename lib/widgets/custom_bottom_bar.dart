@@ -14,11 +14,6 @@ class CustomBottomBar extends StatelessWidget {
       type: BottomBarEnum.Iconhouseactive,
       label: "Home"
     ),
-     BottomMenuModel(
-      icon: ImageConstant.imgSearch,
-      type: BottomBarEnum.Search,
-      label: "Search"
-    ),
     BottomMenuModel(
       icon: ImageConstant.imgMenu,
       type: BottomBarEnum.User25x25,

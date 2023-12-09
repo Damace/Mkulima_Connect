@@ -26,4 +26,6 @@ class ProductController extends GetxController {
       isLoading(false);
     }
   }
+
+  void addToCart() {}
 }

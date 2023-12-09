@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,7 +8,6 @@ import 'core/app_export.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
-  
   Future.wait([
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
@@ -15,9 +16,6 @@ void main() {
   ]).then((value) {
     Logger.init(kReleaseMode ? LogMode.live : LogMode.debug);
 
-    SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(statusBarColor: Colors.transparent)
-    );
     runApp(MyApp());
   });
 }
@@ -26,16 +24,23 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    //  final MaterialColor customPrimarySwatch = createCustomMaterialColor(Color(0xFF336699)); // Change the color code as needed
-
+      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark,
+      statusBarBrightness:
+      Platform.isAndroid ? Brightness.dark : Brightness.light,
+      systemNavigationBarColor: Colors.white,
+      systemNavigationBarDividerColor: Colors.grey,
+      systemNavigationBarIconBrightness: Brightness.dark,  
+    ));
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-       // visualDensity: VisualDensity.comfortable,
-       // primarySwatch: Colors.fromARGB(1, 2, 2, 2)
-        primaryColor: Color.fromARGB(255, 7, 105, 64)
-       // primarySwatch: Color.fromARGB(255, 3, 31, 4),
-      ),
+          // visualDensity: VisualDensity.comfortable,
+          // primarySwatch: Colors.fromARGB(1, 2, 2, 2)
+          primaryColor: Color.fromARGB(255, 7, 105, 64)
+          // primarySwatch: Color.fromARGB(255, 3, 31, 4),
+          ),
       translations: AppLocalization(),
       locale: Get.deviceLocale,
       //for setting localization strings

@@ -249,11 +249,9 @@ class ImageConstant {
 
   static String imgLightbulb = 'assets/images/img_lightbulb.svg';
 
-  static String imgVectorIndigoA400 =
-      'assets/images/img_vector_indigo_a400.svg';
+  static String imgVectorIndigoA400 = 'assets/images/mclogo.svg';
 
-  static String imgTrashBlueGray80001 =
-      'assets/images/img_trash_blue_gray_800_01.svg';
+  static String imgTrashBlueGray80001 = 'assets/images/img_trash_blue_gray_800_01.svg';
 
   static String imgShape30x303 = 'assets/images/img_shape_30x30_3.png';
 

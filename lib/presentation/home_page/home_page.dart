@@ -1,8 +1,10 @@
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:intl/intl.dart';
 import 'package:mkulima_connect/presentation/home_page/controller/category_controller.dart';
 import 'package:mkulima_connect/presentation/home_page/controller/product_controller.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +14,8 @@ import 'package:mkulima_connect/core/app_export.dart';
 class HomePage extends StatelessWidget {
   CategoryController categoryController = Get.put(CategoryController());
   ProductController productController = Get.put(ProductController());
+
+  bool isVisible = true;
 
   @override
   Widget build(BuildContext context) {
@@ -25,11 +29,14 @@ class HomePage extends StatelessWidget {
         backgroundColor: ColorConstant.whiteA700,
         body: Obx(
           () => productController.isLoading.value
-              ? Center(
-                  child: CircularProgressIndicator(
-                    color: ColorConstant.default_color,
-                  ),
-                )
+              ? Text("  ")
+            
+                
+
+                //nTaOurpartners() {
+   // Get.toNamed(
+     // AppRoutes.partnersList,
+    //);
               : Stack(children: [
                   Positioned(
                     top: 0,
@@ -480,15 +487,81 @@ class HomePage extends StatelessWidget {
                                                     itemCount: productController
                                                         .productList.length,
                                                     itemBuilder:
-                                                        (BuildContext ctx,
-                                                            index) {
+                                                        (BuildContext ctx,index) {
+                                                      final product_category =
+                                                          productController
+                                                              .productList[
+                                                                  index]
+                                                              .category;
+                                                      final product_imgOne =
+                                                          productController
+                                                              .productList[
+                                                                  index]
+                                                              .imageOne;
+                                                      final product_imgtwo =
+                                                          productController
+                                                              .productList[
+                                                                  index]
+                                                              .imageTwo;
+                                                      final product_imhThree =
+                                                          productController
+                                                              .productList[
+                                                                  index]
+                                                              .imageThree;
+                                                      final product_name =
+                                                          productController
+                                                              .productList[
+                                                                  index]
+                                                              .name;
+                                                      final product_price =
+                                                          productController
+                                                              .productList[
+                                                                  index]
+                                                              .price;
+                                                      final product_quantity =
+                                                          productController
+                                                              .productList[
+                                                                  index]
+                                                              .quantity;
+                                                      final product_details =
+                                                          productController
+                                                              .productList[
+                                                                  index]
+                                                              .details;
+                                                      final product_rate =
+                                                          productController
+                                                              .productList[
+                                                                  index]
+                                                              .rate;
+                                                      final product_owner =
+                                                          productController
+                                                              .productList[
+                                                                  index]
+                                                              .owner;
+
                                                       return InkWell(
                                                         borderRadius:
                                                             BorderRadius.all(
                                                                 Radius.circular(
                                                                     20)),
                                                         onTap: () {
-                                                          onTapColumnshape();
+                                                          // onTapColumnshape();
+
+                                                          Get.toNamed(
+                                                              AppRoutes
+                                                                  .propertyDetailsScreen,
+                                                              arguments: [
+                                                                product_category,
+                                                                product_imgOne,
+                                                                product_imgtwo,
+                                                                product_imhThree,
+                                                                product_name,
+                                                                product_price,
+                                                                product_quantity,
+                                                                product_details,
+                                                                product_rate,
+                                                                product_owner
+                                                              ]);
                                                         },
                                                         child: Container(
                                                             height: 500,
@@ -556,10 +629,7 @@ class HomePage extends StatelessWidget {
                                                                               16,
                                                                         ),
                                                                       ),
-                                                                      Text(
-                                                                        productController
-                                                                            .productList[index]
-                                                                            .price,
+                                                                      Text(NumberFormat.currency(name:'Tsh ').format(int.parse(productController.productList[index].price)),
                                                                         overflow:
                                                                             TextOverflow.ellipsis,
                                                                         textAlign:
@@ -671,11 +741,16 @@ class HomePage extends StatelessWidget {
     );
   }
 
+
+
+/*
   onTapColumnshape() {
     Get.toNamed(
       AppRoutes.propertyDetailsScreen,
     );
   }
+
+  */
 
   onTaOurpartners() {
     Get.toNamed(

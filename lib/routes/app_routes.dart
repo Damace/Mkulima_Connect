@@ -1,9 +1,13 @@
 import 'package:mkulima_connect/presentation/category_list/binding/categoryList_binding.dart';
 import 'package:mkulima_connect/presentation/category_list/categoryList.dart';
+import 'package:mkulima_connect/presentation/loading_page/binding/loading_binding.dart';
+import 'package:mkulima_connect/presentation/loading_page/loading_page.dart';
 import 'package:mkulima_connect/presentation/partiners/binding/partiner_binding.dart';
 import 'package:mkulima_connect/presentation/partiners/partnersList.dart';
 import 'package:mkulima_connect/presentation/productListView/binding/productList_binding.dart';
 import 'package:mkulima_connect/presentation/productListView/productList_screen.dart';
+import 'package:mkulima_connect/presentation/services/binding/services_binding.dart';
+import 'package:mkulima_connect/presentation/services/services.dart';
 import 'package:mkulima_connect/presentation/splash_screen/splash_screen.dart';
 import 'package:mkulima_connect/presentation/splash_screen/binding/splash_binding.dart';
 import 'package:mkulima_connect/presentation/product_tour_one_screen/product_tour_one_screen.dart';
@@ -258,8 +262,16 @@ class AppRoutes {
 
   static const String initialRoute = '/initialRoute';
 
+  static const String loading_page = '/loading_page';
+
+ static const String slider_layout_view = '/slider_layout_view';
+
+ static const String services = '/services';
+
 
   static List<GetPage> pages = [
+
+
     GetPage(
       name: splashScreen,
       page: () => SplashScreen(),
@@ -267,7 +279,7 @@ class AppRoutes {
         SplashBinding(),
       ],
     ),
-      GetPage(
+    GetPage(
       name: loginScreen,
       page: () => LoginScreen(),
       bindings: [
@@ -386,10 +398,8 @@ class AppRoutes {
         ExtraInformationBinding(),
       ],
     ),
-  
 
 //
-
 
     GetPage(
       name: formEmptyScreen,
@@ -637,11 +647,11 @@ class AppRoutes {
       ],
     ),
 
-      GetPage(
+    GetPage(
       name: productList_screen,
       page: () => ProductScreen(),
       bindings: [
-       ProductListBinding(),
+        ProductListBinding(),
       ],
     ),
 
@@ -649,7 +659,7 @@ class AppRoutes {
       name: partnersList,
       page: () => PartinersScreen(),
       bindings: [
-       PartinersBinding(),
+        PartinersBinding(),
       ],
     ),
     GetPage(
@@ -659,14 +669,29 @@ class AppRoutes {
         CategoryListBinding(),
       ],
     ),
-        GetPage(
+    GetPage(
       name: initialRoute,
       page: () => SplashScreen(),
       bindings: [
         SplashBinding(),
       ],
-    )
+    ),
 
+    GetPage(
+      name: loading_page,
+      page: () => LoadingPageScreen(),
+      bindings: [
+        LoadingListBinding(),
+      ],
+    ),
+
+        GetPage(
+      name: services,
+      page: () => ServicesScreen(),
+      bindings: [
+        ServicesBinding(),
+      ],
+    ),
 
   ];
 }
