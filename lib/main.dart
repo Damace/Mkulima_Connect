@@ -36,9 +36,9 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          // visualDensity: VisualDensity.comfortable,
-          // primarySwatch: Colors.fromARGB(1, 2, 2, 2)
-          primaryColor: Color.fromARGB(255, 7, 105, 64)
+            primarySwatch: Colors.green,
+            primaryColor: Color.fromARGB(255, 7, 105, 64)
+          
           // primarySwatch: Color.fromARGB(255, 3, 31, 4),
           ),
       translations: AppLocalization(),

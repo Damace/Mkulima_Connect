@@ -7,7 +7,7 @@ class GetProduct {
 
   static Future<List<Products>?> fetchProducts() async {
     var response = await client.get(Uri.parse(
-        'http://192.168.0.100/mkulimaApp/product/getProduct.php'));
+        'http://mkonekt.scienceontheweb.net/mkulimaApp/product/getProduct.php'));
     if (response.statusCode == 200) {
       var jsonString = response.body;
       return productsFromJson(jsonString);
@@ -23,7 +23,7 @@ class GetCategory {
 
   static Future<List<Category>?> fetchCategory() async {
     var response = await client.get(Uri.parse(
-        'http://192.168.0.100/mkulimaApp/category/getCategory.php'));
+        'http://mkonekt.scienceontheweb.net/mkulimaApp/product/getProduct.php'));
     if (response.statusCode == 200) {
       var jsonString = response.body;
       return categoryFromJson(jsonString);
