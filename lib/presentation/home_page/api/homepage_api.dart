@@ -23,7 +23,7 @@ class GetCategory {
 
   static Future<List<Category>?> fetchCategory() async {
     var response = await client.get(Uri.parse(
-        'http://mkonekt.scienceontheweb.net/mkulimaApp/product/getProduct.php'));
+        'http://mkonekt.scienceontheweb.net/mkulimaApp/category/getCategory.php'));
     if (response.statusCode == 200) {
       var jsonString = response.body;
       return categoryFromJson(jsonString);
