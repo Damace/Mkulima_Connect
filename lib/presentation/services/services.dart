@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:mkulima_connect/core/app_export.dart';
 import 'package:mkulima_connect/presentation/home_page/controller/category_controller.dart';
 import 'package:mkulima_connect/presentation/home_page/controller/product_controller.dart';
@@ -97,17 +98,17 @@ class ServicesScreen extends StatelessWidget {
                     children: [
                       RichText(
                           text: TextSpan(
-                              text: "Mkulima",
+                              text: "MKULIMA",
                               style: TextStyle(
-                                  fontSize: 25,
+                                  fontSize: 25,fontWeight: FontWeight.bold,fontFamily: GoogleFonts.montserrat().fontFamily,
                                   letterSpacing: 2,
                                   color: Colors.yellow),
                               children: [
                             TextSpan(
-                                text: " Konekt",
+                                text: " KONEKT",
                                 style: TextStyle(
                                     fontSize: 25,
-                                    fontWeight: FontWeight.bold,
+                                    fontWeight: FontWeight.bold,fontFamily: GoogleFonts.montserrat().fontFamily,
                                     color: Colors.yellow))
                           ])),
                       SizedBox(

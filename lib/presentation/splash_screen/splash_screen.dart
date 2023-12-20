@@ -12,9 +12,9 @@ class SplashScreen extends GetWidget<SplashController> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.white,
-      statusBarBrightness: Brightness.dark,
-      statusBarIconBrightness: Brightness.dark,
+      statusBarColor: Colors.transparent,
+      statusBarBrightness: Brightness.light,
+      statusBarIconBrightness: Brightness.light,
     ));
     myColor = Theme.of(context).primaryColor;
     mediaSize = MediaQuery.of(context).size;
@@ -28,16 +28,16 @@ class SplashScreen extends GetWidget<SplashController> {
               width: size.width,
               height: size.height,
               decoration: BoxDecoration(  
-                  gradient: LinearGradient(
-                      colors: [Colors.white, Colors.green],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomCenter),
+              
                   image: DecorationImage(
-                    image: const AssetImage("assets/images/bgo.jpg"),
+                    image: const AssetImage("assets/images/bg0.png"),
                     fit: BoxFit.fill
 
                     //image: AssetImage(ImageConstant.imgSplashscreen),
-                  )),
+                  )
+                  
+                  
+                  ),
             )));
   }
 }

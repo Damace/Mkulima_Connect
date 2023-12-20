@@ -29,115 +29,182 @@ class LoginScreen extends GetWidget<LoginController> {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: Stack(children: [
-          Positioned(top: 80, child: _buildTop()),
-          Positioned(bottom: 0, child: _buildBottom()),
-        ]),
-      ),
-    );
-  }
+          Positioned(
+              top: MediaQuery.of(context).size.width * 0.18,
+              child: SizedBox(
+                width: mediaSize.width,
+                child: const Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    InkWell(
+                      child: Card(
+                        elevation: 25,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(
+                                100))), // Apply elevation for a shadow effect
 
-  Widget _buildTop() {
-    return SizedBox(
-      width: mediaSize.width,
-      child: const Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          InkWell(
-            child: Card(
-              elevation: 25,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(
-                      100))), // Apply elevation for a shadow effect
-
-              color: Color.fromARGB(
-                  255, 255, 255, 255), // Set the background color of the card
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Image(
-                  image: const AssetImage("assets/images/mclogo.png"),
-                  height: 100,
-                  width: 100,
+                        color: Color.fromARGB(255, 255, 255,
+                            255), // Set the background color of the card
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Image(
+                            image: AssetImage("assets/images/mclogo.png"),
+                            height: 100,
+                            width: 100,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+              )),
+          Positioned(
+              bottom: MediaQuery.of(context).size.height * 0.001,
+              child: SizedBox(
+                width: mediaSize.width,
+                child: Card(
+                  shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
+                  )),
+                  child: Padding(
+                    padding: const EdgeInsets.all(32.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Welcome",
+                          style: TextStyle(
+                              color: myColor,
+                              fontSize: 32,
+                              fontWeight: FontWeight.w500),
+                        ),
 
-  Widget _buildBottom() {
-    return SizedBox(
-      width: mediaSize.width,
-      child: Card(
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(30),
-          topRight: Radius.circular(30),
-        )),
-        child: Padding(
-          padding: const EdgeInsets.all(32.0),
-          child: _buildForm(),
-        ),
-      ),
-    );
-  }
+                        _buildGreyText("Please login with your information"),
 
-  Widget _buildForm() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          "Welcome",
-          style: TextStyle(
-              color: myColor, fontSize: 32, fontWeight: FontWeight.w500),
-        ),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.015),
 
-        _buildGreyText("Please login with your information"),
-
-        const SizedBox(height: 20),
-
-        TextFormField(
-          decoration: InputDecoration(
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            labelText: "Email",
-            prefixIcon: Icon(Icons.person),
-          ),
-          keyboardType: TextInputType.emailAddress,
-          controller: controller.emailController,
-          onSaved: (value) {
-            //controller.email = value!;
-          },
-        ),
-        const SizedBox(height: 20),
-        //_buildInputField(emailController),
-        TextFormField(
-          decoration: InputDecoration(
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            labelText: "Password",
-            prefixIcon: Icon(Icons.email),
-          ),
-          keyboardType: TextInputType.emailAddress,
-          controller: controller.emailController,
-          onSaved: (value) {
-            //controller.email = value!;
-          },
-        ),
+                        TextFormField(
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            labelText: "Email",
+                            prefixIcon: Icon(Icons.person),
+                          ),
+                          keyboardType: TextInputType.emailAddress,
+                          controller: controller.emailController,
+                          onSaved: (value) {
+                            //controller.email = value!;
+                          },
+                        ),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.015),
+                        //_buildInputField(emailController),
+                        TextFormField(
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            labelText: "Password",
+                            prefixIcon: Icon(Icons.email),
+                          ),
+                          keyboardType: TextInputType.emailAddress,
+                          controller: controller.emailController,
+                          onSaved: (value) {
+                            //controller.email = value!;
+                          },
+                        ),
 //        const SizedBox(height: 10),
 
-        _buildRememberForgot(),
-        const SizedBox(height: 20),
-        _buildLoginButton(),
-        const SizedBox(height: 20),
-        _buildOtherLogin(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Checkbox(
+                                    value: rememberUser, onChanged: (value) {}),
+                                _buildGreyText("Remember me"),
+                              ],
+                            ),
+                            TextButton(
+                                onPressed: () {},
+                                child: _buildGreyText("I forgot my password"))
+                          ],
+                        ),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.015),
+                        ElevatedButton(
+                          onPressed: () {
+                            onTapprofile();
+                            debugPrint("Email : ${emailController.text}");
+                            debugPrint("Password : ${passwordController.text}");
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Color.fromARGB(255, 7, 105, 64),
+                            shape: const StadiumBorder(),
+                            elevation: 20,
+                            shadowColor: myColor,
+                            minimumSize: const Size.fromHeight(60),
+                          ),
+                          child: const Text("LOGIN"),
+                        ),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.015),
+                        Center(
+                          child: Column(
+                            children: [
+                              _buildGreyText("Or Login with"),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height *
+                                      0.015),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Tab(
+                                      icon: Image.asset(
+                                          "assets/images/facebook.png")),
+                                  Tab(
+                                      icon: Image.asset(
+                                          "assets/images/twitter.png")),
+                                  Tab(
+                                      icon: Image.asset(
+                                          "assets/images/github.png")),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
 
-        const SizedBox(height: 20),
-        _buildRegister(),
-      ],
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.015),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(),
+                            TextButton(
+                                onPressed: () {
+                                  onTapRegister();
+                                },
+                                child: Text(
+                                  "Get Registered",
+                                  style: TextStyle(
+                                      color: myColor,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500),
+                                ))
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              )),
+        ]),
+      ),
     );
   }
 
@@ -159,87 +226,15 @@ class LoginScreen extends GetWidget<LoginController> {
     );
   }
 
-  Widget _buildRememberForgot() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(
-          children: [
-            Checkbox(value: rememberUser, onChanged: (value) {}),
-            _buildGreyText("Remember me"),
-          ],
-        ),
-        TextButton(
-            onPressed: () {}, child: _buildGreyText("I forgot my password"))
-      ],
-    );
-  }
-
-  Widget _buildLoginButton() {
-    return ElevatedButton(
-      onPressed: () {
-        onTapprofile();
-        debugPrint("Email : ${emailController.text}");
-        debugPrint("Password : ${passwordController.text}");
-      },
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Color.fromARGB(255, 7, 105, 64),
-        shape: const StadiumBorder(),
-        elevation: 20,
-        shadowColor: myColor,
-        minimumSize: const Size.fromHeight(60),
-      ),
-      child: const Text("LOGIN"),
-    );
-  }
-
-  Widget _buildOtherLogin() {
-    return Center(
-      child: Column(
-        children: [
-          _buildGreyText("Or Login with"),
-          const SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Tab(icon: Image.asset("assets/images/facebook.png")),
-              Tab(icon: Image.asset("assets/images/twitter.png")),
-              Tab(icon: Image.asset("assets/images/github.png")),
-            ],
-          )
-        ],
-      ),
-    );
-  }
-
-  Widget _buildRegister() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(),
-        TextButton(
-            onPressed: () {
-              onTapRegister();
-            },
-            child: Text(
-              "Get Registered",
-              style: TextStyle(
-                  color: myColor, fontSize: 16, fontWeight: FontWeight.w500),
-            ))
-      ],
-    );
-  }
-
-   onTapprofile() {
+  onTapprofile() {
     Get.toNamed(
-      //AppRoutes.transactionTabContainerPage,
-      AppRoutes.transactionTabContainerPage
-    );
+        //AppRoutes.transactionTabContainerPage,
+        AppRoutes.transactionTabContainerPage);
   }
 
   onTapRegister() {
     Get.toNamed(
-      AppRoutes.homeContainerScreen,
+      AppRoutes.registerFormEmptyScreen,
     );
   }
 

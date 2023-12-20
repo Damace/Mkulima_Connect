@@ -1,23 +1,16 @@
+//import 'dart:developer';
+
 import 'controller/register_form_empty_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:mkulima_connect/core/app_export.dart';
 import 'package:mkulima_connect/domain/googleauth/google_auth_helper.dart';
 import 'package:mkulima_connect/domain/facebookauth/facebook_auth_helper.dart';
 
+
 // ignore: must_be_immutable
 class RegisterFormEmptyScreen extends GetWidget<RegisterFormEmptyController> {
   late Color myColor;
   late Size mediaSize;
-
-  TextEditingController fnameController = TextEditingController();
-  TextEditingController lnameController = TextEditingController();
-  TextEditingController genderController = TextEditingController();
-  TextEditingController phonenumberController = TextEditingController();
-  TextEditingController contryController = TextEditingController();
-  TextEditingController cityController = TextEditingController();
-  TextEditingController postalcodeController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
   bool rememberUser = false;
 
   @override
@@ -37,138 +30,237 @@ class RegisterFormEmptyScreen extends GetWidget<RegisterFormEmptyController> {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: Stack(children: [
-          Positioned(top: 80, child: _buildTop()),
-          Positioned(bottom: 0, child: _buildBottom()),
+          Positioned(
+              top: MediaQuery.of(context).size.width * 0.18,
+              child: SizedBox(
+                width: mediaSize.width,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    InkWell(
+                      child: Card(
+                        elevation: 25,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(
+                                100))), // Apply elevation for a shadow effect
+
+                        color: Color.fromARGB(255, 255, 255,
+                            255), // Set the background color of the card
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Image(
+                            image: const AssetImage("assets/images/mclogo.png"),
+                            height: 100,
+                            width: 100,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              )),
+          Positioned(
+              bottom: MediaQuery.of(context).size.width * 0.01,
+              child: SizedBox(
+                width: mediaSize.width,
+                child: Card(
+                  shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
+                  )),
+                  child: Padding(
+                    padding: const EdgeInsets.all(32.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Welcome",
+                          style: TextStyle(
+                              color: myColor,
+                              fontSize: 32,
+                              fontWeight: FontWeight.w500),
+                        ),
+                        _buildGreyText("Please Register with your information"),
+
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.015),
+                        //_buildInputField(emailController),
+                        TextFormField(
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            labelText: "First name",
+                            prefixIcon: Icon(Icons.person),
+                          ),
+                          keyboardType: TextInputType.name,
+                          controller: controller.firstNameController,
+                          onSaved: (value) {
+                            controller.firstNameController =
+                                value! as TextEditingController;
+                          },
+                          //focusNode: controller.usernameFocusNode,
+                           validator: controller.usernameValidator,
+                        ),
+
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.015),
+                        //_buildInputField(emailController),
+                        TextFormField(
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            labelText: "Last name",
+                            prefixIcon: Icon(Icons.person),
+                          ),
+                          keyboardType: TextInputType.name,
+                          controller: controller.lastNameController,
+                          onSaved: (value) {
+                            //controller.email = value!;
+                          },
+                         // focusNode: controller.usernameFocusNode,
+                           validator: controller.usernameValidator,
+                        ),
+
+                        
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.015),
+                        //_buildInputField(emailController),
+                        TextFormField(
+                         key: controller.formEmailFieldKey,
+                          decoration: InputDecoration(  
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            labelText: "Email",
+                            prefixIcon: Icon(Icons.email),
+                          ),
+                          keyboardType: TextInputType.emailAddress,
+                          controller: controller.emailController,
+                        //  focusNode: controller.usernameFocusNode,
+                           validator: controller.emailValidator,
+
+                          /*
+                          validator: (value) {
+                                if (value == null ||
+                                    (!isValidEmail(value, isRequired: true))) {
+                                  return "Please enter valid email";
+                                }
+                                return null;
+                              },
+                              */
+                              
+                        ),
+//        const SizedBox(height: 10),
+
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.015),
+
+                        TextFormField(
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            labelText: "Password",
+                            prefixIcon: Icon(Icons.lock),
+                          ),
+                          keyboardType: TextInputType.visiblePassword,
+                          controller: controller.passwordController,
+                          onSaved: (value) {
+                            //controller.email = value!;
+                          },
+                          
+                         validator: controller.confirmPasswordValidator,
+                        ),
+//        const SizedBox(height: 10),
+
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.015),
+                        ElevatedButton(
+                          onPressed: ()  {
+
+                           controller.register();
+                         
+
+                         /*
+                               //register();
+                             
+                       // LoadingOverlay.show(message: 'Registering...');
+                        try {
+                          await controller.signup();
+
+                          controller.signupFormKey.currentState!.save();
+                          log('response signup');
+
+                         // Get.offAllNamed(Routes.HOME);
+                        } catch (err, _) {
+                          printError(info: err.toString());
+                        //  LoadingOverlay.hide();
+                          Get.snackbar(
+                            "Error",
+                            err.toString(),
+                            snackPosition: SnackPosition.TOP,
+                            backgroundColor: Colors.red.withOpacity(.75),
+                            colorText: Colors.white,
+                            icon: const Icon(Icons.error, color: Colors.white),
+                            shouldIconPulse: true,
+                            barBlur: 20,
+                          );
+                        } finally {}
+                      
+
+
+                        
+
+                         */
+                          }
+                          ,
+
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Color.fromARGB(255, 7, 105, 64),
+                            shape: const StadiumBorder(),
+                            elevation: 20,
+                            shadowColor: myColor,
+                            minimumSize: const Size.fromHeight(60),
+                          ),
+                          child: const Text("REGISTER"),
+                        ),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.015),
+                        Center(
+                          child: Column(
+                            children: [
+                              _buildGreyText("Or Register with"),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height *
+                                      0.015),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Tab(
+                                      icon: Image.asset(
+                                          "assets/images/facebook.png")),
+                                  Tab(
+                                      icon: Image.asset(
+                                          "assets/images/twitter.png")),
+                                  Tab(
+                                      icon: Image.asset(
+                                          "assets/images/github.png")),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              )),
         ]),
       ),
-    );
-  }
-
-  Widget _buildTop() {
-    return SizedBox(
-      width: mediaSize.width,
-      child: const Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          InkWell(
-            child: Card(
-              elevation: 25,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(
-                      100))), // Apply elevation for a shadow effect
-
-              color: Color.fromARGB(
-                  255, 255, 255, 255), // Set the background color of the card
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Image(
-                  image: const AssetImage("assets/images/mclogo.png"),
-                  height: 100,
-                  width: 100,
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildBottom() {
-    return SizedBox(
-      width: mediaSize.width,
-      child: Card(
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(30),
-          topRight: Radius.circular(30),
-        )),
-        child: Padding(
-          padding: const EdgeInsets.all(32.0),
-          child: _buildForm(),  
-        ),
-      ),
-    );
-  }
-
-  Widget _buildForm() {
-
-    
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-
-      
-        Text(
-          "Welcome",
-          style: TextStyle(
-              color: myColor, fontSize: 32, fontWeight: FontWeight.w500),
-        ),
-        _buildGreyText("Please Register with your information"),
-
-
-        const SizedBox(height: 20),
-        //_buildInputField(emailController),
-           TextFormField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      labelText: "First name",
-                      prefixIcon: Icon(Icons.person),
-                    ),
-                    keyboardType: TextInputType.emailAddress,
-                    controller: controller.emailController,
-                    onSaved: (value) {
-                      //controller.email = value!;
-                    },
-                  ),
-//        const SizedBox(height: 10),
-
-        const SizedBox(height: 20),
-        //_buildInputField(emailController),
-           TextFormField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      labelText: "Last name",
-                      prefixIcon: Icon(Icons.person),
-                    ),
-                    keyboardType: TextInputType.emailAddress,
-                    controller: controller.emailController,
-                    onSaved: (value) {
-                      //controller.email = value!;
-                    },
-                  ),
-                   const SizedBox(height: 20),
-        //_buildInputField(emailController),
-           TextFormField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      labelText: "Email",
-                      prefixIcon: Icon(Icons.email),
-                    ),
-                    keyboardType: TextInputType.emailAddress,
-                    controller: controller.emailController,
-                    onSaved: (value) {
-                      //controller.email = value!;
-                    },
-                  ),
-//        const SizedBox(height: 10),
-
-
-        const SizedBox(height: 10),
-
-
-
-        const SizedBox(height: 10),
-        _buildLoginButton(),
-        const SizedBox(height: 10),
-        _buildOtherLogin(),
-      ],
     );
   }
 
@@ -179,7 +271,8 @@ class RegisterFormEmptyScreen extends GetWidget<RegisterFormEmptyController> {
     );
   }
 
-  Widget _buildInputField(TextEditingController controller, {isPassword = false}) {
+  Widget _buildInputField(TextEditingController controller,
+      {isPassword = false}) {
     return TextField(
       controller: controller,
       decoration: InputDecoration(
@@ -205,47 +298,9 @@ class RegisterFormEmptyScreen extends GetWidget<RegisterFormEmptyController> {
     );
   }
 
-  Widget _buildLoginButton() {
-    return ElevatedButton(
-      onPressed: () {
-        onTapHomepage();
-        debugPrint("Email : ${emailController.text}");
-        debugPrint("Password : ${passwordController.text}");
-      },
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Color.fromARGB(255, 7, 105, 64),
-        shape: const StadiumBorder(),
-        elevation: 20,
-        shadowColor: myColor,
-        minimumSize: const Size.fromHeight(60),
-      ),
-      child: const Text("REGISTER"),
-    );
-  }
-
-  Widget _buildOtherLogin() {
-    return Center(
-      child: Column(
-        children: [
-          _buildGreyText("Or Register with"),
-          const SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Tab(icon: Image.asset("assets/images/facebook.png")),
-              Tab(icon: Image.asset("assets/images/twitter.png")),
-              Tab(icon: Image.asset("assets/images/github.png")),
-            ],
-          )
-        ],
-      ),
-    );
-  }
-
-  
- onTapHomepage() {
+  onTapHomepage() {
     Get.toNamed(
-       AppRoutes.formOtpScreen,
+      AppRoutes.formOtpScreen,
     );
   }
 
@@ -284,6 +339,4 @@ class RegisterFormEmptyScreen extends GetWidget<RegisterFormEmptyController> {
       Get.snackbar('Error', onError.toString());
     });
   }
-
-
 }
