@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "850900421852",
+    "project_id": "mkulimakonekti-50b5a",
+    "storage_bucket": "mkulimakonekti-50b5a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:850900421852:android:952542ed9abf708b423819",
+        "android_client_info": {
+          "package_name": "com.mkulimaconnect.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDv2NkHMJUENcRpjE0Erv6eCliwdH9e4cw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

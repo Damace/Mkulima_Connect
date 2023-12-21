@@ -1,22 +1,40 @@
 import 'dart:async';
+import 'dart:io';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mkulima_connect/core/app_export.dart';
 import 'package:mkulima_connect/presentation/splash_screen/models/splash_model.dart';
+import 'package:quickalert/models/quickalert_type.dart';
+import 'package:quickalert/widgets/quickalert_dialog.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashController extends GetxController {
   Rx<SplashModel> splashModelObj = SplashModel().obs;
 
   @override
-  void onReady() {
-    super.onReady();
-    Future.delayed(const Duration(milliseconds: 10000), () {
-      Get.offNamed(
-        AppRoutes.loginScreen,
-      );
-    });
+  void onInit() {
+    super.onInit();
+   loging();
   }
 
   @override
-  void onClose() {
-    super.onClose();
+  void onReady() {
+    super.onReady();
+  }
+
+  Future<void> loging() async {
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    var onboarding = pref.getString("onboarding");
+
+    if (onboarding == "true") {
+      Future.delayed(const Duration(milliseconds: 8000), () {
+        Get.offNamed(AppRoutes.services);
+      });
+    } else {
+      Future.delayed(const Duration(milliseconds: 8000), () {
+        Get.offNamed(AppRoutes.productTourOneScreen);
+      });
+    }
   }
 }

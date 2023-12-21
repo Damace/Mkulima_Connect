@@ -46,11 +46,11 @@ class ServicesScreen extends StatelessWidget {
         body: Container(
           child: Stack(children: [
             Positioned(
-                top:MediaQuery.of(context).size.height*0.0,
+                top: MediaQuery.of(context).size.height * 0.0,
                 right: 0,
                 left: 0,
                 child: Container(
-                  height:MediaQuery.of(context).size.height*0.26,
+                  height: MediaQuery.of(context).size.height * 0.26,
                   child: CarouselSlider(
                     items: [
                       // buildImage('https://example.com/image1.jpg'),
@@ -84,15 +84,14 @@ class ServicesScreen extends StatelessWidget {
                   ),
                 )),
             Positioned(
-              top:MediaQuery.of(context).size.height*0.01,
+              top: MediaQuery.of(context).size.height * 0.01,
               right: 0,
               left: 0,
               child: Container(
                 // height: 220,
-                 height:MediaQuery.of(context).size.height * 0.19,
+                height: MediaQuery.of(context).size.height * 0.19,
                 child: Container(
                   padding: EdgeInsets.only(top: 30, left: 20),
-                  
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -100,7 +99,10 @@ class ServicesScreen extends StatelessWidget {
                           text: TextSpan(
                               text: "MKULIMA",
                               style: TextStyle(
-                                  fontSize: 25,fontWeight: FontWeight.bold,fontFamily: GoogleFonts.montserrat().fontFamily,
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily:
+                                      GoogleFonts.montserrat().fontFamily,
                                   letterSpacing: 2,
                                   color: Colors.yellow),
                               children: [
@@ -108,7 +110,9 @@ class ServicesScreen extends StatelessWidget {
                                 text: " KONEKT",
                                 style: TextStyle(
                                     fontSize: 25,
-                                    fontWeight: FontWeight.bold,fontFamily: GoogleFonts.montserrat().fontFamily,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily:
+                                        GoogleFonts.montserrat().fontFamily,
                                     color: Colors.yellow))
                           ])),
                       SizedBox(
@@ -125,10 +129,10 @@ class ServicesScreen extends StatelessWidget {
             ),
             Positioned(
               //top: 90,
-              top:MediaQuery.of(context).size.height*0.12,
+              top: MediaQuery.of(context).size.height * 0.12,
               child: Container(
-                height:MediaQuery.of(context).size.height * 0.18,
-                width:MediaQuery.of(context).size.width * 0.95,
+                height: MediaQuery.of(context).size.height * 0.18,
+                width: MediaQuery.of(context).size.width * 0.95,
                 margin: EdgeInsets.symmetric(horizontal: 10),
                 decoration: BoxDecoration(
                     color: Colors.white,
@@ -141,7 +145,7 @@ class ServicesScreen extends StatelessWidget {
                     ]),
                 child: Column(
                   children: [
-                  SizedBox(height:MediaQuery.of(context).size.height * 0.02),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                     Padding(
                       padding: const EdgeInsets.only(left: 50, right: 50),
                       child: Container(
@@ -151,42 +155,47 @@ class ServicesScreen extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                           InkWell(
-                             child: Icon(Icons.agriculture_outlined,
-                              size: 25,
-                              color: ColorConstant.default_color,),
-                           ),
-                            VerticalDivider(
-                               thickness: 2.5,
-                              color: ColorConstant.default_color,
+                            InkWell(
+                              child: Icon(
+                                Icons.agriculture_outlined,
+                                size: 25,
+                                color: ColorConstant.default_color,
+                              ),
                             ),
-                          
-                          InkWell(
-                            child: Icon(Icons.sunny_snowing,
-                              size: 25,
-                              color: ColorConstant.default_color,),
-                          ),
                             VerticalDivider(
                               thickness: 2.5,
                               color: ColorConstant.default_color,
                             ),
-                           InkWell(
-                             child: Icon(Icons.shopping_cart_outlined,
-                              size: 25,
-                              color: ColorConstant.default_color,),
-                           ),
+                            InkWell(
+                              child: Icon(
+                                Icons.sunny_snowing,
+                                size: 25,
+                                color: ColorConstant.default_color,
+                              ),
+                            ),
+                            VerticalDivider(
+                              thickness: 2.5,
+                              color: ColorConstant.default_color,
+                            ),
+                            InkWell(
+                              child: Icon(
+                                Icons.shopping_cart_outlined,
+                                size: 25,
+                                color: ColorConstant.default_color,
+                              ),
+                            ),
                           ],
                         ),
                       ),
                     ),
-                   SizedBox(height:MediaQuery.of(context).size.height*0.03),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.03),
                     SizedBox(
                       width: MediaQuery.of(context).size.width - 20,
                       child: Card(
                         color: Colors.white,
                         shape: RoundedRectangleBorder(
                           side: BorderSide(
-                          color: ColorConstant.default_color, width: 2.0),
+                              color: ColorConstant.default_color, width: 2.0),
                           borderRadius: BorderRadiusDirectional.only(
                             topEnd: Radius.circular(25),
                             topStart: Radius.circular(25),
@@ -195,7 +204,11 @@ class ServicesScreen extends StatelessWidget {
                           ),
                         ),
                         child: TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Get.toNamed(
+                                AppRoutes.registerFormEmptyScreen
+                              );
+                            },
                             child: Text(
                               "Get more Services >>",
                               style: TextStyle(
@@ -210,7 +223,7 @@ class ServicesScreen extends StatelessWidget {
             ),
             Positioned(
                 //top: MediaQuery.of(context).size.height - 580,
-                top:MediaQuery.of(context).size.height*0.33,
+                top: MediaQuery.of(context).size.height * 0.33,
                 left: 0,
                 right: 0,
                 child: Container(
@@ -221,9 +234,9 @@ class ServicesScreen extends StatelessWidget {
                         topRight: Radius.circular(30),
                         bottomLeft: Radius.circular(100),
                       )),
-                // height: 700,
-                 height: MediaQuery.of(context).size.height*0.8,
-                  
+                  // height: 700,
+                  height: MediaQuery.of(context).size.height * 0.8,
+
                   child: SingleChildScrollView(
                       scrollDirection: Axis.vertical,
                       child: Column(
@@ -418,8 +431,16 @@ class ServicesScreen extends StatelessWidget {
                                                                           .default_color)),
                                                               elevation: 4,
                                                               child: Container(
-                                                                height: MediaQuery.of(context).size.width * 0.18,
-                                                                width:MediaQuery.of(context).size.width * 0.18,
+                                                                height: MediaQuery.of(
+                                                                            context)
+                                                                        .size
+                                                                        .width *
+                                                                    0.18,
+                                                                width: MediaQuery.of(
+                                                                            context)
+                                                                        .size
+                                                                        .width *
+                                                                    0.18,
                                                                 child: Center(
                                                                   child: Image(
                                                                     image: const AssetImage(
@@ -600,8 +621,14 @@ class ServicesScreen extends StatelessWidget {
                                                                   elevation: 4,
                                                                   child:
                                                                       Container(
-                                                                    height: MediaQuery.of(context).size.width * 0.18,
-                                                                    width:MediaQuery.of(context).size.width * 0.18,
+                                                                    height: MediaQuery.of(context)
+                                                                            .size
+                                                                            .width *
+                                                                        0.18,
+                                                                    width: MediaQuery.of(context)
+                                                                            .size
+                                                                            .width *
+                                                                        0.18,
                                                                     child:
                                                                         Center(
                                                                       child:
@@ -787,8 +814,14 @@ class ServicesScreen extends StatelessWidget {
                                                                   elevation: 4,
                                                                   child:
                                                                       Container(
-                                                                height: MediaQuery.of(context).size.width * 0.18,
-                                                                width:MediaQuery.of(context).size.width * 0.18,
+                                                                    height: MediaQuery.of(context)
+                                                                            .size
+                                                                            .width *
+                                                                        0.18,
+                                                                    width: MediaQuery.of(context)
+                                                                            .size
+                                                                            .width *
+                                                                        0.18,
                                                                     child:
                                                                         Center(
                                                                       child:
@@ -954,8 +987,14 @@ class ServicesScreen extends StatelessWidget {
                                                                   elevation: 4,
                                                                   child:
                                                                       Container(
-                                                                height: MediaQuery.of(context).size.width * 0.18,
-                                                                width:MediaQuery.of(context).size.width * 0.18,
+                                                                    height: MediaQuery.of(context)
+                                                                            .size
+                                                                            .width *
+                                                                        0.18,
+                                                                    width: MediaQuery.of(context)
+                                                                            .size
+                                                                            .width *
+                                                                        0.18,
                                                                     child:
                                                                         Center(
                                                                       child:
@@ -1121,8 +1160,14 @@ class ServicesScreen extends StatelessWidget {
                                                                   elevation: 4,
                                                                   child:
                                                                       Container(
-                                                                    height: MediaQuery.of(context).size.width * 0.18,
-                                                                    width:MediaQuery.of(context).size.width * 0.18,
+                                                                    height: MediaQuery.of(context)
+                                                                            .size
+                                                                            .width *
+                                                                        0.18,
+                                                                    width: MediaQuery.of(context)
+                                                                            .size
+                                                                            .width *
+                                                                        0.18,
                                                                     child:
                                                                         Center(
                                                                       child:
@@ -1330,8 +1375,14 @@ class ServicesScreen extends StatelessWidget {
                                                                   elevation: 4,
                                                                   child:
                                                                       Container(
-                                                                    height: MediaQuery.of(context).size.width * 0.18,
-                                                                    width:MediaQuery.of(context).size.width * 0.18,
+                                                                    height: MediaQuery.of(context)
+                                                                            .size
+                                                                            .width *
+                                                                        0.18,
+                                                                    width: MediaQuery.of(context)
+                                                                            .size
+                                                                            .width *
+                                                                        0.18,
                                                                     child:
                                                                         Center(
                                                                       child:
@@ -1393,7 +1444,8 @@ class ServicesScreen extends StatelessWidget {
                             child: ListView(
                               scrollDirection: Axis.horizontal,
                               children: [
-                                buildCard('assets/images/top3.png', 'Shinyanga'),
+                                buildCard(
+                                    'assets/images/top3.png', 'Shinyanga'),
                                 buildCard('assets/images/top.png', 'Dodoma'),
                                 buildCard('assets/images/top.jpg', 'Mbeya'),
                               ],
@@ -1418,7 +1470,6 @@ class ServicesScreen extends StatelessWidget {
                   ),
                 ),
                 label: 'Notification'),
-          
             BottomNavigationBarItem(
                 icon: InkWell(
                   child: Icon(
@@ -1427,20 +1478,17 @@ class ServicesScreen extends StatelessWidget {
                   ),
                 ),
                 label: 'MKonekt TV'),
-                   BottomNavigationBarItem(
+            BottomNavigationBarItem(
                 icon: InkWell(
                   onTap: () {
                     login();
-                    
                   },
-                  
                   child: Icon(
                     Icons.account_circle_outlined,
                     color: ColorConstant.default_color,
                   ),
                 ),
                 label: 'My Account'),
-              
           ],
         ),
       ),
@@ -1535,12 +1583,11 @@ class ServicesScreen extends StatelessWidget {
 
   // ----------------------------------------------------------------------------------------------------
 
-   login() {
+  login() {
     Get.toNamed(
-      AppRoutes.loginScreen,
+      AppRoutes.transactionPage,
     );
   }
-
 
   buySell() {
     Get.toNamed(
@@ -1586,10 +1633,9 @@ class CategoryCard extends StatelessWidget {
     return Card(
       margin: EdgeInsets.all(8.0),
       child: Container(
+        width: 100.0, // Adjust the width as needed
 
-       width: 100.0, // Adjust the width as needed
-
-       // width: MediaQuery.of(context).size.width,
+        // width: MediaQuery.of(context).size.width,
 
         padding: EdgeInsets.all(8.0),
         child: Center(

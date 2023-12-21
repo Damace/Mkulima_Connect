@@ -167,18 +167,24 @@ class RegisterFormEmptyController extends GetxController {
 */
 
   Future<void> register() async {
+
+      Get.toNamed(
+          AppRoutes.formOtpScreen,
+        );
+
+/*
+
     if (firstNameController.text != "" ||
         lastNameController.text != "" ||
         emailController.text != "" ||
         passwordController.text != "") {
+      firstNameController.clear();
+      lastNameController.clear();
+      emailController.clear();
+      passwordController.clear();
 
-          
-        firstNameController.clear();
-        lastNameController.clear();
-        emailController.clear();
-        passwordController.clear();
-
-      String url = "http://192.168.1.100/mkulimaKonekti/product/routes/routes.php/userReg";
+      String url =
+          "http://192.168.0.100/mkulimaKonekti/product/routes/routes.php/userReg";
       var response = await http.post(Uri.parse(url), body: {
         "first_name": firstNameController.text,
         "last_name": lastNameController.text,
@@ -188,20 +194,21 @@ class RegisterFormEmptyController extends GetxController {
 
       //final result = json.decode(response.body);
       if (response.statusCode == 200) {
+        Get.toNamed(
+          AppRoutes.formOtpScreen,
+        );
 
-         Get.snackbar(
+        Get.snackbar(
           "Successfully Registered",
           "",
           snackPosition: SnackPosition.TOP,
-          backgroundColor: Color.fromARGB(255, 35, 135, 40).withOpacity(.2),
+          backgroundColor: Color.fromARGB(255, 35, 135, 40),
           colorText: Colors.white,
           icon: const Icon(Icons.error, color: Colors.white),
           shouldIconPulse: true,
           barBlur: 20,
         );
       } else {
-
-       
         Get.snackbar(
           "Something went wrong",
           "",
@@ -213,9 +220,6 @@ class RegisterFormEmptyController extends GetxController {
           barBlur: 20,
         );
       }
-
-     
-      
     } else {
       Get.snackbar(
         "Error",
@@ -228,5 +232,11 @@ class RegisterFormEmptyController extends GetxController {
         barBlur: 20,
       );
     }
+
+*/
+
+
+
+
   }
 }

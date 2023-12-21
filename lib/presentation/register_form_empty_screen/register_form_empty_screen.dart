@@ -91,7 +91,7 @@ class RegisterFormEmptyScreen extends GetWidget<RegisterFormEmptyController> {
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            labelText: "First name",
+                            labelText: "Full name",
                             prefixIcon: Icon(Icons.person),
                           ),
                           keyboardType: TextInputType.name,
@@ -103,28 +103,6 @@ class RegisterFormEmptyScreen extends GetWidget<RegisterFormEmptyController> {
                           //focusNode: controller.usernameFocusNode,
                            validator: controller.usernameValidator,
                         ),
-
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.015),
-                        //_buildInputField(emailController),
-                        TextFormField(
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            labelText: "Last name",
-                            prefixIcon: Icon(Icons.person),
-                          ),
-                          keyboardType: TextInputType.name,
-                          controller: controller.lastNameController,
-                          onSaved: (value) {
-                            //controller.email = value!;
-                          },
-                         // focusNode: controller.usernameFocusNode,
-                           validator: controller.usernameValidator,
-                        ),
-
-                        
                         SizedBox(
                             height: MediaQuery.of(context).size.height * 0.015),
                         //_buildInputField(emailController),
@@ -134,47 +112,16 @@ class RegisterFormEmptyScreen extends GetWidget<RegisterFormEmptyController> {
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            labelText: "Email",
-                            prefixIcon: Icon(Icons.email),
+                            labelText: "Phone number",
+                            prefixIcon: Icon(Icons.phone),
                           ),
-                          keyboardType: TextInputType.emailAddress,
+                          keyboardType: TextInputType.number,
                           controller: controller.emailController,
                         //  focusNode: controller.usernameFocusNode,
-                           validator: controller.emailValidator,
+                           validator: controller.emailValidator,),
 
-                          /*
-                          validator: (value) {
-                                if (value == null ||
-                                    (!isValidEmail(value, isRequired: true))) {
-                                  return "Please enter valid email";
-                                }
-                                return null;
-                              },
-                              */
-                              
-                        ),
-//        const SizedBox(height: 10),
 
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.015),
-
-                        TextFormField(
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            labelText: "Password",
-                            prefixIcon: Icon(Icons.lock),
-                          ),
-                          keyboardType: TextInputType.visiblePassword,
-                          controller: controller.passwordController,
-                          onSaved: (value) {
-                            //controller.email = value!;
-                          },
-                          
-                         validator: controller.confirmPasswordValidator,
-                        ),
-//        const SizedBox(height: 10),
+                           
 
                         SizedBox(
                             height: MediaQuery.of(context).size.height * 0.015),

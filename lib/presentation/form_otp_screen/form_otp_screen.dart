@@ -10,6 +10,8 @@ class FormOtpScreen extends GetWidget<FormOtpController> {
   late Color myColor;
   late Size mediaSize;
 
+  
+
   @override
   Widget build(BuildContext context) {
     myColor = Theme.of(context).primaryColor;
@@ -104,7 +106,7 @@ class FormOtpScreen extends GetWidget<FormOtpController> {
                     child: Obx(() => PinCodeTextField(
                         appContext: context,
                         controller: controller.otpController.value,
-                        length: 4,
+                        length: 6,
                         obscureText: false,
                         obscuringCharacter: '*',
                         keyboardType: TextInputType.number,
@@ -115,8 +117,8 @@ class FormOtpScreen extends GetWidget<FormOtpController> {
                         ],
                         onChanged: (value) {},
                         pinTheme: PinTheme(
-                            fieldHeight: getHorizontalSize(70),
-                            fieldWidth: getHorizontalSize(74),
+                            fieldHeight: getHorizontalSize(40),
+                            fieldWidth: getHorizontalSize(40),
                             shape: PinCodeFieldShape.box,
                             borderRadius:
                                 BorderRadius.circular(getHorizontalSize(25)),
@@ -154,17 +156,19 @@ class FormOtpScreen extends GetWidget<FormOtpController> {
                                       letterSpacing: getHorizontalSize(0.36))),
                               Padding(
                                   padding: getPadding(left: 4),
-                                  child: Text("lbl_resend_otp".tr,
+                                  child: TextButton(child: Text("lbl_resend_otp".tr,
                                       overflow: TextOverflow.ellipsis,
                                       textAlign: TextAlign.left,
-                                      style: AppStyle.txtdefaultcolor
-                                          .copyWith(
-                                              letterSpacing:
-                                                  getHorizontalSize(0.36))))
+                                      style: AppStyle.txtdefaultcolor.copyWith(
+                                          letterSpacing:
+                                              getHorizontalSize(0.36))),
+                                              onPressed: () {
+                                                
+                                              },))
                             ])))
               ])),
       bottomNavigationBar: CustomButton(
-         // color: ColorConstant.default_color,
+          // color: ColorConstant.default_color,
           height: getVerticalSize(70),
           text: "lbl_submit".tr,
           margin: getMargin(left: 24, right: 24, bottom: 24),

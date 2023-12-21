@@ -6,14 +6,19 @@ class GetProduct {
   static var client = http.Client();
 
   static Future<List<Products>?> fetchProducts() async {
-    var response = await client.get(Uri.parse(
-        'http://mkonekt.scienceontheweb.net/mkulimaApp/product/getProduct.php'));
-    if (response.statusCode == 200) {
-      var jsonString = response.body;
-      return productsFromJson(jsonString);
-    } else {
-      //show error message
-      return null;
+    try {
+      var response = await client.get(Uri.parse(
+          'http://mkonekt.scienceontheweb.net/mkulimaApp/product/getProduct.php'));
+      if (response.statusCode == 200) {
+        var jsonString = response.body;
+        return productsFromJson(jsonString);
+      } else {
+        //show error message
+        return null;
+      }
+    } catch (e) {
+      // make it explicit that this function can throw exceptions
+      print(e);
     }
   }
 }
@@ -22,14 +27,19 @@ class GetCategory {
   static var client = http.Client();
 
   static Future<List<Category>?> fetchCategory() async {
-    var response = await client.get(Uri.parse(
-        'http://mkonekt.scienceontheweb.net/mkulimaApp/category/getCategory.php'));
-    if (response.statusCode == 200) {
-      var jsonString = response.body;
-      return categoryFromJson(jsonString);
-    } else {
-      //show error message
-      return null;
+    try {
+      var response = await client.get(Uri.parse(
+          'http://mkonekt.scienceontheweb.net/mkulimaApp/category/getCategory.php'));
+      if (response.statusCode == 200) {
+        var jsonString = response.body;
+        return categoryFromJson(jsonString);
+      } else {
+        //show error message
+        return null;
+      }
+    } catch (e) {
+      // make it explicit that this function can throw exceptions
+      print(e);
     }
   }
 }
