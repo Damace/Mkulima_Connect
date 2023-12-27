@@ -1,3 +1,6 @@
+import 'package:mkulima_connect/presentation/register_form_empty_screen/controller/auth_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'controller/form_otp_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,7 +13,8 @@ class FormOtpScreen extends GetWidget<FormOtpController> {
   late Color myColor;
   late Size mediaSize;
 
-  
+  final formkey = GlobalKey<FormState>();
+  TextEditingController otpController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -103,31 +107,39 @@ class FormOtpScreen extends GetWidget<FormOtpController> {
                         textAlign: TextAlign.left)),
                 Padding(
                     padding: getPadding(top: 50),
-                    child: Obx(() => PinCodeTextField(
-                        appContext: context,
-                        controller: controller.otpController.value,
-                        length: 6,
-                        obscureText: false,
-                        obscuringCharacter: '*',
-                        keyboardType: TextInputType.number,
-                        autoDismissKeyboard: true,
-                        enableActiveFill: true,
-                        inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly
-                        ],
-                        onChanged: (value) {},
-                        pinTheme: PinTheme(
-                            fieldHeight: getHorizontalSize(40),
-                            fieldWidth: getHorizontalSize(40),
-                            shape: PinCodeFieldShape.box,
-                            borderRadius:
-                                BorderRadius.circular(getHorizontalSize(25)),
-                            selectedFillColor: ColorConstant.gray100,
-                            activeFillColor: ColorConstant.gray100,
-                            inactiveFillColor: ColorConstant.gray100,
-                            inactiveColor: ColorConstant.default_color,
-                            selectedColor: ColorConstant.default_color,
-                            activeColor: ColorConstant.default_color)))),
+                    child: Form(
+                      key: formkey,
+                      child: PinCodeTextField(
+                          appContext: context,
+                          controller: otpController,
+                          length: 6,
+                          obscureText: false,
+                          obscuringCharacter: '*',
+                          keyboardType: TextInputType.number,
+                          autoDismissKeyboard: true,
+                          enableActiveFill: true,
+                          validator: (value) {
+                            if (otpController == null) {
+                              return 'This field is required';
+                            }
+                          },
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
+                          onChanged: (value) {},
+                          pinTheme: PinTheme(
+                              fieldHeight: getHorizontalSize(40),
+                              fieldWidth: getHorizontalSize(40),
+                              shape: PinCodeFieldShape.box,
+                              borderRadius:
+                                  BorderRadius.circular(getHorizontalSize(25)),
+                              selectedFillColor: ColorConstant.gray100,
+                              activeFillColor: ColorConstant.gray100,
+                              inactiveFillColor: ColorConstant.gray100,
+                              inactiveColor: ColorConstant.default_color,
+                              selectedColor: ColorConstant.default_color,
+                              activeColor: ColorConstant.default_color)),
+                    )),
                 Spacer(),
                 CustomButton(
                     height: getVerticalSize(50),
@@ -156,33 +168,66 @@ class FormOtpScreen extends GetWidget<FormOtpController> {
                                       letterSpacing: getHorizontalSize(0.36))),
                               Padding(
                                   padding: getPadding(left: 4),
-                                  child: TextButton(child: Text("lbl_resend_otp".tr,
-                                      overflow: TextOverflow.ellipsis,
-                                      textAlign: TextAlign.left,
-                                      style: AppStyle.txtdefaultcolor.copyWith(
-                                          letterSpacing:
-                                              getHorizontalSize(0.36))),
-                                              onPressed: () {
-                                                
-                                              },))
+                                  child: TextButton(
+                                    child: Text("lbl_resend_otp".tr,
+                                        overflow: TextOverflow.ellipsis,
+                                        textAlign: TextAlign.left,
+                                        style: AppStyle.txtdefaultcolor
+                                            .copyWith(
+                                                letterSpacing:
+                                                    getHorizontalSize(0.36))),
+                                    onPressed: () {},
+                                  ))
                             ])))
               ])),
       bottomNavigationBar: CustomButton(
           // color: ColorConstant.default_color,
           height: getVerticalSize(70),
-          text: "lbl_submit".tr,
+          text: "Verify OTP",
           margin: getMargin(left: 24, right: 24, bottom: 24),
           onTap: () {
-            onTapSubmit();
+            if (formkey.currentState!.validate()) {
+              AuthService.loginWithOtp(otp: otpController.text)
+                  .then((value) async {
+                if (value == "Success") {
+                  Get.toNamed(
+                    AppRoutes.services,
+                  );
+                  final SharedPreferences pref =
+                      await SharedPreferences.getInstance();
+                  pref.setString("phoneVerified", "true");
+
+                  Get.snackbar(
+                    "Successfully",
+                    "Your phone number has Verified",
+                    snackPosition: SnackPosition.BOTTOM,
+                    backgroundColor: Colors.green,
+                    colorText: Colors.white,
+                    icon: const Icon(Icons.error, color: Colors.white),
+                    shouldIconPulse: true,
+                    barBlur: 20,
+                  );
+                } else {
+                  Get.snackbar(
+                    "Error",
+                    "Invalid OTP Codes",
+                    snackPosition: SnackPosition.TOP,
+                    backgroundColor: Colors.red,
+                    colorText: Colors.white,
+                    icon: const Icon(Icons.error, color: Colors.white),
+                    shouldIconPulse: true,
+                    barBlur: 20,
+                  );
+                }
+              });
+            }
           }),
     ));
   }
 
   Widget _buildLoginButton() {
     return ElevatedButton(
-      onPressed: () {
-        //onTapHomepage();
-      },
+      onPressed: () {},
       style: ElevatedButton.styleFrom(
         backgroundColor: Color.fromARGB(255, 7, 105, 64),
         shape: const StadiumBorder(),
@@ -190,7 +235,7 @@ class FormOtpScreen extends GetWidget<FormOtpController> {
         shadowColor: myColor,
         minimumSize: const Size.fromHeight(60),
       ),
-      child: const Text("REGISTER"),
+      child: const Text("Verify OTP"),
     );
   }
 

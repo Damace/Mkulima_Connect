@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mkulima_connect/core/app_export.dart';
 import 'package:mkulima_connect/presentation/home_page/controller/category_controller.dart';
 import 'package:mkulima_connect/presentation/home_page/controller/product_controller.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ServicesScreen extends StatelessWidget {
   CategoryController categoryController = Get.put(CategoryController());
@@ -101,8 +102,7 @@ class ServicesScreen extends StatelessWidget {
                               style: TextStyle(
                                   fontSize: 25,
                                   fontWeight: FontWeight.bold,
-                                  fontFamily:
-                                      GoogleFonts.montserrat().fontFamily,
+                                  fontFamily:GoogleFonts.,
                                   letterSpacing: 2,
                                   color: Colors.yellow),
                               children: [
@@ -191,30 +191,33 @@ class ServicesScreen extends StatelessWidget {
                     SizedBox(height: MediaQuery.of(context).size.height * 0.03),
                     SizedBox(
                       width: MediaQuery.of(context).size.width - 20,
-                      child: Card(
-                        color: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          side: BorderSide(
-                              color: ColorConstant.default_color, width: 2.0),
-                          borderRadius: BorderRadiusDirectional.only(
-                            topEnd: Radius.circular(25),
-                            topStart: Radius.circular(25),
-                            bottomEnd: Radius.circular(25),
-                            bottomStart: Radius.circular(25),
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 35, left: 35),
+                        child: Card(
+                          color: ColorConstant.default_color,
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(
+                                color: ColorConstant.default_color, width: 2.0),
+                            borderRadius: BorderRadiusDirectional.only(
+                              topEnd: Radius.circular(15),
+                              topStart: Radius.circular(15),
+                              bottomEnd: Radius.circular(15),
+                              bottomStart: Radius.circular(15),
+                            ),
                           ),
+                          child: TextButton(
+                              onPressed: () {
+                                Get.toNamed(
+                                  AppRoutes.registerFormEmptyScreen,
+                                );
+                              },
+                              child: Text(
+                                "Get more Services >>",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
+                              )),
                         ),
-                        child: TextButton(
-                            onPressed: () {
-                              Get.toNamed(
-                                AppRoutes.registerFormEmptyScreen
-                              );
-                            },
-                            child: Text(
-                              "Get more Services >>",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: ColorConstant.default_color),
-                            )),
                       ),
                     )
                   ],
@@ -327,6 +330,9 @@ class ServicesScreen extends StatelessWidget {
                                                                       MainAxisSize
                                                                           .min,
                                                                   children: [
+                                                                    SizedBox(
+                                                                        height:
+                                                                            10),
                                                                     Row(
                                                                       mainAxisAlignment:
                                                                           MainAxisAlignment
@@ -421,14 +427,26 @@ class ServicesScreen extends StatelessWidget {
                                                                   .default_color,
                                                               shadowColor:
                                                                   Colors.grey,
-                                                              shape: RoundedRectangleBorder(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              100),
-                                                                  side: BorderSide(
-                                                                      color: ColorConstant
-                                                                          .default_color)),
+                                                              shape:
+                                                                  RoundedRectangleBorder(
+                                                                      borderRadius:
+                                                                          BorderRadiusDirectional
+                                                                              .only(
+                                                                        topEnd:
+                                                                            Radius.circular(15),
+                                                                        topStart:
+                                                                            Radius.circular(15),
+                                                                        bottomEnd:
+                                                                            Radius.circular(15),
+                                                                        bottomStart:
+                                                                            Radius.circular(15),
+                                                                      ),
+
+                                                                      // --------------------------------------------------------------------------------------------------------------------------
+
+                                                                      side: BorderSide(
+                                                                          color:
+                                                                              ColorConstant.default_color)),
                                                               elevation: 4,
                                                               child: Container(
                                                                 height: MediaQuery.of(
@@ -612,9 +630,19 @@ class ServicesScreen extends StatelessWidget {
                                                                       Colors
                                                                           .grey,
                                                                   shape: RoundedRectangleBorder(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              100),
+                                                                               borderRadius:
+                                                                          BorderRadiusDirectional
+                                                                              .only(
+                                                                        topEnd:
+                                                                            Radius.circular(15),
+                                                                        topStart:
+                                                                            Radius.circular(15),
+                                                                        bottomEnd:
+                                                                            Radius.circular(15),
+                                                                        bottomStart:
+                                                                            Radius.circular(15),
+                                                                      ),
+
                                                                       side: BorderSide(
                                                                           color: ColorConstant
                                                                               .default_color)),
@@ -805,9 +833,19 @@ class ServicesScreen extends StatelessWidget {
                                                                       Colors
                                                                           .grey,
                                                                   shape: RoundedRectangleBorder(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              100),
+                                                                                borderRadius:
+                                                                          BorderRadiusDirectional
+                                                                              .only(
+                                                                        topEnd:
+                                                                            Radius.circular(15),
+                                                                        topStart:
+                                                                            Radius.circular(15),
+                                                                        bottomEnd:
+                                                                            Radius.circular(15),
+                                                                        bottomStart:
+                                                                            Radius.circular(15),
+                                                                      ),
+
                                                                       side: BorderSide(
                                                                           color: ColorConstant
                                                                               .default_color)),
@@ -938,7 +976,9 @@ class ServicesScreen extends StatelessWidget {
                                                                                 color: Colors.grey,
                                                                               ),
                                                                               TextButton(
-                                                                                  onPressed: () {},
+                                                                                  onPressed: () {
+                                                                                    pembejeo();
+                                                                                  },
                                                                                   child: Text(
                                                                                     "Aina za Pembejeo",
                                                                                     style: TextStyle(fontWeight: FontWeight.bold, color: ColorConstant.default_color),
@@ -978,9 +1018,19 @@ class ServicesScreen extends StatelessWidget {
                                                                       Colors
                                                                           .grey,
                                                                   shape: RoundedRectangleBorder(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              100),
+                                                                              borderRadius:
+                                                                          BorderRadiusDirectional
+                                                                              .only(
+                                                                        topEnd:
+                                                                            Radius.circular(15),
+                                                                        topStart:
+                                                                            Radius.circular(15),
+                                                                        bottomEnd:
+                                                                            Radius.circular(15),
+                                                                        bottomStart:
+                                                                            Radius.circular(15),
+                                                                      ),
+
                                                                       side: BorderSide(
                                                                           color: ColorConstant
                                                                               .default_color)),
@@ -1151,9 +1201,19 @@ class ServicesScreen extends StatelessWidget {
                                                                       Colors
                                                                           .grey,
                                                                   shape: RoundedRectangleBorder(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              100),
+                                                                               borderRadius:
+                                                                          BorderRadiusDirectional
+                                                                              .only(
+                                                                        topEnd:
+                                                                            Radius.circular(15),
+                                                                        topStart:
+                                                                            Radius.circular(15),
+                                                                        bottomEnd:
+                                                                            Radius.circular(15),
+                                                                        bottomStart:
+                                                                            Radius.circular(15),
+                                                                      ),
+
                                                                       side: BorderSide(
                                                                           color: ColorConstant
                                                                               .default_color)),
@@ -1363,12 +1423,26 @@ class ServicesScreen extends StatelessWidget {
                                                                   color: ColorConstant
                                                                       .default_color,
                                                                   shadowColor:
-                                                                      Colors
-                                                                          .grey,
+                                                                      const Color
+                                                                          .fromRGBO(
+                                                                          158,
+                                                                          158,
+                                                                          158,
+                                                                          1),
                                                                   shape: RoundedRectangleBorder(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              100),
+                                                                               borderRadius:
+                                                                          BorderRadiusDirectional
+                                                                              .only(
+                                                                        topEnd:
+                                                                            Radius.circular(15),
+                                                                        topStart:
+                                                                            Radius.circular(15),
+                                                                        bottomEnd:
+                                                                            Radius.circular(15),
+                                                                        bottomStart:
+                                                                            Radius.circular(15),
+                                                                      ),
+
                                                                       side: BorderSide(
                                                                           color: ColorConstant
                                                                               .default_color)),
@@ -1481,7 +1555,7 @@ class ServicesScreen extends StatelessWidget {
             BottomNavigationBarItem(
                 icon: InkWell(
                   onTap: () {
-                    login();
+                    Get.toNamed(AppRoutes.transactionTabContainerPage);
                   },
                   child: Icon(
                     Icons.account_circle_outlined,
@@ -1581,31 +1655,59 @@ class ServicesScreen extends StatelessWidget {
     );
   }
 
-  // ----------------------------------------------------------------------------------------------------
+  Future<void> pembejeo() async {
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    var phoneVerified = pref.getString("phoneVerified");
 
-  login() {
-    Get.toNamed(
-      AppRoutes.transactionPage,
-    );
+    if (phoneVerified == "true") {
+      Get.snackbar(
+        "Mkulima Konekti!",
+        "Please Complete Registration",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+        icon: const Icon(Icons.error, color: Colors.white),
+        shouldIconPulse: true,
+        barBlur: 20,
+        onTap: (snack) {
+          Get.toNamed(
+            AppRoutes.transactionTabContainerPage,
+          );
+        },
+      );
+    } else {
+      Get.toNamed(
+        AppRoutes.homeContainerScreen,
+      );
+    }
+    ;
   }
+}
+// ----------------------------------------------------------------------------------------------------
 
-  buySell() {
-    Get.toNamed(
-      AppRoutes.homeContainerScreen,
-    );
-  }
+login() {
+  Get.toNamed(
+    AppRoutes.transactionPage,
+  );
+}
 
-  //------------------------------------------------------------------------------------------------------
+buySell() {
+  Get.toNamed(
+    AppRoutes.homeContainerScreen,
+  );
+}
 
-  onTapItemPromotion() {
-    Get.toNamed(AppRoutes.promotionScreen);
-  }
+//------------------------------------------------------------------------------------------------------
 
-  onTapCategory() {
-    Get.toNamed(
-      AppRoutes.categorylist,
-    );
-  }
+onTapItemPromotion() {
+  Get.toNamed(AppRoutes.promotionScreen);
+}
+
+onTapCategory() {
+  Get.toNamed(
+    AppRoutes.categorylist,
+  );
+}
 
 /*
   onTapColumnshape() {
@@ -1616,11 +1718,10 @@ class ServicesScreen extends StatelessWidget {
 
   */
 
-  onTaOurpartners() {
-    Get.toNamed(
-      AppRoutes.partnersList,
-    );
-  }
+onTaOurpartners() {
+  Get.toNamed(
+    AppRoutes.partnersList,
+  );
 }
 
 class CategoryCard extends StatelessWidget {

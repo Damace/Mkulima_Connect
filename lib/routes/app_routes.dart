@@ -94,6 +94,8 @@ import 'package:mkulima_connect/presentation/add_review_fill_screen/add_review_f
 import 'package:mkulima_connect/presentation/add_review_fill_screen/binding/add_review_fill_binding.dart';
 import 'package:mkulima_connect/presentation/payment_paypal_tab_container_screen/payment_paypal_tab_container_screen.dart';
 import 'package:mkulima_connect/presentation/payment_paypal_tab_container_screen/binding/payment_paypal_tab_container_binding.dart';
+import 'package:mkulima_connect/presentation/transaction_tab_container_page/binding/transaction_binding.dart';
+import 'package:mkulima_connect/presentation/transaction_tab_container_page/transaction_tab_container_page.dart';
 import 'package:mkulima_connect/presentation/user_empty_screen/user_empty_screen.dart';
 import 'package:mkulima_connect/presentation/user_empty_screen/binding/user_empty_binding.dart';
 import 'package:mkulima_connect/presentation/edit_form_screen/edit_form_screen.dart';
@@ -188,8 +190,7 @@ class AppRoutes {
 
   static const String transactionPage = '/transaction_page';
 
-  static const String transactionTabContainerPage =
-      '/transaction_tab_container_page';
+  static const String transactionTabContainerPage ='/transaction_tab_container_page';
 
   static const String listingsPage = '/listings_page';
 
@@ -692,6 +693,14 @@ class AppRoutes {
         ServicesBinding(),
       ],
     ),
+    
+    GetPage(
+      name: transactionTabContainerPage,
+      page: () => TransactionTabContainerPage(),
+      bindings: [
+        TransactionBinding(),
+      ],
+    ),  
 
   ];
 }

@@ -16,7 +16,7 @@ dependencies:
   flutter_rating_bar: ^4.0.0
   google_maps_flutter: ^2.0.0
   pin_code_fields: ^7.3.0
-  sms_autofill: ^2.0.0
+  sms_autofill: ^2.1.2
   pin_input_text_field: 4.1.0
   intl: ^0.18.1
   flutter_launcher_icons: ^0.13.1
@@ -33,6 +33,7 @@ dependencies:
   country_code_picker: ^3.0.0
   firebase_core: ^2.24.2
   firebase_auth: ^4.15.3
+  timer_count_down: ^2.2.2
 dev_dependencies: 
   flutter_test: 
     sdk: flutter

@@ -21,23 +21,24 @@ class SplashScreen extends GetWidget<SplashController> {
 
     return SafeArea(
         child: Scaffold(
-            backgroundColor: Colors.white,
+            backgroundColor: const Color.fromARGB(255, 121, 193, 67),
             extendBody: true,
             extendBodyBehindAppBar: true,
-            body: Container(
-              width: size.width,
-              height: size.height,
-              decoration: BoxDecoration(  
-              
-                  image: DecorationImage(
-                    image: const AssetImage("assets/images/bg0.png"),
-                    fit: BoxFit.fill
+            body: Center(
+                child: Card(
+                    elevation: 2,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(
+                            100))), // Apply elevation for a shadow effect
 
-                    //image: AssetImage(ImageConstant.imgSplashscreen),
-                  )
-                  
-                  
-                  ),
-            )));
+                    color: Colors.white,
+                    // Set the background color of the card
+                    child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Image(
+                          image: AssetImage("assets/images/mclogo.png"),
+                          height: 100,
+                          width: 100,
+                        ))))));
   }
 }

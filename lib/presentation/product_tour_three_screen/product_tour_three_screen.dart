@@ -113,7 +113,7 @@ class ProductTourThreeScreen extends GetWidget<ProductTourThreeController> {
 
   onTapHome() {
     Get.toNamed(
-      AppRoutes.services,
+      AppRoutes.registerFormEmptyScreen,
     );
   }
 }

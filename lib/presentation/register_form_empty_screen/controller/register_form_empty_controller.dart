@@ -1,35 +1,12 @@
-import 'dart:convert';
-import 'dart:developer';
-
 import 'package:mkulima_connect/core/app_export.dart';
+
 import 'package:mkulima_connect/presentation/register_form_empty_screen/models/register_form_empty_model.dart';
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
 class RegisterFormEmptyController extends GetxController {
   Rx<RegisterFormEmptyModel> registerFormEmptyModelObj =
       RegisterFormEmptyModel().obs;
-  final GlobalKey<FormState> signupFormKey =
-      GlobalKey<FormState>(debugLabel: '__signupFormKey__');
-
-  TextEditingController firstNameController = TextEditingController();
-  TextEditingController lastNameController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-
-  final formFirstNameFieldKey = GlobalKey<FormFieldState>();
-  final formLastNameFieldKey = GlobalKey<FormFieldState>();
-  final formEmailFieldKey = GlobalKey<FormFieldState>();
-  final formPasswordFieldKey = GlobalKey<FormFieldState>();
-
-  FocusNode usernameFocusNode = FocusNode();
-  FocusNode emailFocusNode = FocusNode();
-  FocusNode passwordFocusNode = FocusNode();
-  FocusNode confirmPasswordFocusNode = FocusNode();
 
   void onInit() {
-    //_addListener();
-    // textFieldFocusNode.hasFocus = false;
     super.onInit();
   }
 
@@ -41,32 +18,9 @@ class RegisterFormEmptyController extends GetxController {
   @override
   void onClose() {
     super.onClose();
-    firstNameController.dispose();
-    lastNameController.dispose();
-    emailController.dispose();
-    passwordController.dispose();
   }
 
-  void _addListener() {
-    usernameFocusNode.addListener(() {
-      log('usernameFocusNode-----${usernameFocusNode.hasFocus}');
-      if (!usernameFocusNode.hasFocus) {
-        formFirstNameFieldKey.currentState!.validate();
-        // fieldLostFocus = usernameController.hashCode.toString();
-      }
-    });
-    emailFocusNode.addListener(() {
-      log('emailFocusNode-----${emailFocusNode.hasFocus}');
-      if (!emailFocusNode.hasFocus) {
-        formEmailFieldKey.currentState!.validate();
-      }
-    });
-    passwordFocusNode.addListener(() {
-      if (!passwordFocusNode.hasFocus) {
-        formPasswordFieldKey.currentState!.validate();
-      }
-    });
-  }
+/*
 
   String? usernameValidator(String? value) {
     // if(fieldLostFocus == usernameController.hashCode)
@@ -104,18 +58,6 @@ class RegisterFormEmptyController extends GetxController {
     return null;
   }
 
-  String? confirmPasswordValidator(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'This field is required';
-    }
-    log('${value}--${passwordController.value.text}');
-    if (value != passwordController.value.text) {
-      return 'Confimation password does not match the entered password';
-    }
-
-    return null;
-  }
-
   String? validator(String? value) {
     log('validatoooor');
 
@@ -125,30 +67,7 @@ class RegisterFormEmptyController extends GetxController {
     return null;
   }
 
-  Future<void> signup() async {
-    // log('${emailController.text}, ${passwordController.text}');
-    if (signupFormKey.currentState!.validate()) {
-      try {
-        var data = <String, String>{
-          'username': firstNameController.text,
-          'email': emailController.text,
-        };
-
-        //if (ConfigAPI.loginWithPassword) {
-        // signIn(usernameController.text, passwordController.text);
-        //}
-      } catch (err, _) {
-        // message = 'There is an issue with the app during request the data, '
-        //         'please contact admin for fixing the issues ' +
-
-        //   passwordController.clear();
-        // confirmPasswordController.clear();
-        rethrow;
-      }
-    } else {
-      throw Exception('An error occurred, invalid inputs value');
-    }
-  }
+*/
 
 /*
 
@@ -166,11 +85,10 @@ class RegisterFormEmptyController extends GetxController {
 
 */
 
-  Future<void> register() async {
-
-      Get.toNamed(
-          AppRoutes.formOtpScreen,
-        );
+  Future<void> registerrrrrrr() async {
+    // Get.toNamed(
+    // AppRoutes.formOtpScreen,
+    //);
 
 /*
 
@@ -234,9 +152,5 @@ class RegisterFormEmptyController extends GetxController {
     }
 
 */
-
-
-
-
   }
 }

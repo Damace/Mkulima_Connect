@@ -1,3 +1,5 @@
+import 'package:flutter/services.dart';
+
 import 'controller/transaction_tab_container_controller.dart';
 import 'models/transaction_tab_container_model.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +15,11 @@ class TransactionTabContainerPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+       SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: ColorConstant.default_color.withOpacity(0),
+      statusBarBrightness: Brightness.light,
+      statusBarIconBrightness: Brightness.light,
+    ));
     return SafeArea(
         child: Scaffold(
             backgroundColor: ColorConstant.whiteA700,
@@ -22,240 +29,344 @@ class TransactionTabContainerPage extends StatelessWidget {
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Align(
-                                alignment: Alignment.centerRight,
-                                child: Padding(
-                                    padding: getPadding(top: 24, right: 24),
-                                    child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          Padding(
-                                              padding: getPadding(
-                                                  top: 17, bottom: 15),
-                                              child: Text("lbl_profile".tr,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  textAlign: TextAlign.left,
-                                                  style: AppStyle
-                                                      .txtRalewayBold14)),
-                                          CustomIconButton(
-                                              height: 50,
-                                              width: 50,
-                                              margin: getMargin(left: 91),
-                                              variant:
-                                                  IconButtonVariant.FillGray100,
-                                              shape: IconButtonShape
-                                                  .CircleBorder25,
-                                              padding: IconButtonPadding
-                                                  .PaddingAll16,
-                                              child: CustomImageView(
-                                                  svgPath: ImageConstant
-                                                      .imgC6f6d1d0a80c478fac3dcfbb08744752))
-                                        ]))),
-                            Container(
-                                height: getSize(100),
-                                width: getSize(100),
-                                margin: getMargin(top: 20),
-                                child: Stack(
-                                    alignment: Alignment.bottomRight,
+                      Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(30),
+                              bottomRight: Radius.circular(30),
+                            ),
+                            color: ColorConstant.default_color),
+                        child: Padding(
+                          padding: getPadding(bottom: 15),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 20, right: 20),
+                                child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
-                                      CustomImageView(
-                                          imagePath:
-                                              ImageConstant.imgShape100x1008,
-                                          height: getSize(100),
-                                          width: getSize(100),
-                                          radius: BorderRadius.circular(
-                                              getHorizontalSize(50)),
-                                          alignment: Alignment.center),
+                                      InkWell(
+                                        onTap: () {
+                                           onTapArrowleft14();
+                                        },
+                                        child: Icon(
+                                          Icons.arrow_back_ios,
+                                          color: Colors.white,
+                                        ),
+                                      ),
                                       CustomIconButton(
-                                          height: 30,
-                                          width: 30,
-                                          variant: IconButtonVariant.FillGreenA400,
-                                          shape:
-                                              IconButtonShape.RoundedBorder17,
-                                          padding:
-                                              IconButtonPadding.PaddingAll9,
-                                          alignment: Alignment.bottomRight,
                                           onTap: () {
-                                            onTapBtnEdit();
+                                            showModalBottomSheet(
+                                              isScrollControlled: true,
+                                              context: context,
+                                              backgroundColor: Colors.white,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadiusDirectional
+                                                        .only(
+                                                  topEnd: Radius.circular(25),
+                                                  topStart: Radius.circular(25),
+                                                ),
+                                              ),
+                                              builder: (context) =>
+                                                  SingleChildScrollView(
+                                                padding:
+                                                    EdgeInsetsDirectional.only(
+                                                  bottom: 0,
+                                                  top: 8,
+                                                ),
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  children: [
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Container(
+                                                          decoration:
+                                                              BoxDecoration(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .all(
+                                                                    Radius
+                                                                        .circular(
+                                                                            10),
+                                                                  ),
+                                                                  color: ColorConstant
+                                                                      .default_color,
+                                                                  boxShadow: [
+                                                                BoxShadow(
+                                                                  color: ColorConstant
+                                                                      .default_color,
+                                                                  blurRadius: 3,
+                                                                ),
+                                                              ]),
+                                                          child: Text(
+                                                              "                            "),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    Card(
+                                                      elevation: 0,
+                                                      child: Row(
+                                                        children: [
+                                                          Icon(
+                                                            Icons.language,
+                                                            color: Colors.grey,
+                                                          ),
+                                                          TextButton(
+                                                              onPressed: () {},
+                                                              child: Text(
+                                                                "Change Language",
+                                                                style: TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    color: ColorConstant
+                                                                        .default_color),
+                                                              ))
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            );
                                           },
+                                          height: 50,
+                                          width: 50,
+                                          margin: getMargin(left: 91),
+                                          variant:
+                                              IconButtonVariant.FillGray100,
+                                          shape: IconButtonShape.CircleBorder25,
+                                          padding:
+                                              IconButtonPadding.PaddingAll16,
                                           child: CustomImageView(
                                               svgPath: ImageConstant
-                                                  .img9ce8cff206464d90abe590abdd2875e0))
-                                    ])),
-                            Padding(
-                                padding: getPadding(top: 9),
-                                child: Text("msg_jonathan_anders".tr,
+                                                  .imgC6f6d1d0a80c478fac3dcfbb08744752))
+                                    ]),
+                              ),
+                              Container(
+                                  height: getSize(100),
+                                  width: getSize(100),
+                                  margin: getMargin(top: 20),
+                                  child: Stack(
+                                      alignment: Alignment.bottomRight,
+                                      children: [
+                                        CustomImageView(
+                                            imagePath:
+                                                ImageConstant.imgShape100x1008,
+                                            height: getSize(100),
+                                            width: getSize(100),
+                                            radius: BorderRadius.circular(
+                                                getHorizontalSize(50)),
+                                            alignment: Alignment.center),
+                                        CustomIconButton(
+                                            height: 30,
+                                            width: 30,
+                                            variant:
+                                                IconButtonVariant.FillGreenA400,
+                                            shape:
+                                                IconButtonShape.RoundedBorder17,
+                                            padding:
+                                                IconButtonPadding.PaddingAll9,
+                                            alignment: Alignment.bottomRight,
+                                            onTap: () {
+                                              onTapBtnEdit();
+                                            },
+                                            child: CustomImageView(
+                                                svgPath: ImageConstant
+                                                    .img9ce8cff206464d90abe590abdd2875e0))
+                                      ])),
+                              Padding(
+                                  padding: getPadding(top: 9),
+                                  child: Text(
+                                    "Alex  MMwaakalikammo",
                                     overflow: TextOverflow.ellipsis,
                                     textAlign: TextAlign.left,
                                     style: AppStyle.txtRalewayBold14.copyWith(
-                                        letterSpacing:
-                                            getHorizontalSize(0.42)))),
-                            Padding(
-                                padding: getPadding(top: 4),
-                                child: Text("msg_jonathan_email".tr,
-                                    overflow: TextOverflow.ellipsis,
-                                    textAlign: TextAlign.left,
-                                    style: AppStyle.txtRalewaySemiBold10
-                                        .copyWith(
-                                            letterSpacing:
-                                                getHorizontalSize(0.3)))),
-                            Padding(
-                                padding:
-                                    getPadding(left: 24, top: 18, right: 25),
-                                child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                          padding: getPadding(
-                                              left: 29,
-                                              top: 16,
-                                              right: 29,
-                                              bottom: 16),
-                                          decoration: AppDecoration
-                                              .outlineBluegray501
-                                              .copyWith(
-                                                  borderRadius:
-                                                      BorderRadiusStyle
-                                                          .circleBorder20),
-                                          child: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: [
-                                                Text("lbl_302".tr,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    textAlign: TextAlign.left,
-                                                    style: AppStyle
-                                                        .txtMontserratBold14
-                                                        .copyWith(
-                                                            letterSpacing:
-                                                                getHorizontalSize(
-                                                                    0.42))),
-                                                Padding(
-                                                    padding: getPadding(top: 6),
-                                                    child: Text(
-                                                        "lbl_listings".tr,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        textAlign:
-                                                            TextAlign.left,
-                                                        style: AppStyle
-                                                            .txtMontserratMedium10
-                                                            .copyWith(
-                                                                letterSpacing:
-                                                                    getHorizontalSize(
-                                                                        0.3))))
-                                              ])),
-                                      Container(
-                                          margin: getMargin(left: 10),
-                                          padding: getPadding(
-                                              left: 39,
-                                              top: 16,
-                                              right: 39,
-                                              bottom: 16),
-                                          decoration: AppDecoration
-                                              .outlineBluegray501
-                                              .copyWith(
-                                                  borderRadius:
-                                                      BorderRadiusStyle
-                                                          .circleBorder20),
-                                          child: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Text("lbl_122".tr,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    textAlign: TextAlign.left,
-                                                    style: AppStyle
-                                                        .txtMontserratBold14
-                                                        .copyWith(
-                                                            letterSpacing:
-                                                                getHorizontalSize(
-                                                                    0.42))),
-                                                Padding(
-                                                    padding: getPadding(
-                                                        top: 5, bottom: 1),
-                                                    child: Text("lbl_sold".tr,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        textAlign:
-                                                            TextAlign.left,
-                                                        style: AppStyle
-                                                            .txtMontserratMedium10
-                                                            .copyWith(
-                                                                letterSpacing:
-                                                                    getHorizontalSize(
-                                                                        0.3))))
-                                              ])),
-                                      Container(
-                                          margin: getMargin(left: 10),
-                                          padding: getPadding(
-                                              left: 28,
-                                              top: 16,
-                                              right: 28,
-                                              bottom: 16),
-                                          decoration: AppDecoration
-                                              .outlineBluegray501
-                                              .copyWith(
-                                                  borderRadius:
-                                                      BorderRadiusStyle
-                                                          .circleBorder20),
-                                          child: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Padding(
-                                                    padding:
-                                                        getPadding(left: 12),
-                                                    child: Text("lbl_282".tr,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        textAlign:
-                                                            TextAlign.left,
-                                                        style: AppStyle
-                                                            .txtMontserratBold14
-                                                            .copyWith(
-                                                                letterSpacing:
-                                                                    getHorizontalSize(
-                                                                        0.42)))),
-                                                Padding(
-                                                    padding: getPadding(
-                                                        left: 1,
-                                                        top: 5,
-                                                        bottom: 1),
-                                                    child: Text(
-                                                        "lbl_reviews".tr,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        textAlign:
-                                                            TextAlign.left,
-                                                        style: AppStyle
-                                                            .txtMontserratMedium10
-                                                            .copyWith(
-                                                                letterSpacing:
-                                                                    getHorizontalSize(
-                                                                        0.3))))
-                                              ]))
-                                    ])),
+                                        letterSpacing: getHorizontalSize(0.42),
+                                        color: Colors.white),
+                                  )),
+                              Padding(
+                                  padding: getPadding(top: 4),
+                                  child: Text("boniphaacce10@gmail.com",
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.left,
+                                      style: AppStyle.txtRalewaySemiBold10
+                                          .copyWith(
+                                              letterSpacing:
+                                                  getHorizontalSize(0.3),
+                                              color: Colors.white))),
+                              Padding(
+                                  padding:
+                                      getPadding(left: 24, top: 18, right: 25),
+                                  child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                            padding: getPadding(
+                                                left: 20,
+                                                top: 16,
+                                                right: 20,
+                                                bottom: 16),
+                                            decoration: AppDecoration
+                                                .outlineBluegray501
+                                                .copyWith(
+                                                    borderRadius:
+                                                        BorderRadiusStyle
+                                                            .circleBorder20),
+                                            child: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  InkWell(
+                                                    onTap: () {},
+                                                    child: Icon(
+                                                      Icons
+                                                          .shopping_bag_rounded,
+                                                      color: Colors.white,
+                                                      size: 32,
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                      padding:
+                                                          getPadding(top: 6),
+                                                      child: Text("Buy now",
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          textAlign:
+                                                              TextAlign.left,
+                                                          style: AppStyle
+                                                              .txtMontserratMedium10
+                                                              .copyWith(
+                                                                  letterSpacing:
+                                                                      getHorizontalSize(
+                                                                          0.3),
+                                                                  color: Colors
+                                                                      .white)))
+                                                ])),
+                                        Container(
+                                            margin: getMargin(left: 10),
+                                            padding: getPadding(
+                                                left: 20,
+                                                top: 16,
+                                                right: 20,
+                                                bottom: 16),
+                                            decoration: AppDecoration
+                                                .outlineBluegray501
+                                                .copyWith(
+                                                    borderRadius:
+                                                        BorderRadiusStyle
+                                                            .circleBorder20),
+                                            child: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  InkWell(
+                                                    onTap: () {},
+                                                    child: Icon(
+                                                      Icons
+                                                          .shopping_bag_rounded,
+                                                      color: Colors.white,
+                                                      size: 32,
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                      padding:
+                                                          getPadding(top: 6),
+                                                      child: Text("Buy now",
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          textAlign:
+                                                              TextAlign.left,
+                                                          style: AppStyle
+                                                              .txtMontserratMedium10
+                                                              .copyWith(
+                                                                  letterSpacing:
+                                                                      getHorizontalSize(
+                                                                          0.3),
+                                                                  color: Colors
+                                                                      .white)))
+                                                ])),
+                                        Container(
+                                            margin: getMargin(left: 10),
+                                            padding: getPadding(
+                                                left: 20,
+                                                top: 16,
+                                                right: 20,
+                                                bottom: 16),
+                                            decoration: AppDecoration
+                                                .outlineBluegray501
+                                                .copyWith(
+                                                    borderRadius:
+                                                        BorderRadiusStyle
+                                                            .circleBorder20),
+                                            child: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  InkWell(
+                                                    onTap: () {},
+                                                    child: Icon(
+                                                      Icons
+                                                          .shopping_bag_rounded,
+                                                      color: Colors.white,
+                                                      size: 32,
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                      padding:
+                                                          getPadding(top: 6),
+                                                      child: Text("Buy now",
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          textAlign:
+                                                              TextAlign.left,
+                                                          style: AppStyle
+                                                              .txtMontserratMedium10
+                                                              .copyWith(
+                                                                  letterSpacing:
+                                                                      getHorizontalSize(
+                                                                          0.3),
+                                                                  color: Colors
+                                                                      .white)))
+                                                ]))
+                                      ])),
+                            ],
+                          ),
+                        ),
+                      ),
+
+// ----------------------------------------------------------------------------------------------------------------------------------------
+
+                      Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
                             Container(
                                 width: getHorizontalSize(327),
-                                margin: getMargin(left: 24, top: 20, right: 24),
+                                margin: getMargin(left: 10, top: 20, right: 10),
                                 padding: getPadding(
                                     left: 8, top: 9, right: 8, bottom: 9),
-                                decoration: AppDecoration.fillGray100.copyWith(
+                                decoration: BoxDecoration(
+                                    color: ColorConstant.default_color,
                                     borderRadius:
-                                        BorderRadiusStyle.roundedBorder25),
+                                        BorderRadius.all(Radius.circular(30))),
                                 child: Column(
                                     mainAxisSize: MainAxisSize.min,
                                     crossAxisAlignment:
@@ -268,21 +379,20 @@ class TransactionTabContainerPage extends StatelessWidget {
                                           child: TabBar(
                                               controller:
                                                   controller.layoutController,
-                                              labelColor:
-                                                  ColorConstant.blueGray80001,
+                                              labelColor: Color.fromARGB(
+                                                  255, 25, 160, 84),
                                               labelStyle: TextStyle(
                                                   fontSize: getFontSize(12),
                                                   fontFamily: 'Raleway',
                                                   fontWeight: FontWeight.w600),
                                               unselectedLabelColor:
-                                                  ColorConstant.indigo200,
+                                                  Colors.white,
                                               unselectedLabelStyle: TextStyle(
                                                   fontSize: getFontSize(12),
                                                   fontFamily: 'Raleway',
                                                   fontWeight: FontWeight.w600),
                                               indicator: BoxDecoration(
-                                                  color:
-                                                      ColorConstant.whiteA700,
+                                                  color: Colors.white,
                                                   borderRadius:
                                                       BorderRadius.circular(
                                                           getHorizontalSize(
@@ -294,12 +404,11 @@ class TransactionTabContainerPage extends StatelessWidget {
                                                         overflow: TextOverflow
                                                             .ellipsis)),
                                                 Tab(
-                                                    child: Text(
-                                                        "lbl_listings".tr,
+                                                    child: Text("Rating",
                                                         overflow: TextOverflow
                                                             .ellipsis)),
                                                 Tab(
-                                                    child: Text("lbl_sold".tr,
+                                                    child: Text("History",
                                                         overflow: TextOverflow
                                                             .ellipsis))
                                               ]))
@@ -309,17 +418,51 @@ class TransactionTabContainerPage extends StatelessWidget {
                                 child: TabBarView(
                                     controller: controller.layoutController,
                                     children: [
-                                      TransactionPage(),
-                                      ListingsPage(),
-                                      ListingsPage()
+                                      //TransactionPage(),
+                                      functionTransaction(context),
+                                      functionRating(context),
+                                      functionHistory(context)
                                     ]))
                           ])
                     ]))));
   }
 
+  onTapArrowleft14() {
+    Get.back();
+  }
   onTapBtnEdit() {
     Get.toNamed(
       AppRoutes.editProfileScreen,
+    );
+  }
+
+  functionTransaction(context) {
+    return Container(
+      child: Center(
+        child: Text("Empty"),
+      ),
+    );
+  }
+
+  functionRating(context) {
+    return Container(
+      child: Center(
+        child: Text(
+          "Empty",
+          style: TextStyle(color: Colors.red),
+        ),
+      ),
+    );
+  }
+
+  functionHistory(context) {
+    return Container(
+      child: Center(
+        child: Text(
+          "Empty",
+          style: TextStyle(color: Colors.green),
+        ),
+      ),
     );
   }
 }

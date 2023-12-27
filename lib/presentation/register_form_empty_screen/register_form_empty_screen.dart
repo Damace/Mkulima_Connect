@@ -1,17 +1,21 @@
 //import 'dart:developer';
 
+import 'package:mkulima_connect/presentation/register_form_empty_screen/controller/auth_service.dart';
+
 import 'controller/register_form_empty_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:mkulima_connect/core/app_export.dart';
 import 'package:mkulima_connect/domain/googleauth/google_auth_helper.dart';
 import 'package:mkulima_connect/domain/facebookauth/facebook_auth_helper.dart';
 
-
 // ignore: must_be_immutable
 class RegisterFormEmptyScreen extends GetWidget<RegisterFormEmptyController> {
   late Color myColor;
   late Size mediaSize;
   bool rememberUser = false;
+
+  final formkey = GlobalKey<FormState>();
+  TextEditingController phoneNumberController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -75,63 +79,63 @@ class RegisterFormEmptyScreen extends GetWidget<RegisterFormEmptyController> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Welcome",
+                          "Please enter your phone number",
                           style: TextStyle(
                               color: myColor,
-                              fontSize: 32,
+                              fontSize: 16,
                               fontWeight: FontWeight.w500),
                         ),
-                        _buildGreyText("Please Register with your information"),
+                        _buildGreyText(""),
 
                         SizedBox(
                             height: MediaQuery.of(context).size.height * 0.015),
                         //_buildInputField(emailController),
-                        TextFormField(
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            labelText: "Full name",
-                            prefixIcon: Icon(Icons.person),
-                          ),
-                          keyboardType: TextInputType.name,
-                          controller: controller.firstNameController,
-                          onSaved: (value) {
-                            controller.firstNameController =
-                                value! as TextEditingController;
-                          },
-                          //focusNode: controller.usernameFocusNode,
-                           validator: controller.usernameValidator,
+
+                        Form(
+                          key: formkey,
+                          child: TextFormField(
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                prefixText: "+255",
+                                labelText: "Phone number",
+                                prefixIcon: Icon(Icons.phone_android_rounded),
+                              ),
+                              keyboardType: TextInputType.number,
+                              controller: phoneNumberController,
+                              validator: (phoneNumber) =>
+                                  validatePhonenumber(phoneNumber)),
                         ),
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.015),
-                        //_buildInputField(emailController),
-                        TextFormField(
-                         key: controller.formEmailFieldKey,
-                          decoration: InputDecoration(  
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            labelText: "Phone number",
-                            prefixIcon: Icon(Icons.phone),
-                          ),
-                          keyboardType: TextInputType.number,
-                          controller: controller.emailController,
-                        //  focusNode: controller.usernameFocusNode,
-                           validator: controller.emailValidator,),
-
-
-                           
 
                         SizedBox(
                             height: MediaQuery.of(context).size.height * 0.015),
                         ElevatedButton(
-                          onPressed: ()  {
+                          onPressed: () {
+                            if (formkey.currentState!.validate()) {
+                              AuthService.sentOtp(
+                                  phone: phoneNumberController.text,
+                                  errorStep: () => ScaffoldMessenger.of(
+                                              context as BuildContext)
+                                          .showSnackBar(SnackBar(
+                                        content: Text(
+                                          "Error in sending OTP",
+                                          style: TextStyle(
+                                              color: const Color.fromARGB(
+                                                  255, 41, 40, 40)),
+                                        ),
+                                        backgroundColor: Colors.red,
+                                      )),
+                                  nextStep: () {
+                                    Get.toNamed(
+                                      AppRoutes.formOtpScreen,
+                                    );
+                                  });
+                            }
 
-                           controller.register();
-                         
+                            //   controller.register();
 
-                         /*
+                            /*
                                //register();
                              
                        // LoadingOverlay.show(message: 'Registering...');
@@ -162,9 +166,7 @@ class RegisterFormEmptyScreen extends GetWidget<RegisterFormEmptyController> {
                         
 
                          */
-                          }
-                          ,
-
+                          },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Color.fromARGB(255, 7, 105, 64),
                             shape: const StadiumBorder(),
@@ -172,7 +174,7 @@ class RegisterFormEmptyScreen extends GetWidget<RegisterFormEmptyController> {
                             shadowColor: myColor,
                             minimumSize: const Size.fromHeight(60),
                           ),
-                          child: const Text("REGISTER"),
+                          child: const Text("Get OTP"),
                         ),
                         SizedBox(
                             height: MediaQuery.of(context).size.height * 0.015),
@@ -270,7 +272,6 @@ class RegisterFormEmptyScreen extends GetWidget<RegisterFormEmptyController> {
   onTapImgGoogle() async {
     await GoogleAuthHelper().googleSignInProcess().then((googleUser) {
       if (googleUser != null) {
-        //TODO Actions to be performed after signin
       } else {
         Get.snackbar('Error', 'user data is empty');
       }
@@ -280,10 +281,29 @@ class RegisterFormEmptyScreen extends GetWidget<RegisterFormEmptyController> {
   }
 
   onTapImgFacebook() async {
-    await FacebookAuthHelper().facebookSignInProcess().then((facebookUser) {
-      //TODO Actions to be performed after signin
-    }).catchError((onError) {
+    await FacebookAuthHelper()
+        .facebookSignInProcess()
+        .then((facebookUser) {})
+        .catchError((onError) {
       Get.snackbar('Error', onError.toString());
     });
+  }
+
+  validateFullname(String? fullname) {
+    if (fullname == null || fullname.trim().isEmpty) {
+      return 'This field is required';
+    }
+
+    return null;
+  }
+
+  validatePhonenumber(String? phoneNumber) {
+    if (phoneNumber == null || phoneNumber.trim().isEmpty) {
+      return 'This field is required';
+    }
+    if (phoneNumber.trim().length == 13) {
+      return 'Phone number must be 13 characters in length';
+    }
+    return null;
   }
 }
