@@ -102,7 +102,8 @@ class ServicesScreen extends StatelessWidget {
                               style: TextStyle(
                                   fontSize: 25,
                                   fontWeight: FontWeight.bold,
-                                  fontFamily:GoogleFonts.,
+                                  fontFamily:
+                                      GoogleFonts.montserrat().fontFamily,
                                   letterSpacing: 2,
                                   color: Colors.yellow),
                               children: [
@@ -160,6 +161,7 @@ class ServicesScreen extends StatelessWidget {
                                 Icons.agriculture_outlined,
                                 size: 25,
                                 color: ColorConstant.default_color,
+                                // semanticLabel: 'Shop now',
                               ),
                             ),
                             VerticalDivider(
@@ -178,10 +180,18 @@ class ServicesScreen extends StatelessWidget {
                               color: ColorConstant.default_color,
                             ),
                             InkWell(
-                              child: Icon(
-                                Icons.shopping_cart_outlined,
-                                size: 25,
-                                color: ColorConstant.default_color,
+                              onTap: () {
+                                Get.toNamed(
+                                  AppRoutes.homeContainerScreen,
+                                );
+                              },
+                              child: Badge(
+                                label: Text("500 +"),
+                                child: Icon(
+                                  Icons.shopping_bag,
+                                  size: 25,
+                                  color: ColorConstant.default_color,
+                                ),
                               ),
                             ),
                           ],
@@ -206,11 +216,7 @@ class ServicesScreen extends StatelessWidget {
                             ),
                           ),
                           child: TextButton(
-                              onPressed: () {
-                                Get.toNamed(
-                                  AppRoutes.registerFormEmptyScreen,
-                                );
-                              },
+                              onPressed: () {},
                               child: Text(
                                 "Get more Services >>",
                                 style: TextStyle(
@@ -630,9 +636,7 @@ class ServicesScreen extends StatelessWidget {
                                                                       Colors
                                                                           .grey,
                                                                   shape: RoundedRectangleBorder(
-                                                                               borderRadius:
-                                                                          BorderRadiusDirectional
-                                                                              .only(
+                                                                      borderRadius: BorderRadiusDirectional.only(
                                                                         topEnd:
                                                                             Radius.circular(15),
                                                                         topStart:
@@ -642,13 +646,9 @@ class ServicesScreen extends StatelessWidget {
                                                                         bottomStart:
                                                                             Radius.circular(15),
                                                                       ),
-
-                                                                      side: BorderSide(
-                                                                          color: ColorConstant
-                                                                              .default_color)),
+                                                                      side: BorderSide(color: ColorConstant.default_color)),
                                                                   elevation: 4,
-                                                                  child:
-                                                                      Container(
+                                                                  child: Container(
                                                                     height: MediaQuery.of(context)
                                                                             .size
                                                                             .width *
@@ -833,9 +833,7 @@ class ServicesScreen extends StatelessWidget {
                                                                       Colors
                                                                           .grey,
                                                                   shape: RoundedRectangleBorder(
-                                                                                borderRadius:
-                                                                          BorderRadiusDirectional
-                                                                              .only(
+                                                                      borderRadius: BorderRadiusDirectional.only(
                                                                         topEnd:
                                                                             Radius.circular(15),
                                                                         topStart:
@@ -845,13 +843,9 @@ class ServicesScreen extends StatelessWidget {
                                                                         bottomStart:
                                                                             Radius.circular(15),
                                                                       ),
-
-                                                                      side: BorderSide(
-                                                                          color: ColorConstant
-                                                                              .default_color)),
+                                                                      side: BorderSide(color: ColorConstant.default_color)),
                                                                   elevation: 4,
-                                                                  child:
-                                                                      Container(
+                                                                  child: Container(
                                                                     height: MediaQuery.of(context)
                                                                             .size
                                                                             .width *
@@ -1018,9 +1012,7 @@ class ServicesScreen extends StatelessWidget {
                                                                       Colors
                                                                           .grey,
                                                                   shape: RoundedRectangleBorder(
-                                                                              borderRadius:
-                                                                          BorderRadiusDirectional
-                                                                              .only(
+                                                                      borderRadius: BorderRadiusDirectional.only(
                                                                         topEnd:
                                                                             Radius.circular(15),
                                                                         topStart:
@@ -1030,13 +1022,9 @@ class ServicesScreen extends StatelessWidget {
                                                                         bottomStart:
                                                                             Radius.circular(15),
                                                                       ),
-
-                                                                      side: BorderSide(
-                                                                          color: ColorConstant
-                                                                              .default_color)),
+                                                                      side: BorderSide(color: ColorConstant.default_color)),
                                                                   elevation: 4,
-                                                                  child:
-                                                                      Container(
+                                                                  child: Container(
                                                                     height: MediaQuery.of(context)
                                                                             .size
                                                                             .width *
@@ -1201,9 +1189,7 @@ class ServicesScreen extends StatelessWidget {
                                                                       Colors
                                                                           .grey,
                                                                   shape: RoundedRectangleBorder(
-                                                                               borderRadius:
-                                                                          BorderRadiusDirectional
-                                                                              .only(
+                                                                      borderRadius: BorderRadiusDirectional.only(
                                                                         topEnd:
                                                                             Radius.circular(15),
                                                                         topStart:
@@ -1213,13 +1199,9 @@ class ServicesScreen extends StatelessWidget {
                                                                         bottomStart:
                                                                             Radius.circular(15),
                                                                       ),
-
-                                                                      side: BorderSide(
-                                                                          color: ColorConstant
-                                                                              .default_color)),
+                                                                      side: BorderSide(color: ColorConstant.default_color)),
                                                                   elevation: 4,
-                                                                  child:
-                                                                      Container(
+                                                                  child: Container(
                                                                     height: MediaQuery.of(context)
                                                                             .size
                                                                             .width *
@@ -1430,9 +1412,7 @@ class ServicesScreen extends StatelessWidget {
                                                                           158,
                                                                           1),
                                                                   shape: RoundedRectangleBorder(
-                                                                               borderRadius:
-                                                                          BorderRadiusDirectional
-                                                                              .only(
+                                                                      borderRadius: BorderRadiusDirectional.only(
                                                                         topEnd:
                                                                             Radius.circular(15),
                                                                         topStart:
@@ -1442,13 +1422,9 @@ class ServicesScreen extends StatelessWidget {
                                                                         bottomStart:
                                                                             Radius.circular(15),
                                                                       ),
-
-                                                                      side: BorderSide(
-                                                                          color: ColorConstant
-                                                                              .default_color)),
+                                                                      side: BorderSide(color: ColorConstant.default_color)),
                                                                   elevation: 4,
-                                                                  child:
-                                                                      Container(
+                                                                  child: Container(
                                                                     height: MediaQuery.of(context)
                                                                             .size
                                                                             .width *

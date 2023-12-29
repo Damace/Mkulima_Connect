@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -19,716 +20,691 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: ColorConstant.default_color.withOpacity(0),
-      statusBarBrightness: Brightness.light,
-      statusBarIconBrightness: Brightness.light,
-    ));
-    return Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: ColorConstant.whiteA700,
-        body: Obx(
-          () => productController.isLoading.value
-              ? Text("  ")
-            
-                
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(statusBarColor: Colors.transparent));
 
-                //nTaOurpartners() {
-   // Get.toNamed(
-     // AppRoutes.partnersList,
-    //);
-              : Stack(children: [
-                  Positioned(
-                    top: 0,
-                    right: 0,
-                    left: 0,
-                    child: Container(
-                      height: 200,
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                        // image: AssetImage("assets/images/mclogo.png"),
-                        image: const AssetImage("assets/images/top.jpeg"),
-                        fit: BoxFit.fill,
-                      )),
-                      child: Container(
-                        padding: EdgeInsets.only(top: 8, left: 20),
-                        color: ColorConstant.default_color.withOpacity(.3),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: getPadding(right: 20),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  IconButton(
-                                      onPressed: () {
-                                        showModalBottomSheet(
-                                          isScrollControlled: true,
-                                          context: context,
-                                          backgroundColor: Colors.white,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadiusDirectional.only(
-                                              topEnd: Radius.circular(25),
-                                              topStart: Radius.circular(25),
-                                            ),
-                                          ),
-                                          builder: (context) =>
-                                              SingleChildScrollView(
-                                            padding: EdgeInsetsDirectional.only(
-                                              bottom: 0,
-                                              top: 8,
-                                            ),
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Container(
-                                                      decoration: BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius.all(
-                                                            Radius.circular(10),
-                                                          ),
-                                                          color: ColorConstant
-                                                              .default_color,
-                                                          boxShadow: [
-                                                            BoxShadow(
-                                                                color: ColorConstant
-                                                                    .default_color,
-                                                                blurRadius: 10,
-                                                                spreadRadius:
-                                                                    1),
-                                                          ]),
-                                                      child: Text(
-                                                          "                            "),
-                                                    ),
-                                                  ],
-                                                ),
-                                                Card(
-                                                  elevation: 0,
-                                                  child: Row(
-                                                    children: [
-                                                      Icon(
-                                                        Icons.newspaper,
-                                                        color: ColorConstant
-                                                            .default_color,
-                                                      ),
-                                                      TextButton(
-                                                          onPressed: () {},
-                                                          child: Text(
-                                                            "Marketing News / Crops Price",
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .black),
-                                                          ))
-                                                    ],
-                                                  ),
-                                                ),
-                                                Card(
-                                                  elevation: 0,
-                                                  child: Row(
-                                                    children: [
-                                                      Icon(
-                                                        Icons.category,
-                                                        color: ColorConstant
-                                                            .default_color,
-                                                      ),
-                                                      TextButton(
-                                                          onPressed: () {},
-                                                          child: Text(
-                                                            "Agricultural Inputs",
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .black),
-                                                          ))
-                                                    ],
-                                                  ),
-                                                ),
-                                                Card(
-                                                  elevation: 0,
-                                                  child: Row(
-                                                    children: [
-                                                      Icon(
-                                                        Icons.info_rounded,
-                                                        color: ColorConstant
-                                                            .default_color,
-                                                      ),
-                                                      TextButton(
-                                                          onPressed: () {},
-                                                          child: Text(
-                                                            "More info",
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .black),
-                                                          ))
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                      icon: Icon(
-                                        Platform.isAndroid
-                                            ? Icons.more_vert
-                                            : Icons.more_horiz,
-                                        color: Colors.white,
-                                        size: 30,
-                                      ))
-                                ],
-                              ),
+    return Scaffold(
+      backgroundColor: Color(0xfFE9EBEA),
+      body: ListView(
+        children:[ Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 15, left: 18, right: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    height: 50,
+                    width: 280,
+                    child: TextField(
+                      decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.search),
+                          hintText: "Search..",
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          )),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Badge(
+                    label: Text('1'),
+                    child: Icon(
+                      Icons.shopping_bag_outlined,
+                      size: 35,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Badge(
+                    label: Text('9+'),
+                    child: Icon(
+                      Icons.shopping_cart,
+                      size: 35,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            CarouselSlider(
+              items: [
+                // buildImage('https://example.com/image1.jpg'),
+                //buildImage('https://example.com/image2.jpg'),
+                //buildImage('https://example.com/image3.jpg'),
+      
+                buildImage('assets/images/top4.png'),
+                buildImage('assets/images/top4.png'),
+                buildImage('assets/images/top4.png'),
+      
+                // Your carousel items go here (e.g., Image.network, Container, etc.)
+                // Image.network('https://example.com/image1.jpg'),
+                //Image.network('https://example.com/image2.jpg'),
+                //Image.network('https://example.com/image3.jpg'),
+              ],
+              options: CarouselOptions(
+                aspectRatio: 16 / 9,
+                viewportFraction: 1.0,
+                autoPlay: true, // Set to true for auto-playing the carousel
+                autoPlayInterval: Duration(seconds: 5),
+                autoPlayAnimationDuration: Duration(milliseconds: 800),
+                autoPlayCurve: Curves.fastOutSlowIn,
+                enableInfiniteScroll: true,
+                onPageChanged: (index, reason) {
+                  // Callback when the page changes
+                },
+                scrollDirection:
+                    Axis.horizontal, // Set to Axis.vertical for vertical carousel
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 0.0),
+              child: Row(
+                children: [
+                  Container(
+                    height: 100,
+                    width: 410,
+                    color: Colors.white,
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              left: 5.0,
                             ),
-                            RichText(
-                                text: TextSpan(
-                                    text: "Mkulima",
-                                    style: TextStyle(
-                                        fontSize: 25,
-                                        letterSpacing: 2,
-                                        color: Colors.yellow),
-                                    children: [
-                                  TextSpan(
-                                      text: " Konekt",
-                                      style: TextStyle(
-                                          fontSize: 25,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.yellow))
-                                ])),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 18.0),
+                                  child: Container(
+                                    height: 35,
+                                    width: 35,
+                                    color: Color(0xffF6F6F6),
+                                    child: Icon(
+                                      Icons.ac_unit,
+                                      size: 32,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 20),
+                                  child: Text(
+                                    "Korosho",
+                                    textAlign: TextAlign.center,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 18.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 18.0),
+                                  child: Container(
+                                    height: 35,
+                                    width: 35,
+                                    color: Color(0xffF6F6F6),
+                                    child: Icon(
+                                      Icons.add_business_sharp,
+                                      size: 32,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 20),
+                                  child: Text(
+                                    "Bens",
+                                    textAlign: TextAlign.center,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 18.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 18.0),
+                                  child: Container(
+                                    height: 35,
+                                    width: 35,
+                                    color: Color(0xffF6F6F6),
+                                    child: Icon(
+                                      Icons.category,
+                                      size: 32,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 20),
+                                  child: Text(
+                                    "Maize",
+                                    textAlign: TextAlign.center,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 18.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 20.0),
+                                  child: Container(
+                                    height: 35,
+                                    width: 35,
+                                    color: Color(0xffF6F6F6),
+                                    child: Icon(
+                                      Icons.yard_outlined,
+                                      size: 32,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 20),
+                                  child: Text(
+                                    "Rice",
+                                    textAlign: TextAlign.center,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ]),
+                  )
+                ],
+              ),
+            ),
+            Container(
+              height: 30,
+              color: Color.fromARGB(255, 245, 241, 241),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 18.0, right: 18.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Best selling",
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    ),
+                    Text("More",
+                        style:
+                            TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                  ],
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
+              child: Row(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          height: 180,
+                          width: 180,
+                          decoration: BoxDecoration(
+                              color: Color.fromARGB(255, 240, 242, 242),
+                              image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: AssetImage("assets/images/shy.jpeg"),
+                              )),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          "Palachichi",
+                          style: TextStyle(
+                              color: Colors.grey, fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          "Essential Mens \nT-shirsshort\n-Sleeve",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.star,
+                              color: Colors.orange,
+                            ),
                             SizedBox(
-                              height: 5,
+                              width: 5,
                             ),
                             Text(
-                              "Crops Buyers & Sellers Platform",
+                              '4.9 | 2346',
                               style: TextStyle(
-                                  letterSpacing: 1, color: Colors.white),
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              '\$3000',
+                              style: TextStyle(
+                                  color: Colors.green,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20),
                             )
                           ],
+                        )
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          height: 180,
+                          width: 180,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(),
+                              color: Color.fromARGB(255, 240, 242, 242),
+                              image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: AssetImage("assets/images/palachichi.jpeg"),
+                              )),
                         ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 120,
-                    child: Container(
-                      height: 100,
-                      width: MediaQuery.of(context).size.width - 40,
-                      margin: EdgeInsets.symmetric(horizontal: 20),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(15),
-                          boxShadow: [
-                            BoxShadow(
-                                color: ColorConstant.default_color,
-                                blurRadius: 15,
-                                spreadRadius: 3),
-                          ]),
-                      child: Column(
-                        children: [
-                          SizedBox(height: 15),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10, right: 10),
-                            child: Container(
-                              height: getSize(32),
-                              width: double.infinity,
-                              decoration:
-                                  BoxDecoration(color: Colors.transparent),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  CustomImageView(
-                                    // imagePath: ImageConstant.imgShape70x701,
-                                    imagePath: ImageConstant.imageCrdb,
-                                    height: getSize(
-                                      50,
-                                    ),
-                                    width: getSize(
-                                      100,
-                                    ),
-                                    radius: BorderRadius.circular(
-                                      getHorizontalSize(
-                                        8,
-                                      ),
-                                    ),
-                                  ),
-                                  VerticalDivider(
-                                    color: ColorConstant.default_color,
-                                  ),
-                                  CustomImageView(
-                                    // imagePath: ImageConstant.imgShape70x701,
-                                    imagePath: ImageConstant.imageCrdb,
-                                    height: getSize(
-                                      50,
-                                    ),
-                                    width: getSize(
-                                      100,
-                                    ),
-                                    radius: BorderRadius.circular(
-                                      getHorizontalSize(
-                                        8,
-                                      ),
-                                    ),
-                                  ),
-                                  VerticalDivider(
-                                    color: ColorConstant.default_color,
-                                  ),
-                                  CustomImageView(
-                                    // imagePath: ImageConstant.imgShape70x701,
-                                    imagePath: ImageConstant.imageCrdb,
-                                    height: getSize(
-                                      50,
-                                    ),
-                                    width: getSize(
-                                      100,
-                                    ),
-                                    radius: BorderRadius.circular(
-                                      getHorizontalSize(
-                                        8,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              onTaOurpartners();
-
-                              // Handle button press
-                              print('TextButton pressed');
-                            },
-                            child: Text("Get More Services",
-                                style: AppStyle.txtdefaultcolor.copyWith(
-                                    letterSpacing: getHorizontalSize(0.54))),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                      top: MediaQuery.of(context).size.height - 600,
-                      left: 0,
-                      right: 0,
-                      child: Container(
-                        height: 245,
-                        child: Column(
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          "Palachichi",
+                          style: TextStyle(
+                              color: Colors.grey, fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          "Essential Mens \nT-shirsshort\n-Sleeve",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Row(
                           children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Padding(
-                                  padding: getPadding(left: 20),
-                                  child: Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text("Category",
-                                        //overflow: TextOverflow.ellipsis,
-                                        // textAlign: TextAlign.left,
-                                        style: AppStyle.txtdefaultcolor
-                                            .copyWith(
-                                                letterSpacing:
-                                                    getHorizontalSize(0.54))),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: getPadding(right: 15),
-                                  child: Align(
-                                    alignment: Alignment.centerRight,
-                                    child: Text("More",
-                                        style: AppStyle.txtdefaultcolor
-                                            .copyWith(
-                                                letterSpacing:
-                                                    getHorizontalSize(0.54))),
-                                  ),
-                                ),
-                              ],
+                            Icon(
+                              Icons.star,
+                              color: Colors.orange,
                             ),
-                            Align(
-                                alignment: Alignment.centerRight,
-
-//////////////////////////////////------------------------------------------------------
-
-                                child: Container(
-                                    height: getVerticalSize(100),
-                                    child: ListView.separated(
-                                        padding: getPadding(top: 0),
-                                        scrollDirection: Axis.horizontal,
-                                        separatorBuilder: (context, index) {
-                                          return SizedBox(
-                                              height: getVerticalSize(10));
-                                        },
-                                        itemCount: categoryController
-                                            .categoryList.length,
-                                        itemBuilder: (context, index) {
-                                          return InkWell(
-                                            onTap: () {
-                                              onTapCategory();
-                                            },
-                                            child: Card(
-                                              margin: EdgeInsets.all(8.0),
-                                              child: Container(
-                                                width: 80,
-                                                height:
-                                                    80, // Adjust the width as needed
-                                                padding: EdgeInsets.all(8.0),
-                                                child: Column(
-                                                  children: [
-                                                    CachedNetworkImage(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      imageUrl:
-                                                          productController
-                                                              .productList[
-                                                                  index]
-                                                              .imageOne,
-                                                      // placeholder: (context, url) => CircularProgressIndicator(),
-                                                      // errorWidget: (context, url, error) => Icon(Icons.error),
-                                                      fit: BoxFit.fill,
-                                                      width: 50,
-                                                      height: 50,
-                                                    ),
-                                                    Text(categoryController
-                                                        .categoryList[index]
-                                                        .image),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          );
-                                        }))
-
-                                ////////////////////////////////--------------------------------------------------------
-
-                                ),
                             SizedBox(
-                              height: getVerticalSize(10),
+                              width: 5,
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Padding(
-                                  padding: getPadding(left: 20),
-                                  child: Align(
-                                    alignment: Alignment.topLeft,
-                                    child: Text("msg_explore_nearby".tr,
-                                        //overflow: TextOverflow.ellipsis,
-                                        // textAlign: TextAlign.left,
-                                        style: AppStyle.txtdefaultcolor
-                                            .copyWith(
-                                                letterSpacing:
-                                                    getHorizontalSize(0.54))),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: getPadding(right: 15),
-                                  child: Align(
-                                    alignment: Alignment.centerRight,
-                                    child: Text("More",
-                                        style: AppStyle.txtdefaultcolor
-                                            .copyWith(
-                                                letterSpacing:
-                                                    getHorizontalSize(0.54))),
-                                  ),
-                                ),
-                              ],
+                            Text(
+                              '4.9 | 2346',
+                              style: TextStyle(
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.bold),
                             ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              '\$3000',
+                              style: TextStyle(
+                                  color: Colors.green,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20),
+                            )
                           ],
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
+              child: Row(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          height: 180,
+                          width: 180,
+                          decoration: BoxDecoration(
+                              color: Color.fromARGB(255, 240, 242, 242),
+                              image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: AssetImage("assets/images/palachichi.jpeg"),
+                              )),
                         ),
-                      )),
-                  Positioned(
-                      top: MediaQuery.of(context).size.height - 440,
-                      left: 0,
-                      right: 0,
-                      child: Container(
-                        height: 380,
-                        child: SingleChildScrollView(
-                            scrollDirection: Axis.vertical,
-                            child: Column(
-                              children: [
-                                Padding(
-                                    padding: getPadding(left: 24, top: 0),
-                                    child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          Padding(
-                                              padding:
-                                                  getPadding(top: 0, right: 24),
-                                              child:
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          "Palachichi",
+                          style: TextStyle(
+                              color: Colors.grey, fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          "Essential Mens \nT-shirsshort\n-Sleeve",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.star,
+                              color: Colors.orange,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              '4.9 | 2346',
+                              style: TextStyle(
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              '\$3000',
+                              style: TextStyle(
+                                  color: Colors.green,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20),
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          height: 180,
+                          width: 180,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(),
+                              color: Color.fromARGB(255, 240, 242, 242),
+                              image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: AssetImage("assets/images/shy.jpeg"),
+                              )),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          "Palachichi",
+                          style: TextStyle(
+                              color: Colors.grey, fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          "Essential Mens \nT-shirsshort\n-Sleeve",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.star,
+                              color: Colors.orange,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              '4.9 | 2346',
+                              style: TextStyle(
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              '\$3000',
+                              style: TextStyle(
+                                  color: Colors.green,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20),
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
+              child: Row(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          height: 180,
+                          width: 180,
+                          decoration: BoxDecoration(
+                              color: Color.fromARGB(255, 240, 242, 242),
+                              image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: AssetImage("assets/images/shy.jpeg"),
+                              )),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          "Palachichi",
+                          style: TextStyle(
+                              color: Colors.grey, fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          "Essential Mens \nT-shirsshort\n-Sleeve",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.star,
+                              color: Colors.orange,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              '4.9 | 2346',
+                              style: TextStyle(
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              '\$3000',
+                              style: TextStyle(
+                                  color: Colors.green,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20),
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          height: 180,
+                          width: 180,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(),
+                              color: Color.fromARGB(255, 240, 242, 242),
+                              image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: AssetImage("assets/images/shy.jpeg"),
+                              )),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          "Palachichi",
+                          style: TextStyle(
+                              color: Colors.grey, fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          "Essential Mens \nT-shirsshort\n-Sleeve",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.star,
+                              color: Colors.orange,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              '4.9 | 2346',
+                              style: TextStyle(
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              '\$3000',
+                              style: TextStyle(
+                                  color: Colors.green,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20),
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ],
+        )
+        ]
+      ),
+    );
+  }
 
-// ----------------------------------------------------------------------------------------------------------------------------------------------------
+  Widget buildImage(String imageUrl) {
+    return Container(
+      margin: EdgeInsets.all(0), // Set margin to 0
+      padding: EdgeInsets.all(0), // Set padding to 0
+      child: ClipRRect(
+        borderRadius:
+            BorderRadius.all(Radius.circular(0)), // Set border radius to 0
 
-                                                  Container(
-                                                height: getVerticalSize(500),
-                                                child: GridView.builder(
-                                                    gridDelegate:
-                                                        const SliverGridDelegateWithMaxCrossAxisExtent(
-                                                            maxCrossAxisExtent:
-                                                                200,
-                                                            childAspectRatio:
-                                                                8 / 8,
-                                                            crossAxisSpacing:
-                                                                10,
-                                                            mainAxisSpacing: 5),
-                                                    itemCount: productController
-                                                        .productList.length,
-                                                    itemBuilder:
-                                                        (BuildContext ctx,index) {
-                                                      final product_category =
-                                                          productController
-                                                              .productList[
-                                                                  index]
-                                                              .category;
-                                                      final product_imgOne =
-                                                          productController
-                                                              .productList[
-                                                                  index]
-                                                              .imageOne;
-                                                      final product_imgtwo =
-                                                          productController
-                                                              .productList[
-                                                                  index]
-                                                              .imageTwo;
-                                                      final product_imhThree =
-                                                          productController
-                                                              .productList[
-                                                                  index]
-                                                              .imageThree;
-                                                      final product_name =
-                                                          productController
-                                                              .productList[
-                                                                  index]
-                                                              .name;
-                                                      final product_price =
-                                                          productController
-                                                              .productList[
-                                                                  index]
-                                                              .price;
-                                                      final product_quantity =
-                                                          productController
-                                                              .productList[
-                                                                  index]
-                                                              .quantity;
-                                                      final product_details =
-                                                          productController
-                                                              .productList[
-                                                                  index]
-                                                              .details;
-                                                      final product_rate =
-                                                          productController
-                                                              .productList[
-                                                                  index]
-                                                              .rate;
-                                                      final product_owner =
-                                                          productController
-                                                              .productList[
-                                                                  index]
-                                                              .owner;
+        /*
+        child: Image.network(
+          imageUrl,
+          fit: BoxFit.cover,
+        ),x`
+        */
 
-                                                      return InkWell(
-                                                        borderRadius:
-                                                            BorderRadius.all(
-                                                                Radius.circular(
-                                                                    20)),
-                                                        onTap: () {
-                                                          // onTapColumnshape();
-
-                                                          Get.toNamed(
-                                                              AppRoutes
-                                                                  .propertyDetailsScreen,
-                                                              arguments: [
-                                                                product_category,
-                                                                product_imgOne,
-                                                                product_imgtwo,
-                                                                product_imhThree,
-                                                                product_name,
-                                                                product_price,
-                                                                product_quantity,
-                                                                product_details,
-                                                                product_rate,
-                                                                product_owner
-                                                              ]);
-                                                        },
-                                                        child: Container(
-                                                            height: 500,
-                                                            alignment: Alignment
-                                                                .center,
-                                                            decoration: BoxDecoration(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            15),
-                                                                color: Colors
-                                                                    .white),
-                                                            child: Column(
-                                                              children: [
-                                                                Expanded(
-                                                                  child:
-                                                                      CachedNetworkImage(
-                                                                    alignment:
-                                                                        Alignment
-                                                                            .center,
-                                                                    imageUrl: productController
-                                                                        .productList[
-                                                                            index]
-                                                                        .imageOne,
-                                                                    // placeholder: (context, url) => CircularProgressIndicator(),
-                                                                    // errorWidget: (context, url, error) => Icon(Icons.error),
-                                                                    fit: BoxFit
-                                                                        .fill,
-                                                                    width: double
-                                                                        .infinity,
-                                                                    height: 200,
-                                                                  ),
-                                                                ),
-                                                                SizedBox(
-                                                                  height:
-                                                                      getVerticalSize(
-                                                                          10),
-                                                                ),
-                                                                Padding(
-                                                                  padding:
-                                                                      getPadding(
-                                                                          right:
-                                                                              0,
-                                                                          left:
-                                                                              0),
-                                                                  child: Row(
-                                                                    mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .spaceBetween,
-                                                                    children: [
-                                                                      Text(
-                                                                        productController
-                                                                            .productList[index]
-                                                                            .name,
-                                                                        overflow:
-                                                                            TextOverflow.ellipsis,
-                                                                        textAlign:
-                                                                            TextAlign.left,
-                                                                        style: AppStyle
-                                                                            .txtRalewayBold10
-                                                                            .copyWith(
-                                                                          letterSpacing:
-                                                                              getHorizontalSize(0),
-                                                                          fontSize:
-                                                                              16,
-                                                                        ),
-                                                                      ),
-                                                                      Text(NumberFormat.currency(name:'Tsh ').format(int.parse(productController.productList[index].price)),
-                                                                        overflow:
-                                                                            TextOverflow.ellipsis,
-                                                                        textAlign:
-                                                                            TextAlign.right,
-                                                                        style: AppStyle
-                                                                            .txtRalewayBold10
-                                                                            .copyWith(
-                                                                          letterSpacing:
-                                                                              getHorizontalSize(0),
-                                                                          fontSize:
-                                                                              14,
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                                SizedBox(
-                                                                    height:
-                                                                        getVerticalSize(
-                                                                            5)),
-                                                                SizedBox(
-                                                                    height:
-                                                                        getVerticalSize(
-                                                                            5)),
-                                                                Padding(
-                                                                  padding:
-                                                                      getPadding(
-                                                                          right:
-                                                                              3,
-                                                                          left:
-                                                                              0),
-                                                                  child: Row(
-                                                                    mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .spaceBetween,
-                                                                    children: [
-                                                                      Text(
-                                                                        "Orders:",
-                                                                        overflow:
-                                                                            TextOverflow.ellipsis,
-                                                                        textAlign:
-                                                                            TextAlign.left,
-                                                                        style: AppStyle
-                                                                            .txtRalewayRegular12
-                                                                            .copyWith(
-                                                                          letterSpacing:
-                                                                              getHorizontalSize(0),
-                                                                          fontSize:
-                                                                              10,
-                                                                        ),
-                                                                      ),
-                                                                      Text(
-                                                                        "(112)",
-                                                                        overflow:
-                                                                            TextOverflow.ellipsis,
-                                                                        textAlign:
-                                                                            TextAlign.left,
-                                                                        style: AppStyle
-                                                                            .txtRalewayRegular12
-                                                                            .copyWith(
-                                                                          letterSpacing:
-                                                                              getHorizontalSize(0),
-                                                                          fontSize:
-                                                                              10,
-                                                                        ),
-                                                                      ),
-                                                                      SizedBox(
-                                                                          width:
-                                                                              30),
-                                                                      RatingBar.builder(
-                                                                          initialRating: 0,
-                                                                          minRating: 0,
-                                                                          direction: Axis.horizontal,
-                                                                          allowHalfRating: false,
-                                                                          itemSize: getVerticalSize(12),
-                                                                          itemCount: 5,
-                                                                          updateOnDrag: true,
-                                                                          onRatingUpdate: (rating) {},
-                                                                          itemBuilder: (context, _) {
-                                                                            return Icon(Icons.star);
-                                                                          }),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                                Divider()
-                                                              ],
-                                                            )),
-                                                      );
-                                                    }),
-                                              )
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-                                              )
-                                        ])),
-                              ],
-                            )),
-                      ))
-                ]),
-        ));
+        child: Image.asset(
+          imageUrl,
+          fit: BoxFit.fill,
+          width: double.infinity,
+        ),
+      ),
+    );
   }
 
   onTapItemPromotion() {
@@ -740,8 +716,6 @@ class HomePage extends StatelessWidget {
       AppRoutes.categorylist,
     );
   }
-
-
 
 /*
   onTapColumnshape() {

@@ -137,6 +137,28 @@ class TransactionTabContainerPage extends StatelessWidget {
                                                         ],
                                                       ),
                                                     ),
+                                                        Card(
+                                                      elevation: 0,
+                                                      child: Row(
+                                                        children: [
+                                                          Icon(
+                                                            Icons.logout_outlined,
+                                                            color: Colors.grey,
+                                                          ),
+                                                          TextButton(
+                                                              onPressed: () {},
+                                                              child: Text(
+                                                                "Log Out",
+                                                                style: TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    color: ColorConstant
+                                                                        .default_color),
+                                                              ))
+                                                        ],
+                                                      ),
+                                                    ),
                                                   ],
                                                 ),
                                               ),

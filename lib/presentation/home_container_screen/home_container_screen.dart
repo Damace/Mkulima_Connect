@@ -65,18 +65,18 @@ class HomeContainerScreen extends GetWidget<HomeContainerController> {
 
 
      case AppRoutes.categorylist:
-        return CategoryListScreen();
+       // return CategoryListScreen();
 
   
       case AppRoutes.notificationListPage:
-        return NotificationListPage();
+       // return NotificationListPage();
 
 
     // case AppRoutes.transactionTabContainerPage:
       //  return TransactionTabContainerPage();
 
           case AppRoutes.propertyDetailsScreen:
-         return PropertyDetailsScreen();
+        // return PropertyDetailsScreen();
 
       default:
         return DefaultWidget();
