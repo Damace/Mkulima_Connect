@@ -1,4 +1,8 @@
+import 'dart:convert';
+
+import 'package:flutter/services.dart';
 import 'package:mkulima_connect/presentation/home_page/models/category_model.dart';
+import 'package:mkulima_connect/presentation/home_page/models/dataList_model.dart';
 import 'package:mkulima_connect/presentation/home_page/models/products_model.dart';
 import 'package:http/http.dart' as http;
 
@@ -39,6 +43,19 @@ class GetCategory {
       }
     } catch (e) {
       // make it explicit that this function can throw exceptions
+      print(e);
+    }
+  }
+}
+
+class GetDataList {
+  static Future<List<Items>?> fetchItems() async {
+    try {
+      String jsonData = await rootBundle.loadString('assets/items.json');
+      // return json.decode(jsonData);
+      var jsonString = json.decode(jsonData);
+      return itemsFromJson(jsonString);
+    } catch (e) {
       print(e);
     }
   }

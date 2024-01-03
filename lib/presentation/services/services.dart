@@ -216,7 +216,11 @@ class ServicesScreen extends StatelessWidget {
                             ),
                           ),
                           child: TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Get.toNamed(
+                                  AppRoutes.cart_page,
+                                );
+                              },
                               child: Text(
                                 "Get more Services >>",
                                 style: TextStyle(

@@ -4,42 +4,44 @@
 
 import 'dart:convert';
 
-List<Products> productsFromJson(String str) => List<Products>.from(json.decode(str).map((x) => Products.fromJson(x)));
+List<Products> productsFromJson(String str) =>
+    List<Products>.from(json.decode(str).map((x) => Products.fromJson(x)));
 
-String productsToJson(List<Products> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String productsToJson(List<Products> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Products {
-    String productid;
-    String category;
-    String imageOne;
-    String imageTwo;
-    String imageThree;
-    String name;
-    String price;
-    String quantity;
-    String details;
-    String rate;
-    String owner;
-    String postedTime;
-    String postedDate;
+  String productid;
+  String category;
+  String imageOne;
+  String imageTwo;
+  String imageThree;
+  String name;
+  String price;
+  String quantity;
+  String details;
+  String rate;
+  String owner;
+  String postedTime;
+  String postedDate;
 
-    Products({
-        required this.productid,
-        required this.category,
-        required this.imageOne,
-        required this.imageTwo,
-        required this.imageThree,
-        required this.name,
-        required this.price,
-        required this.quantity,
-        required this.details,
-        required this.rate,
-        required this.owner,
-        required this.postedTime,
-        required this.postedDate,
-    });
+  Products({
+    required this.productid,
+    required this.category,
+    required this.imageOne,
+    required this.imageTwo,
+    required this.imageThree,
+    required this.name,
+    required this.price,
+    required this.quantity,
+    required this.details,
+    required this.rate,
+    required this.owner,
+    required this.postedTime,
+    required this.postedDate,
+  });
 
-    factory Products.fromJson(Map<String, dynamic> json) => Products(
+  factory Products.fromJson(Map<String, dynamic> json) => Products(
         productid: json["productid"],
         category: json["category"],
         imageOne: json["image_one"],
@@ -53,9 +55,9 @@ class Products {
         owner: json["owner"],
         postedTime: json["posted_time"],
         postedDate: json["posted_date"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "productid": productid,
         "category": category,
         "image_one": imageOne,
@@ -69,5 +71,15 @@ class Products {
         "owner": owner,
         "posted_time": postedTime,
         "posted_date": postedDate,
+      };
+
+  Map<String, Object?> toMap() {
+    return {
+      "productid": productid,
+      "image_one": imageOne,
+      "name": name,
+      "price": price,
+      "quantity": quantity,
     };
+  }
 }

@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:intl/intl.dart';
 import 'package:mkulima_connect/presentation/home_page/controller/category_controller.dart';
+import 'package:mkulima_connect/presentation/home_page/controller/items_controller.dart';
 import 'package:mkulima_connect/presentation/home_page/controller/product_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:mkulima_connect/core/app_export.dart';
@@ -15,6 +16,7 @@ import 'package:mkulima_connect/core/app_export.dart';
 class HomePage extends StatelessWidget {
   CategoryController categoryController = Get.put(CategoryController());
   ProductController productController = Get.put(ProductController());
+  ItemController itemController = Get.put(ItemController());
 
   bool isVisible = true;
 
@@ -25,8 +27,8 @@ class HomePage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Color(0xfFE9EBEA),
-      body: ListView(
-        children:[ Column(
+      body: ListView(children: [
+        Column(
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 15, left: 18, right: 10),
@@ -73,11 +75,11 @@ class HomePage extends StatelessWidget {
                 // buildImage('https://example.com/image1.jpg'),
                 //buildImage('https://example.com/image2.jpg'),
                 //buildImage('https://example.com/image3.jpg'),
-      
+
                 buildImage('assets/images/top4.png'),
                 buildImage('assets/images/top4.png'),
                 buildImage('assets/images/top4.png'),
-      
+
                 // Your carousel items go here (e.g., Image.network, Container, etc.)
                 // Image.network('https://example.com/image1.jpg'),
                 //Image.network('https://example.com/image2.jpg'),
@@ -94,8 +96,8 @@ class HomePage extends StatelessWidget {
                 onPageChanged: (index, reason) {
                   // Callback when the page changes
                 },
-                scrollDirection:
-                    Axis.horizontal, // Set to Axis.vertical for vertical carousel
+                scrollDirection: Axis
+                    .horizontal, // Set to Axis.vertical for vertical carousel
               ),
             ),
             Padding(
@@ -238,448 +240,110 @@ class HomePage extends StatelessWidget {
                   children: [
                     Text(
                       "Best selling",
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                     ),
                     Text("More",
-                        style:
-                            TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 16)),
                   ],
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
-              child: Row(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          height: 180,
-                          width: 180,
-                          decoration: BoxDecoration(
-                              color: Color.fromARGB(255, 240, 242, 242),
-                              image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: AssetImage("assets/images/shy.jpeg"),
-                              )),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          "Palachichi",
-                          style: TextStyle(
-                              color: Colors.grey, fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          "Essential Mens \nT-shirsshort\n-Sleeve",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.star,
-                              color: Colors.orange,
+            Column(
+              children: [
+                Container(
+                  height: 480,
+                  child: GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithMaxCrossAxisExtent(
+                              maxCrossAxisExtent: 200,
+                              childAspectRatio: 2 / 2,
+                              crossAxisSpacing: 20,
+                              mainAxisSpacing: 20),
+                      //itemCount: itemController.,
+                       itemCount: productController.productList.length,
+                      itemBuilder: (BuildContext ctx, index) {
+                        return InkWell(
+                          child: Container(
+                            color: Colors.white,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    height: 180,
+                                    width: 180,
+                                    decoration: BoxDecoration(
+                                        color: Color.fromARGB(255, 240, 242, 242),
+                                        image: DecorationImage(
+                                          fit: BoxFit.cover,
+                                          image: AssetImage(
+                                              "assets/images/shy.jpeg"),
+                                        )),
+                                  ),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text(
+                                    "Palachichi",
+                                    style: TextStyle(
+                                        color: Colors.grey,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                    "Essential Mens \nT-shirsshort\n-Sleeve",
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20),
+                                  ),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.star,
+                                        color: Colors.orange,
+                                      ),
+                                      SizedBox(
+                                        width: 5,
+                                      ),
+                                      Text(
+                                        '4.9 | 2346',
+                                        style: TextStyle(
+                                            color: Colors.grey,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text(
+                                        '\$3000',
+                                        style: TextStyle(
+                                            color: Colors.green,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 20),
+                                      )
+                                    ],
+                                  )
+                                ],
+                              ),
                             ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              '4.9 | 2346',
-                              style: TextStyle(
-                                  color: Colors.grey,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              '\$3000',
-                              style: TextStyle(
-                                  color: Colors.green,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20),
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          height: 180,
-                          width: 180,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(),
-                              color: Color.fromARGB(255, 240, 242, 242),
-                              image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: AssetImage("assets/images/palachichi.jpeg"),
-                              )),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          "Palachichi",
-                          style: TextStyle(
-                              color: Colors.grey, fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          "Essential Mens \nT-shirsshort\n-Sleeve",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.star,
-                              color: Colors.orange,
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              '4.9 | 2346',
-                              style: TextStyle(
-                                  color: Colors.grey,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              '\$3000',
-                              style: TextStyle(
-                                  color: Colors.green,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20),
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
-              child: Row(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          height: 180,
-                          width: 180,
-                          decoration: BoxDecoration(
-                              color: Color.fromARGB(255, 240, 242, 242),
-                              image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: AssetImage("assets/images/palachichi.jpeg"),
-                              )),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          "Palachichi",
-                          style: TextStyle(
-                              color: Colors.grey, fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          "Essential Mens \nT-shirsshort\n-Sleeve",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.star,
-                              color: Colors.orange,
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              '4.9 | 2346',
-                              style: TextStyle(
-                                  color: Colors.grey,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              '\$3000',
-                              style: TextStyle(
-                                  color: Colors.green,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20),
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          height: 180,
-                          width: 180,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(),
-                              color: Color.fromARGB(255, 240, 242, 242),
-                              image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: AssetImage("assets/images/shy.jpeg"),
-                              )),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          "Palachichi",
-                          style: TextStyle(
-                              color: Colors.grey, fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          "Essential Mens \nT-shirsshort\n-Sleeve",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.star,
-                              color: Colors.orange,
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              '4.9 | 2346',
-                              style: TextStyle(
-                                  color: Colors.grey,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              '\$3000',
-                              style: TextStyle(
-                                  color: Colors.green,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20),
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
-              child: Row(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          height: 180,
-                          width: 180,
-                          decoration: BoxDecoration(
-                              color: Color.fromARGB(255, 240, 242, 242),
-                              image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: AssetImage("assets/images/shy.jpeg"),
-                              )),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          "Palachichi",
-                          style: TextStyle(
-                              color: Colors.grey, fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          "Essential Mens \nT-shirsshort\n-Sleeve",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.star,
-                              color: Colors.orange,
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              '4.9 | 2346',
-                              style: TextStyle(
-                                  color: Colors.grey,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              '\$3000',
-                              style: TextStyle(
-                                  color: Colors.green,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20),
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          height: 180,
-                          width: 180,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(),
-                              color: Color.fromARGB(255, 240, 242, 242),
-                              image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: AssetImage("assets/images/shy.jpeg"),
-                              )),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          "Palachichi",
-                          style: TextStyle(
-                              color: Colors.grey, fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          "Essential Mens \nT-shirsshort\n-Sleeve",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.star,
-                              color: Colors.orange,
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              '4.9 | 2346',
-                              style: TextStyle(
-                                  color: Colors.grey,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              '\$3000',
-                              style: TextStyle(
-                                  color: Colors.green,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20),
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                  )
-                ],
-              ),
+                          ),
+                        );
+                      }),
+                ),
+              ],
             ),
           ],
         )
-        ]
-      ),
+      ]),
     );
   }
 

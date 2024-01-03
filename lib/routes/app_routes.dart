@@ -2,6 +2,8 @@ import 'package:mkulima_connect/presentation/category_list/binding/categoryList_
 import 'package:mkulima_connect/presentation/category_list/categoryList.dart';
 import 'package:mkulima_connect/presentation/loading_page/binding/loading_binding.dart';
 import 'package:mkulima_connect/presentation/loading_page/loading_page.dart';
+import 'package:mkulima_connect/presentation/my_cart/binding/cartBinding.dart';
+import 'package:mkulima_connect/presentation/my_cart/cart_page.dart';
 import 'package:mkulima_connect/presentation/partiners/binding/partiner_binding.dart';
 import 'package:mkulima_connect/presentation/partiners/partnersList.dart';
 import 'package:mkulima_connect/presentation/productListView/binding/productList_binding.dart';
@@ -190,7 +192,8 @@ class AppRoutes {
 
   static const String transactionPage = '/transaction_page';
 
-  static const String transactionTabContainerPage ='/transaction_tab_container_page';
+  static const String transactionTabContainerPage =
+      '/transaction_tab_container_page';
 
   static const String listingsPage = '/listings_page';
 
@@ -265,14 +268,13 @@ class AppRoutes {
 
   static const String loading_page = '/loading_page';
 
- static const String slider_layout_view = '/slider_layout_view';
+  static const String slider_layout_view = '/slider_layout_view';
 
- static const String services = '/services';
+  static const String services = '/services';
 
+  static const String cart_page = '/cart_page';
 
   static List<GetPage> pages = [
-
-
     GetPage(
       name: splashScreen,
       page: () => SplashScreen(),
@@ -686,21 +688,28 @@ class AppRoutes {
       ],
     ),
 
-        GetPage(
+    GetPage(
       name: services,
       page: () => ServicesScreen(),
       bindings: [
         ServicesBinding(),
       ],
     ),
-    
+
     GetPage(
       name: transactionTabContainerPage,
       page: () => TransactionTabContainerPage(),
       bindings: [
         TransactionBinding(),
       ],
-    ),  
+    ),
 
+    GetPage(
+      name: cart_page,
+      page: () => CartPage(),
+      bindings: [
+        CartBinding(),
+      ],
+    ),
   ];
 }
