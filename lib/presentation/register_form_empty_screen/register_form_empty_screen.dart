@@ -15,6 +15,7 @@ class RegisterFormEmptyScreen extends GetWidget<RegisterFormEmptyController> {
   bool rememberUser = false;
 
   final formkey = GlobalKey<FormState>();
+  
   TextEditingController phoneNumberController = TextEditingController();
 
   @override

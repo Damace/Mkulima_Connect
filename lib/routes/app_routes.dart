@@ -1,5 +1,6 @@
 import 'package:mkulima_connect/presentation/category_list/binding/categoryList_binding.dart';
 import 'package:mkulima_connect/presentation/category_list/categoryList.dart';
+import 'package:mkulima_connect/presentation/home_page/models/products_model.dart';
 import 'package:mkulima_connect/presentation/loading_page/binding/loading_binding.dart';
 import 'package:mkulima_connect/presentation/loading_page/loading_page.dart';
 import 'package:mkulima_connect/presentation/my_cart/binding/cartBinding.dart';
@@ -600,6 +601,7 @@ class AppRoutes {
         PropertyDetailsBinding(),
       ],
     ),
+    
     GetPage(
       name: viewScreen,
       page: () => ViewScreen(),
@@ -712,4 +714,7 @@ class AppRoutes {
       ],
     ),
   ];
+  
+  static get product => null;
+
 }

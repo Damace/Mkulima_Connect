@@ -62,7 +62,7 @@ class CategoryListScreen extends GetWidget<ProductListController> {
 
                          leading: CachedNetworkImage(
                         alignment: Alignment.bottomLeft,
-                        imageUrl: productController.productList[index].imageOne,
+                        imageUrl: productController.productList[index].imageUrl,
                         fit: BoxFit.fill,
                         width: 80,
                        // height: 100,

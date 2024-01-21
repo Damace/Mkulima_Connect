@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/services.dart';
 import 'package:mkulima_connect/presentation/home_page/models/category_model.dart';
 import 'package:mkulima_connect/presentation/home_page/models/dataList_model.dart';
@@ -11,10 +10,12 @@ class GetProduct {
 
   static Future<List<Products>?> fetchProducts() async {
     try {
-      var response = await client.get(Uri.parse(
-          'http://mkonekt.scienceontheweb.net/mkulimaApp/product/getProduct.php'));
+      var response = await client.get(Uri.parse('http://mkonekt.scienceontheweb.net/MkulimaKonekti/Controller/product/routes/routes.php/allProducts'));
+     //  var response = await client.get(Uri.parse('http://192.168.221.158/MkulimaKonekti/Controller/product/routes/routes.php/allProducts'));
+     
       if (response.statusCode == 200) {
         var jsonString = response.body;
+        print(jsonString);
         return productsFromJson(jsonString);
       } else {
         //show error message
@@ -26,7 +27,6 @@ class GetProduct {
     }
   }
 }
-
 class GetCategory {
   static var client = http.Client();
 

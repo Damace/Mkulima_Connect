@@ -5,14 +5,17 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mkulima_connect/firebase_options.dart';
+import 'package:mkulima_connect/presentation/provider/cart_provider.dart';
+import 'package:provider/provider.dart';
 import 'core/app_export.dart'; 
+import 'package:firebase_messaging/firebase_messaging.dart';
 // ...
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
 
-await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
+await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,
+//final fcmToken = await FirebaseMessaging.instance.getToken();
 );
 
   Future.wait([
@@ -40,22 +43,25 @@ class MyApp extends StatelessWidget {
       systemNavigationBarDividerColor: Colors.grey,
       systemNavigationBarIconBrightness: Brightness.dark,  
     ));
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-            primarySwatch: Colors.green,
-            primaryColor: Color.fromARGB(255, 7, 105, 64)
-          
-          // primarySwatch: Color.fromARGB(255, 3, 31, 4),
-          ),
-      translations: AppLocalization(),
-      locale: Get.deviceLocale,
-      //for setting localization strings
-      fallbackLocale: const Locale('en', 'US'),
-      title: 'MKonekt',
-      initialBinding: InitialBindings(),
-      initialRoute: AppRoutes.initialRoute,
-      getPages: AppRoutes.pages,
+    return ChangeNotifierProvider(
+       create: (context) => CartProvider(),
+      child: GetMaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+              primarySwatch: Colors.green,
+              primaryColor: Color.fromARGB(255, 7, 105, 64)
+            
+            // primarySwatch: Color.fromARGB(255, 3, 31, 4),
+            ),
+        translations: AppLocalization(),
+        locale: Get.deviceLocale,
+        //for setting localization strings
+        fallbackLocale: const Locale('en', 'US'),
+        title: 'MKonekt',
+        initialBinding: InitialBindings(),
+        initialRoute: AppRoutes.initialRoute,
+        getPages: AppRoutes.pages,
+      ),
     );
   }
 }

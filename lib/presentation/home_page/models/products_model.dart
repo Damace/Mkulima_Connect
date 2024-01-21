@@ -11,26 +11,26 @@ String productsToJson(List<Products> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Products {
-  String productid;
+  int productid;
+  int productId;
   String category;
-  String imageOne;
-  String imageTwo;
-  String imageThree;
+  String imageUrl;
+  String imageType;
   String name;
-  String price;
-  String quantity;
+  int price;
+  int quantity;
   String details;
-  String rate;
+  int rate;
   String owner;
   String postedTime;
   String postedDate;
 
   Products({
     required this.productid,
+    required this.productId,
     required this.category,
-    required this.imageOne,
-    required this.imageTwo,
-    required this.imageThree,
+    required this.imageUrl,
+    required this.imageType,
     required this.name,
     required this.price,
     required this.quantity,
@@ -43,10 +43,10 @@ class Products {
 
   factory Products.fromJson(Map<String, dynamic> json) => Products(
         productid: json["productid"],
+        productId: json["product_id"],
         category: json["category"],
-        imageOne: json["image_one"],
-        imageTwo: json["image_two"],
-        imageThree: json["image_three"],
+        imageUrl: json["image_url"],
+        imageType: json["image_type"],
         name: json["name"],
         price: json["price"],
         quantity: json["quantity"],
@@ -59,10 +59,10 @@ class Products {
 
   Map<String, dynamic> toJson() => {
         "productid": productid,
+        "product_id": productId,
         "category": category,
-        "image_one": imageOne,
-        "image_two": imageTwo,
-        "image_three": imageThree,
+        "image_url": imageUrl,
+        "image_type": imageType,
         "name": name,
         "price": price,
         "quantity": quantity,
@@ -72,14 +72,4 @@ class Products {
         "posted_time": postedTime,
         "posted_date": postedDate,
       };
-
-  Map<String, Object?> toMap() {
-    return {
-      "productid": productid,
-      "image_one": imageOne,
-      "name": name,
-      "price": price,
-      "quantity": quantity,
-    };
-  }
 }

@@ -4,18 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mkulima_connect/core/app_export.dart';
+import 'package:mkulima_connect/presentation/home_container_screen/home_container_screen.dart';
 import 'package:mkulima_connect/presentation/home_page/controller/category_controller.dart';
 import 'package:mkulima_connect/presentation/home_page/controller/product_controller.dart';
+import 'package:mkulima_connect/presentation/home_page/home_page.dart';
+import 'package:mkulima_connect/presentation/my_cart/cart_page.dart';
+import 'package:mkulima_connect/presentation/provider/cart_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ServicesScreen extends StatelessWidget {
   CategoryController categoryController = Get.put(CategoryController());
   ProductController productController = Get.put(ProductController());
   TextEditingController _searchController = TextEditingController();
-
-  List<String> _data = ["Apple", "Banana", "Cherry", "Date", "Grapes"];
-
-  List<String> _filteredData = [];
 
   bool isVisible = true;
 
@@ -181,17 +182,36 @@ class ServicesScreen extends StatelessWidget {
                             ),
                             InkWell(
                               onTap: () {
-                                Get.toNamed(
-                                  AppRoutes.homeContainerScreen,
-                                );
+                                Get.to(HomePage(), //next page class
+                                    duration: Duration(
+                                        seconds:
+                                            1), //duration of transitions, default 1 sec
+                                    transition: Transition
+                                        .rightToLeft //transition effect
+                                    );
                               },
-                              child: Badge(
-                                label: Text("500 +"),
-                                child: Icon(
-                                  Icons.shopping_bag,
-                                  size: 25,
-                                  color: ColorConstant.default_color,
-                                ),
+                              child: Consumer<CartProvider>(
+                                builder: (context, cartProvider, child) {
+                                  return InkWell(
+                                    onTap: () {
+                                      Get.to(CartPage());
+                                    },
+                                    child: Badge(
+                                      alignment: Alignment.centerRight,
+                                      label: Obx(() => Text(
+                                          productController.count.toString())),
+                                      child: IconButton(
+                                        color: ColorConstant.default_color,
+                                        icon: const Icon(Icons.shopping_cart),
+                                        onPressed: () {
+                                          Get.toNamed(
+                                            AppRoutes.cart_page,
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  );
+                                },
                               ),
                             ),
                           ],
@@ -252,1261 +272,1311 @@ class ServicesScreen extends StatelessWidget {
 
                   child: SingleChildScrollView(
                       scrollDirection: Axis.vertical,
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: getPadding(left: 15, top: 15, right: 18),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Category",
-                                  style: TextStyle(
-                                      color: ColorConstant.default_color,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Text(
-                                  "More",
-                                  style: TextStyle(
-                                      color: ColorConstant.default_color,
-                                      fontWeight: FontWeight.bold),
-                                )
-                              ],
-                            ),
+                      child: Column(children: [
+                        Padding(
+                          padding: getPadding(left: 15, top: 15, right: 18),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Category",
+                                style: TextStyle(
+                                    color: ColorConstant.default_color,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                "More",
+                                style: TextStyle(
+                                    color: ColorConstant.default_color,
+                                    fontWeight: FontWeight.bold),
+                              )
+                            ],
                           ),
-                          Padding(
-                              padding: getPadding(left: 24, top: 0),
-                              child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                        padding: getPadding(top: 5, right: 24),
-                                        child:
+                        ),
+                        Padding(
+                            padding: getPadding(left: 24, top: 0),
+                            child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                      padding: getPadding(top: 5, right: 24),
+                                      child:
 
-                                            // ----------------------------------------------------------------------------------------------------------------------------------------------------
+                                          // ----------------------------------------------------------------------------------------------------------------------------------------------------
 
-                                            Container(
-                                                height: getVerticalSize(250),
-                                                decoration: BoxDecoration(
-                                                    color: Colors.white),
-                                                child: GridView(
-                                                  gridDelegate:
-                                                      SliverGridDelegateWithFixedCrossAxisCount(
-                                                          crossAxisCount: 3,
-                                                          mainAxisSpacing:
-                                                              0 // Number of columns
-                                                          ),
-                                                  children: [
-                                                    Column(
-                                                      children: [
-                                                        InkWell(
-                                                          onTap: () {
-                                                            showModalBottomSheet(
-                                                              isScrollControlled:
-                                                                  true,
-                                                              context: context,
-                                                              backgroundColor:
-                                                                  Colors.white,
-                                                              shape:
-                                                                  RoundedRectangleBorder(
-                                                                borderRadius:
-                                                                    BorderRadiusDirectional
-                                                                        .only(
-                                                                  topEnd: Radius
-                                                                      .circular(
-                                                                          25),
-                                                                  topStart: Radius
-                                                                      .circular(
-                                                                          25),
-                                                                ),
+                                          Container(
+                                              height: getVerticalSize(250),
+                                              decoration: BoxDecoration(
+                                                  color: Colors.white),
+                                              child: GridView(
+                                                gridDelegate:
+                                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                                        crossAxisCount: 3,
+                                                        mainAxisSpacing:
+                                                            0 // Number of columns
+                                                        ),
+                                                children: [
+                                                  Column(
+                                                    children: [
+                                                      InkWell(
+                                                        onTap: () {
+                                                          showModalBottomSheet(
+                                                            isScrollControlled:
+                                                                true,
+                                                            context: context,
+                                                            backgroundColor:
+                                                                Colors.white,
+                                                            shape:
+                                                                RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadiusDirectional
+                                                                      .only(
+                                                                topEnd: Radius
+                                                                    .circular(
+                                                                        25),
+                                                                topStart: Radius
+                                                                    .circular(
+                                                                        25),
                                                               ),
-                                                              builder: (context) =>
-                                                                  SingleChildScrollView(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .only(
-                                                                  bottom: 0,
-                                                                  top: 0,
-                                                                ),
-                                                                child: Column(
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .start,
-                                                                  crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .center,
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .min,
-                                                                  children: [
-                                                                    SizedBox(
-                                                                        height:
-                                                                            10),
-                                                                    Row(
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .center,
-                                                                      children: [
-                                                                        Container(
-                                                                          decoration: BoxDecoration(
-                                                                              borderRadius: BorderRadius.all(
-                                                                                Radius.circular(10),
+                                                            ),
+                                                            builder: (context) =>
+                                                                SingleChildScrollView(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .only(
+                                                                bottom: 0,
+                                                                top: 0,
+                                                              ),
+                                                              child: Column(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .start,
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .center,
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .min,
+                                                                children: [
+                                                                  SizedBox(
+                                                                      height:
+                                                                          10),
+                                                                  Row(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .center,
+                                                                    children: [
+                                                                      Container(
+                                                                        decoration: BoxDecoration(
+                                                                            borderRadius: BorderRadius.all(
+                                                                              Radius.circular(10),
+                                                                            ),
+                                                                            color: ColorConstant.default_color,
+                                                                            boxShadow: [
+                                                                              BoxShadow(
+                                                                                color: ColorConstant.default_color,
+                                                                                blurRadius: 3,
                                                                               ),
-                                                                              color: ColorConstant.default_color,
-                                                                              boxShadow: [
-                                                                                BoxShadow(
-                                                                                  color: ColorConstant.default_color,
-                                                                                  blurRadius: 3,
-                                                                                ),
-                                                                              ]),
-                                                                          child:
-                                                                              Text("                            "),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                    Card(
-                                                                      elevation:
-                                                                          0,
-                                                                      child:
-                                                                          Row(
-                                                                        children: [
-                                                                          Icon(
-                                                                            Icons.newspaper,
-                                                                            color:
-                                                                                Colors.grey,
-                                                                          ),
-                                                                          TextButton(
-                                                                              onPressed: () {},
-                                                                              child: Text(
-                                                                                "Uchakataji",
-                                                                                style: TextStyle(fontWeight: FontWeight.bold, color: ColorConstant.default_color),
-                                                                              ))
-                                                                        ],
+                                                                            ]),
+                                                                        child: Text(
+                                                                            "                            "),
                                                                       ),
-                                                                    ),
-                                                                    Divider(),
-                                                                    Card(
-                                                                      elevation:
-                                                                          0,
-                                                                      child:
-                                                                          Row(
-                                                                        children: [
-                                                                          Icon(
-                                                                            Icons.category,
-                                                                            color:
-                                                                                Colors.grey,
-                                                                          ),
-                                                                          TextButton(
-                                                                              onPressed: () {},
-                                                                              child: Text(
-                                                                                "Uhifadhi",
-                                                                                style: TextStyle(fontWeight: FontWeight.bold, color: ColorConstant.default_color),
-                                                                              ))
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                    Divider(),
-                                                                    Card(
-                                                                      elevation:
-                                                                          0,
-                                                                      child:
-                                                                          Row(
-                                                                        children: [
-                                                                          Icon(
-                                                                            Icons.train,
-                                                                            color:
-                                                                                Colors.grey,
-                                                                          ),
-                                                                          TextButton(
-                                                                              onPressed: () {},
-                                                                              child: Text(
-                                                                                "Usafirishaji",
-                                                                                style: TextStyle(fontWeight: FontWeight.bold, color: ColorConstant.default_color),
-                                                                              ))
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            );
-                                                          },
-                                                          child: Card(
-                                                              color: ColorConstant
-                                                                  .default_color,
-                                                              shadowColor:
-                                                                  Colors.grey,
-                                                              shape:
-                                                                  RoundedRectangleBorder(
-                                                                      borderRadius:
-                                                                          BorderRadiusDirectional
-                                                                              .only(
-                                                                        topEnd:
-                                                                            Radius.circular(15),
-                                                                        topStart:
-                                                                            Radius.circular(15),
-                                                                        bottomEnd:
-                                                                            Radius.circular(15),
-                                                                        bottomStart:
-                                                                            Radius.circular(15),
-                                                                      ),
-
-                                                                      // --------------------------------------------------------------------------------------------------------------------------
-
-                                                                      side: BorderSide(
+                                                                    ],
+                                                                  ),
+                                                                  Card(
+                                                                    elevation:
+                                                                        0,
+                                                                    child: Row(
+                                                                      children: [
+                                                                        Icon(
+                                                                          Icons
+                                                                              .newspaper,
                                                                           color:
-                                                                              ColorConstant.default_color)),
-                                                              elevation: 4,
-                                                              child: Container(
-                                                                height: MediaQuery.of(
-                                                                            context)
-                                                                        .size
-                                                                        .width *
-                                                                    0.18,
-                                                                width: MediaQuery.of(
-                                                                            context)
-                                                                        .size
-                                                                        .width *
-                                                                    0.18,
-                                                                child: Center(
-                                                                  child: Image(
-                                                                    image: const AssetImage(
-                                                                        "assets/images/info.png"),
-                                                                    height: 50,
-                                                                    width: 50,
-                                                                    // fit: BoxFit.cover,
+                                                                              Colors.grey,
+                                                                        ),
+                                                                        TextButton(
+                                                                            onPressed:
+                                                                                () {},
+                                                                            child:
+                                                                                Text(
+                                                                              "Uwezeshaji",
+                                                                              style: TextStyle(fontWeight: FontWeight.bold, color: ColorConstant.default_color),
+                                                                            ))
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                  Divider(),
+                                                                  Card(
+                                                                    elevation:
+                                                                        0,
+                                                                    child: Row(
+                                                                      children: [
+                                                                        Icon(
+                                                                          Icons
+                                                                              .category,
+                                                                          color:
+                                                                              Colors.grey,
+                                                                        ),
+                                                                        TextButton(
+                                                                            onPressed:
+                                                                                () {},
+                                                                            child:
+                                                                                Text(
+                                                                              "Uunganishaji",
+                                                                              style: TextStyle(fontWeight: FontWeight.bold, color: ColorConstant.default_color),
+                                                                            ))
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          );
+                                                        },
+                                                        child: Card(
+                                                            color: ColorConstant
+                                                                .default_color,
+                                                            shadowColor:
+                                                                Colors.grey,
+                                                            shape:
+                                                                RoundedRectangleBorder(
+                                                                    borderRadius:
+                                                                        BorderRadiusDirectional
+                                                                            .only(
+                                                                      topEnd: Radius
+                                                                          .circular(
+                                                                              15),
+                                                                      topStart:
+                                                                          Radius.circular(
+                                                                              15),
+                                                                      bottomEnd:
+                                                                          Radius.circular(
+                                                                              15),
+                                                                      bottomStart:
+                                                                          Radius.circular(
+                                                                              15),
+                                                                    ),
+
+                                                                    // --------------------------------------------------------------------------------------------------------------------------
+
+                                                                    side: BorderSide(
+                                                                        color: ColorConstant
+                                                                            .default_color)),
+                                                            elevation: 4,
+                                                            child: Container(
+                                                              height: MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .width *
+                                                                  0.18,
+                                                              width: MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .width *
+                                                                  0.18,
+                                                              child: Center(
+                                                                child: Image(
+                                                                  image: const AssetImage(
+                                                                      "assets/images/info.png"),
+                                                                  height: 50,
+                                                                  width: 50,
+                                                                  // fit: BoxFit.cover,
+                                                                ),
+                                                              ),
+                                                            )),
+                                                      ),
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Text(
+                                                            "Huduma",
+                                                            style: TextStyle(
+                                                                color: ColorConstant
+                                                                    .default_color,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold),
+                                                          )
+                                                        ],
+                                                      )
+                                                    ],
+                                                  ),
+                                                  Padding(
+                                                      padding: getPadding(
+                                                          left: 10,
+                                                          right: 10,
+                                                          bottom: 20),
+                                                      child: Column(
+                                                        children: [
+                                                          InkWell(
+                                                            onTap: () {
+                                                              showModalBottomSheet(
+                                                                isScrollControlled:
+                                                                    true,
+                                                                context:
+                                                                    context,
+                                                                backgroundColor:
+                                                                    Colors
+                                                                        .white,
+                                                                shape:
+                                                                    RoundedRectangleBorder(
+                                                                  borderRadius:
+                                                                      BorderRadiusDirectional
+                                                                          .only(
+                                                                    topEnd: Radius
+                                                                        .circular(
+                                                                            25),
+                                                                    topStart: Radius
+                                                                        .circular(
+                                                                            25),
                                                                   ),
                                                                 ),
-                                                              )),
-                                                        ),
-                                                        Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            Text(
-                                                              "Huduma",
-                                                              style: TextStyle(
-                                                                  color: ColorConstant
-                                                                      .default_color,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold),
-                                                            )
-                                                          ],
-                                                        )
-                                                      ],
-                                                    ),
-                                                    Padding(
-                                                        padding: getPadding(
-                                                            left: 10,
-                                                            right: 10,
-                                                            bottom: 20),
-                                                        child: Column(
-                                                          children: [
-                                                            InkWell(
-                                                              onTap: () {
-                                                                showModalBottomSheet(
-                                                                  isScrollControlled:
-                                                                      true,
-                                                                  context:
-                                                                      context,
-                                                                  backgroundColor:
-                                                                      Colors
-                                                                          .white,
-                                                                  shape:
-                                                                      RoundedRectangleBorder(
-                                                                    borderRadius:
-                                                                        BorderRadiusDirectional
-                                                                            .only(
-                                                                      topEnd: Radius
-                                                                          .circular(
-                                                                              25),
-                                                                      topStart:
-                                                                          Radius.circular(
-                                                                              25),
-                                                                    ),
+                                                                builder:
+                                                                    (context) =>
+                                                                        SingleChildScrollView(
+                                                                  padding:
+                                                                      EdgeInsetsDirectional
+                                                                          .only(
+                                                                    bottom: 0,
+                                                                    top: 8,
                                                                   ),
-                                                                  builder:
-                                                                      (context) =>
-                                                                          SingleChildScrollView(
-                                                                    padding:
-                                                                        EdgeInsetsDirectional
-                                                                            .only(
-                                                                      bottom: 0,
-                                                                      top: 8,
-                                                                    ),
-                                                                    child:
-                                                                        Column(
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .start,
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .center,
-                                                                      mainAxisSize:
-                                                                          MainAxisSize
-                                                                              .min,
-                                                                      children: [
-                                                                        Row(
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.center,
-                                                                          children: [
-                                                                            Container(
-                                                                              decoration: BoxDecoration(
-                                                                                  borderRadius: BorderRadius.all(
-                                                                                    Radius.circular(10),
+                                                                  child: Column(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .start,
+                                                                    crossAxisAlignment:
+                                                                        CrossAxisAlignment
+                                                                            .center,
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .min,
+                                                                    children: [
+                                                                      Row(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.center,
+                                                                        children: [
+                                                                          Container(
+                                                                            decoration: BoxDecoration(
+                                                                                borderRadius: BorderRadius.all(
+                                                                                  Radius.circular(10),
+                                                                                ),
+                                                                                color: ColorConstant.default_color,
+                                                                                boxShadow: [
+                                                                                  BoxShadow(
+                                                                                    color: ColorConstant.default_color,
+                                                                                    blurRadius: 3,
                                                                                   ),
-                                                                                  color: ColorConstant.default_color,
-                                                                                  boxShadow: [
-                                                                                    BoxShadow(
-                                                                                      color: ColorConstant.default_color,
-                                                                                      blurRadius: 3,
-                                                                                    ),
-                                                                                  ]),
-                                                                              child: Text("                            "),
+                                                                                ]),
+                                                                            child:
+                                                                                Text("                            "),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                      Card(
+                                                                        elevation:
+                                                                            0,
+                                                                        child:
+                                                                            Row(
+                                                                          children: [
+                                                                            Icon(
+                                                                              Icons.sunny_snowing,
+                                                                              color: Colors.grey,
                                                                             ),
+                                                                            TextButton(
+                                                                                onPressed: () {},
+                                                                                child: Text(
+                                                                                  "Kilimo, Uzalishaji, Ufugaji na Uvuvi",
+                                                                                  style: TextStyle(fontWeight: FontWeight.bold, color: ColorConstant.default_color),
+                                                                                ))
                                                                           ],
                                                                         ),
-                                                                        Card(
-                                                                          elevation:
-                                                                              0,
-                                                                          child:
-                                                                              Row(
-                                                                            children: [
-                                                                              Icon(
-                                                                                Icons.sunny_snowing,
-                                                                                color: Colors.grey,
-                                                                              ),
-                                                                              TextButton(
-                                                                                  onPressed: () {},
-                                                                                  child: Text(
-                                                                                    "Hali ya Hewa",
-                                                                                    style: TextStyle(fontWeight: FontWeight.bold, color: ColorConstant.default_color),
-                                                                                  ))
-                                                                            ],
-                                                                          ),
-                                                                        ),
-                                                                        Divider(),
-                                                                        Card(
-                                                                          elevation:
-                                                                              0,
-                                                                          child:
-                                                                              Row(
-                                                                            children: [
-                                                                              Icon(
-                                                                                Icons.agriculture_sharp,
-                                                                                color: Colors.grey,
-                                                                              ),
-                                                                              TextButton(
-                                                                                  onPressed: () {},
-                                                                                  child: Text(
-                                                                                    "Kilimo",
-                                                                                    style: TextStyle(fontWeight: FontWeight.bold, color: ColorConstant.default_color),
-                                                                                  ))
-                                                                            ],
-                                                                          ),
-                                                                        ),
-                                                                        Divider(),
-                                                                        Card(
-                                                                          elevation:
-                                                                              0,
-                                                                          child:
-                                                                              Row(
-                                                                            children: [
-                                                                              Icon(
-                                                                                Icons.adb,
-                                                                                color: Colors.grey,
-                                                                              ),
-                                                                              TextButton(
-                                                                                  onPressed: () {},
-                                                                                  child: Text(
-                                                                                    "Ufugaji",
-                                                                                    style: TextStyle(fontWeight: FontWeight.bold, color: ColorConstant.default_color),
-                                                                                  ))
-                                                                            ],
-                                                                          ),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                );
-                                                              },
-                                                              child: Card(
-                                                                  color: ColorConstant
-                                                                      .default_color,
-                                                                  shadowColor:
-                                                                      Colors
-                                                                          .grey,
-                                                                  shape: RoundedRectangleBorder(
-                                                                      borderRadius: BorderRadiusDirectional.only(
-                                                                        topEnd:
-                                                                            Radius.circular(15),
-                                                                        topStart:
-                                                                            Radius.circular(15),
-                                                                        bottomEnd:
-                                                                            Radius.circular(15),
-                                                                        bottomStart:
-                                                                            Radius.circular(15),
                                                                       ),
-                                                                      side: BorderSide(color: ColorConstant.default_color)),
-                                                                  elevation: 4,
-                                                                  child: Container(
-                                                                    height: MediaQuery.of(context)
-                                                                            .size
-                                                                            .width *
-                                                                        0.18,
-                                                                    width: MediaQuery.of(context)
-                                                                            .size
-                                                                            .width *
-                                                                        0.18,
-                                                                    child:
-                                                                        Center(
-                                                                      child:
-                                                                          Image(
-                                                                        image: const AssetImage(
-                                                                            "assets/images/education.png"),
-                                                                        height:
-                                                                            50,
-                                                                        width:
-                                                                            50,
-                                                                        // fit: BoxFit.cover,
-                                                                      ),
-                                                                    ),
-                                                                  )),
-                                                            ),
-                                                            Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .center,
-                                                              children: [
-                                                                Text(
-                                                                  "Elimu",
-                                                                  style: TextStyle(
-                                                                      color: ColorConstant
-                                                                          .default_color,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold),
-                                                                )
-                                                              ],
-                                                            )
-                                                          ],
-                                                        ) //Text("Taarifa za Kilimo"),
-                                                        ),
-                                                    Padding(
-                                                        padding: getPadding(
-                                                            left: 10,
-                                                            right: 10,
-                                                            bottom: 20),
-                                                        child: Column(
-                                                          children: [
-                                                            InkWell(
-                                                              onTap: () {
-                                                                showModalBottomSheet(
-                                                                  isScrollControlled:
-                                                                      true,
-                                                                  context:
-                                                                      context,
-                                                                  backgroundColor:
-                                                                      Colors
-                                                                          .white,
-                                                                  shape:
-                                                                      RoundedRectangleBorder(
-                                                                    borderRadius:
-                                                                        BorderRadiusDirectional
-                                                                            .only(
-                                                                      topEnd: Radius
-                                                                          .circular(
-                                                                              25),
-                                                                      topStart:
-                                                                          Radius.circular(
-                                                                              25),
-                                                                    ),
-                                                                  ),
-                                                                  builder:
-                                                                      (context) =>
-                                                                          SingleChildScrollView(
-                                                                    padding:
-                                                                        EdgeInsetsDirectional
-                                                                            .only(
-                                                                      bottom: 0,
-                                                                      top: 8,
-                                                                    ),
-                                                                    child:
-                                                                        Column(
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .start,
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .center,
-                                                                      mainAxisSize:
-                                                                          MainAxisSize
-                                                                              .min,
-                                                                      children: [
-                                                                        Row(
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.center,
+                                                                      Divider(),
+                                                                      Card(
+                                                                        elevation:
+                                                                            0,
+                                                                        child:
+                                                                            Row(
                                                                           children: [
-                                                                            Container(
-                                                                              decoration: BoxDecoration(
-                                                                                  borderRadius: BorderRadius.all(
-                                                                                    Radius.circular(10),
-                                                                                  ),
-                                                                                  color: ColorConstant.default_color,
-                                                                                  boxShadow: [
-                                                                                    BoxShadow(
-                                                                                      color: ColorConstant.default_color,
-                                                                                      blurRadius: 3,
-                                                                                    ),
-                                                                                  ]),
-                                                                              child: Text("                            "),
+                                                                            Icon(
+                                                                              Icons.agriculture_sharp,
+                                                                              color: Colors.grey,
                                                                             ),
+                                                                            TextButton(
+                                                                                onPressed: () {},
+                                                                                child: Text(
+                                                                                  "Ujasilia Mali",
+                                                                                  style: TextStyle(fontWeight: FontWeight.bold, color: ColorConstant.default_color),
+                                                                                ))
                                                                           ],
                                                                         ),
-                                                                        Card(
-                                                                          elevation:
-                                                                              0,
-                                                                          child:
-                                                                              Row(
-                                                                            children: [
-                                                                              Icon(
-                                                                                Icons.account_tree_outlined,
-                                                                                color: Colors.grey,
-                                                                              ),
-                                                                              TextButton(
-                                                                                  onPressed: () {},
-                                                                                  child: Text(
-                                                                                    "Pembejeo",
-                                                                                    style: TextStyle(fontWeight: FontWeight.bold, color: ColorConstant.default_color),
-                                                                                  ))
-                                                                            ],
-                                                                          ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              );
+                                                            },
+                                                            child: Card(
+                                                                color: ColorConstant
+                                                                    .default_color,
+                                                                shadowColor:
+                                                                    Colors.grey,
+                                                                shape:
+                                                                    RoundedRectangleBorder(
+                                                                        borderRadius:
+                                                                            BorderRadiusDirectional
+                                                                                .only(
+                                                                          topEnd:
+                                                                              Radius.circular(15),
+                                                                          topStart:
+                                                                              Radius.circular(15),
+                                                                          bottomEnd:
+                                                                              Radius.circular(15),
+                                                                          bottomStart:
+                                                                              Radius.circular(15),
                                                                         ),
-                                                                        Divider(),
-                                                                        Card(
-                                                                          elevation:
-                                                                              0,
-                                                                          child:
-                                                                              Row(
-                                                                            children: [
-                                                                              Icon(
-                                                                                Icons.agriculture_sharp,
-                                                                                color: Colors.grey,
-                                                                              ),
-                                                                              TextButton(
-                                                                                  onPressed: () {},
-                                                                                  child: Text(
-                                                                                    "Kilimo",
-                                                                                    style: TextStyle(fontWeight: FontWeight.bold, color: ColorConstant.default_color),
-                                                                                  ))
-                                                                            ],
-                                                                          ),
-                                                                        ),
-                                                                        Divider(),
-                                                                        Card(
-                                                                          elevation:
-                                                                              0,
-                                                                          child:
-                                                                              Row(
-                                                                            children: [
-                                                                              Icon(
-                                                                                Icons.business,
-                                                                                color: Colors.grey,
-                                                                              ),
-                                                                              TextButton(
-                                                                                  onPressed: () {},
-                                                                                  child: Text(
-                                                                                    "Biashara",
-                                                                                    style: TextStyle(fontWeight: FontWeight.bold, color: ColorConstant.default_color),
-                                                                                  ))
-                                                                            ],
-                                                                          ),
-                                                                        ),
-                                                                      ],
+                                                                        side: BorderSide(
+                                                                            color:
+                                                                                ColorConstant.default_color)),
+                                                                elevation: 4,
+                                                                child: Container(
+                                                                  height: MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .width *
+                                                                      0.18,
+                                                                  width: MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .width *
+                                                                      0.18,
+                                                                  child: Center(
+                                                                    child:
+                                                                        Image(
+                                                                      image: const AssetImage(
+                                                                          "assets/images/education.png"),
+                                                                      height:
+                                                                          50,
+                                                                      width: 50,
+                                                                      // fit: BoxFit.cover,
                                                                     ),
                                                                   ),
-                                                                );
-                                                              },
-                                                              child: Card(
-                                                                  color: ColorConstant
-                                                                      .default_color,
-                                                                  shadowColor:
-                                                                      Colors
-                                                                          .grey,
-                                                                  shape: RoundedRectangleBorder(
-                                                                      borderRadius: BorderRadiusDirectional.only(
-                                                                        topEnd:
-                                                                            Radius.circular(15),
-                                                                        topStart:
-                                                                            Radius.circular(15),
-                                                                        bottomEnd:
-                                                                            Radius.circular(15),
-                                                                        bottomStart:
-                                                                            Radius.circular(15),
-                                                                      ),
-                                                                      side: BorderSide(color: ColorConstant.default_color)),
-                                                                  elevation: 4,
-                                                                  child: Container(
-                                                                    height: MediaQuery.of(context)
-                                                                            .size
-                                                                            .width *
-                                                                        0.18,
-                                                                    width: MediaQuery.of(context)
-                                                                            .size
-                                                                            .width *
-                                                                        0.18,
-                                                                    child:
-                                                                        Center(
-                                                                      child:
-                                                                          Image(
-                                                                        image: const AssetImage(
-                                                                            "assets/images/fund.png"),
-                                                                        height:
-                                                                            50,
-                                                                        width:
-                                                                            50,
-                                                                        // fit: BoxFit.cover,
-                                                                      ),
-                                                                    ),
-                                                                  )),
-                                                            ),
-                                                            Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .center,
-                                                              children: [
-                                                                Text(
-                                                                  "Mikopo",
-                                                                  style: TextStyle(
-                                                                      color: ColorConstant
-                                                                          .default_color,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold),
-                                                                )
-                                                              ],
-                                                            )
-                                                          ],
-                                                        ) //Text("Taarifa za Kilimo"),
-                                                        ),
-                                                    Padding(
-                                                        padding: getPadding(
-                                                            left: 10,
-                                                            right: 10,
-                                                            bottom: 20),
-                                                        child: Column(
-                                                          children: [
-                                                            InkWell(
-                                                              onTap: () {
-                                                                showModalBottomSheet(
-                                                                  isScrollControlled:
-                                                                      true,
-                                                                  context:
-                                                                      context,
-                                                                  backgroundColor:
-                                                                      Colors
-                                                                          .white,
-                                                                  shape:
-                                                                      RoundedRectangleBorder(
-                                                                    borderRadius:
-                                                                        BorderRadiusDirectional
-                                                                            .only(
-                                                                      topEnd: Radius
-                                                                          .circular(
-                                                                              25),
-                                                                      topStart:
-                                                                          Radius.circular(
-                                                                              25),
-                                                                    ),
+                                                                )),
+                                                          ),
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Text(
+                                                                "Elimu / Taarifa",
+                                                                style: TextStyle(
+                                                                    color: ColorConstant
+                                                                        .default_color,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold),
+                                                              )
+                                                            ],
+                                                          )
+                                                        ],
+                                                      ) //Text("Taarifa za Kilimo"),
+                                                      ),
+                                                  Padding(
+                                                      padding: getPadding(
+                                                          left: 10,
+                                                          right: 10,
+                                                          bottom: 20),
+                                                      child: Column(
+                                                        children: [
+                                                          InkWell(
+                                                            onTap: () {
+                                                              showModalBottomSheet(
+                                                                isScrollControlled:
+                                                                    true,
+                                                                context:
+                                                                    context,
+                                                                backgroundColor:
+                                                                    Colors
+                                                                        .white,
+                                                                shape:
+                                                                    RoundedRectangleBorder(
+                                                                  borderRadius:
+                                                                      BorderRadiusDirectional
+                                                                          .only(
+                                                                    topEnd: Radius
+                                                                        .circular(
+                                                                            25),
+                                                                    topStart: Radius
+                                                                        .circular(
+                                                                            25),
                                                                   ),
-                                                                  builder:
-                                                                      (context) =>
-                                                                          SingleChildScrollView(
-                                                                    padding:
-                                                                        EdgeInsetsDirectional
-                                                                            .only(
-                                                                      bottom: 0,
-                                                                      top: 8,
-                                                                    ),
-                                                                    child:
-                                                                        Column(
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .start,
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .center,
-                                                                      mainAxisSize:
-                                                                          MainAxisSize
-                                                                              .min,
-                                                                      children: [
-                                                                        Row(
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.center,
-                                                                          children: [
-                                                                            Container(
-                                                                              decoration: BoxDecoration(
-                                                                                  borderRadius: BorderRadius.all(
-                                                                                    Radius.circular(10),
+                                                                ),
+                                                                builder:
+                                                                    (context) =>
+                                                                        SingleChildScrollView(
+                                                                  padding:
+                                                                      EdgeInsetsDirectional
+                                                                          .only(
+                                                                    bottom: 0,
+                                                                    top: 8,
+                                                                  ),
+                                                                  child: Column(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .start,
+                                                                    crossAxisAlignment:
+                                                                        CrossAxisAlignment
+                                                                            .center,
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .min,
+                                                                    children: [
+                                                                      Row(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.center,
+                                                                        children: [
+                                                                          Container(
+                                                                            decoration: BoxDecoration(
+                                                                                borderRadius: BorderRadius.all(
+                                                                                  Radius.circular(10),
+                                                                                ),
+                                                                                color: ColorConstant.default_color,
+                                                                                boxShadow: [
+                                                                                  BoxShadow(
+                                                                                    color: ColorConstant.default_color,
+                                                                                    blurRadius: 3,
                                                                                   ),
-                                                                                  color: ColorConstant.default_color,
-                                                                                  boxShadow: [
-                                                                                    BoxShadow(
-                                                                                      color: ColorConstant.default_color,
-                                                                                      blurRadius: 3,
-                                                                                    ),
-                                                                                  ]),
-                                                                              child: Text("                            "),
+                                                                                ]),
+                                                                            child:
+                                                                                Text("                            "),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                      Card(
+                                                                        elevation:
+                                                                            0,
+                                                                        child:
+                                                                            Row(
+                                                                          children: [
+                                                                            Icon(
+                                                                              Icons.account_tree_outlined,
+                                                                              color: Colors.grey,
                                                                             ),
+                                                                            TextButton(
+                                                                                onPressed: () {},
+                                                                                child: Text(
+                                                                                  "Uzalishaji",
+                                                                                  style: TextStyle(fontWeight: FontWeight.bold, color: ColorConstant.default_color),
+                                                                                ))
                                                                           ],
                                                                         ),
-                                                                        Card(
-                                                                          elevation:
-                                                                              0,
-                                                                          child:
-                                                                              Row(
-                                                                            children: [
-                                                                              Icon(
-                                                                                Icons.category_outlined,
-                                                                                color: Colors.grey,
-                                                                              ),
-                                                                              TextButton(
-                                                                                  onPressed: () {
-                                                                                    pembejeo();
-                                                                                  },
-                                                                                  child: Text(
-                                                                                    "Aina za Pembejeo",
-                                                                                    style: TextStyle(fontWeight: FontWeight.bold, color: ColorConstant.default_color),
-                                                                                  ))
-                                                                            ],
-                                                                          ),
-                                                                        ),
-                                                                        Divider(),
-                                                                        Card(
-                                                                          elevation:
-                                                                              0,
-                                                                          child:
-                                                                              Row(
-                                                                            children: [
-                                                                              Icon(
-                                                                                Icons.ac_unit,
-                                                                                color: Colors.grey,
-                                                                              ),
-                                                                              TextButton(
-                                                                                  onPressed: () {},
-                                                                                  child: Text(
-                                                                                    "Mawakala",
-                                                                                    style: TextStyle(fontWeight: FontWeight.bold, color: ColorConstant.default_color),
-                                                                                  ))
-                                                                            ],
-                                                                          ),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                );
-                                                              },
-                                                              child: Card(
-                                                                  color: ColorConstant
-                                                                      .default_color,
-                                                                  shadowColor:
-                                                                      Colors
-                                                                          .grey,
-                                                                  shape: RoundedRectangleBorder(
-                                                                      borderRadius: BorderRadiusDirectional.only(
-                                                                        topEnd:
-                                                                            Radius.circular(15),
-                                                                        topStart:
-                                                                            Radius.circular(15),
-                                                                        bottomEnd:
-                                                                            Radius.circular(15),
-                                                                        bottomStart:
-                                                                            Radius.circular(15),
                                                                       ),
-                                                                      side: BorderSide(color: ColorConstant.default_color)),
-                                                                  elevation: 4,
-                                                                  child: Container(
-                                                                    height: MediaQuery.of(context)
-                                                                            .size
-                                                                            .width *
-                                                                        0.18,
-                                                                    width: MediaQuery.of(context)
-                                                                            .size
-                                                                            .width *
-                                                                        0.18,
-                                                                    child:
-                                                                        Center(
-                                                                      child:
-                                                                          Image(
-                                                                        image: const AssetImage(
-                                                                            "assets/images/categories.png"),
-                                                                        height:
-                                                                            40,
-                                                                        width:
-                                                                            40,
-                                                                        // fit: BoxFit.cover,
-                                                                      ),
-                                                                    ),
-                                                                  )),
-                                                            ),
-                                                            Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .center,
-                                                              children: [
-                                                                Text(
-                                                                  "Pembejeo",
-                                                                  style: TextStyle(
-                                                                      color: ColorConstant
-                                                                          .default_color,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold),
-                                                                )
-                                                              ],
-                                                            )
-                                                          ],
-                                                        ) //Text("Taarifa za Kilimo"),
-                                                        ),
-                                                    Padding(
-                                                        padding: getPadding(
-                                                            left: 10,
-                                                            right: 10,
-                                                            bottom: 20),
-                                                        child: Column(
-                                                          children: [
-                                                            InkWell(
-                                                              onTap: () {
-                                                                showModalBottomSheet(
-                                                                  isScrollControlled:
-                                                                      true,
-                                                                  context:
-                                                                      context,
-                                                                  backgroundColor:
-                                                                      Colors
-                                                                          .white,
-                                                                  shape:
-                                                                      RoundedRectangleBorder(
-                                                                    borderRadius:
-                                                                        BorderRadiusDirectional
-                                                                            .only(
-                                                                      topEnd: Radius
-                                                                          .circular(
-                                                                              25),
-                                                                      topStart:
-                                                                          Radius.circular(
-                                                                              25),
-                                                                    ),
-                                                                  ),
-                                                                  builder:
-                                                                      (context) =>
-                                                                          SingleChildScrollView(
-                                                                    padding:
-                                                                        EdgeInsetsDirectional
-                                                                            .only(
-                                                                      bottom: 0,
-                                                                      top: 8,
-                                                                    ),
-                                                                    child:
-                                                                        Column(
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .start,
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .center,
-                                                                      mainAxisSize:
-                                                                          MainAxisSize
-                                                                              .min,
-                                                                      children: [
-                                                                        Row(
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.center,
+                                                                      Divider(),
+                                                                      Card(
+                                                                        elevation:
+                                                                            0,
+                                                                        child:
+                                                                            Row(
                                                                           children: [
-                                                                            Container(
-                                                                              decoration: BoxDecoration(
-                                                                                  borderRadius: BorderRadius.all(
-                                                                                    Radius.circular(10),
-                                                                                  ),
-                                                                                  color: ColorConstant.default_color,
-                                                                                  boxShadow: [
-                                                                                    BoxShadow(
-                                                                                      color: ColorConstant.default_color,
-                                                                                      blurRadius: 3,
-                                                                                    ),
-                                                                                  ]),
-                                                                              child: Text("                            "),
+                                                                            Icon(
+                                                                              Icons.agriculture_sharp,
+                                                                              color: Colors.grey,
                                                                             ),
+                                                                            TextButton(
+                                                                                onPressed: () {},
+                                                                                child: Text(
+                                                                                  "Uchakataji",
+                                                                                  style: TextStyle(fontWeight: FontWeight.bold, color: ColorConstant.default_color),
+                                                                                ))
                                                                           ],
                                                                         ),
-                                                                        Card(
-                                                                          elevation:
-                                                                              0,
-                                                                          child:
-                                                                              Row(
-                                                                            children: [
-                                                                              Icon(
-                                                                                Icons.add_business_outlined,
-                                                                                color: Colors.grey,
-                                                                              ),
-                                                                              TextButton(
-                                                                                  onPressed: () {},
-                                                                                  child: Text(
-                                                                                    "Aina ya Masoko",
-                                                                                    style: TextStyle(fontWeight: FontWeight.bold, color: ColorConstant.default_color),
-                                                                                  ))
-                                                                            ],
-                                                                          ),
-                                                                        ),
-                                                                        Divider(),
-                                                                        Card(
-                                                                          elevation:
-                                                                              0,
-                                                                          child:
-                                                                              Row(
-                                                                            children: [
-                                                                              Icon(
-                                                                                Icons.add_chart,
-                                                                                color: Colors.grey,
-                                                                              ),
-                                                                              TextButton(
-                                                                                  onPressed: () {},
-                                                                                  child: Text(
-                                                                                    "Mahitaji",
-                                                                                    style: TextStyle(fontWeight: FontWeight.bold, color: ColorConstant.default_color),
-                                                                                  ))
-                                                                            ],
-                                                                          ),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                );
-                                                              },
-                                                              child: Card(
-                                                                  color: ColorConstant
-                                                                      .default_color,
-                                                                  shadowColor:
-                                                                      Colors
-                                                                          .grey,
-                                                                  shape: RoundedRectangleBorder(
-                                                                      borderRadius: BorderRadiusDirectional.only(
-                                                                        topEnd:
-                                                                            Radius.circular(15),
-                                                                        topStart:
-                                                                            Radius.circular(15),
-                                                                        bottomEnd:
-                                                                            Radius.circular(15),
-                                                                        bottomStart:
-                                                                            Radius.circular(15),
                                                                       ),
-                                                                      side: BorderSide(color: ColorConstant.default_color)),
-                                                                  elevation: 4,
-                                                                  child: Container(
-                                                                    height: MediaQuery.of(context)
-                                                                            .size
-                                                                            .width *
-                                                                        0.18,
-                                                                    width: MediaQuery.of(context)
-                                                                            .size
-                                                                            .width *
-                                                                        0.18,
-                                                                    child:
-                                                                        Center(
-                                                                      child:
-                                                                          Image(
-                                                                        image: const AssetImage(
-                                                                            "assets/images/market.png"),
-                                                                        height:
-                                                                            40,
-                                                                        width:
-                                                                            40,
-                                                                        // fit: BoxFit.cover,
-                                                                      ),
-                                                                    ),
-                                                                  )),
-                                                            ),
-                                                            Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .center,
-                                                              children: [
-                                                                Text(
-                                                                  "Masoko",
-                                                                  style: TextStyle(
-                                                                      color: ColorConstant
-                                                                          .default_color,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold),
-                                                                )
-                                                              ],
-                                                            )
-                                                          ],
-                                                        ) //Text("Taarifa za Kilimo"),
-                                                        ),
-                                                    Padding(
-                                                        padding: getPadding(
-                                                            left: 10,
-                                                            right: 10,
-                                                            bottom: 20),
-                                                        child: Column(
-                                                          children: [
-                                                            InkWell(
-                                                              onTap: () {
-                                                                showModalBottomSheet(
-                                                                  isScrollControlled:
-                                                                      true,
-                                                                  context:
-                                                                      context,
-                                                                  backgroundColor:
-                                                                      Colors
-                                                                          .white,
-                                                                  shape:
-                                                                      RoundedRectangleBorder(
-                                                                    borderRadius:
-                                                                        BorderRadiusDirectional
-                                                                            .only(
-                                                                      topEnd: Radius
-                                                                          .circular(
-                                                                              25),
-                                                                      topStart:
-                                                                          Radius.circular(
-                                                                              25),
-                                                                    ),
-                                                                  ),
-                                                                  builder:
-                                                                      (context) =>
-                                                                          SingleChildScrollView(
-                                                                    padding:
-                                                                        EdgeInsetsDirectional
-                                                                            .only(
-                                                                      bottom: 0,
-                                                                      top: 8,
-                                                                    ),
-                                                                    child:
-                                                                        Column(
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .start,
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .center,
-                                                                      mainAxisSize:
-                                                                          MainAxisSize
-                                                                              .min,
-                                                                      children: [
-                                                                        Row(
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.center,
+                                                                      Divider(),
+                                                                      Card(
+                                                                        elevation:
+                                                                            0,
+                                                                        child:
+                                                                            Row(
                                                                           children: [
-                                                                            Container(
-                                                                              decoration: BoxDecoration(
-                                                                                  borderRadius: BorderRadius.all(
-                                                                                    Radius.circular(10),
-                                                                                  ),
-                                                                                  color: ColorConstant.default_color,
-                                                                                  boxShadow: [
-                                                                                    BoxShadow(
-                                                                                      color: ColorConstant.default_color,
-                                                                                      blurRadius: 3,
-                                                                                    ),
-                                                                                  ]),
-                                                                              child: Text("                            "),
+                                                                            Icon(
+                                                                              Icons.business,
+                                                                              color: Colors.grey,
                                                                             ),
+                                                                            TextButton(
+                                                                                onPressed: () {},
+                                                                                child: Text(
+                                                                                  "Uhifadhi",
+                                                                                  style: TextStyle(fontWeight: FontWeight.bold, color: ColorConstant.default_color),
+                                                                                ))
                                                                           ],
                                                                         ),
-                                                                        Card(
-                                                                          elevation:
-                                                                              0,
-                                                                          child:
-                                                                              Row(
-                                                                            children: [
-                                                                              Icon(
-                                                                                Icons.price_change_outlined,
-                                                                                color: Colors.grey,
-                                                                              ),
-                                                                              TextButton(
-                                                                                  onPressed: () {},
-                                                                                  child: Text(
-                                                                                    "Bei za Mazao",
-                                                                                    style: TextStyle(fontWeight: FontWeight.bold, color: ColorConstant.default_color),
-                                                                                  ))
-                                                                            ],
-                                                                          ),
+                                                                      ),
+                                                                         Divider(),
+                                                                      Card(
+                                                                        elevation:
+                                                                            0,
+                                                                        child:
+                                                                            Row(
+                                                                          children: [
+                                                                            Icon(
+                                                                              Icons.business,
+                                                                              color: Colors.grey,
+                                                                            ),
+                                                                            TextButton(
+                                                                                onPressed: () {},
+                                                                                child: Text(
+                                                                                  "Usafirishaji",
+                                                                                  style: TextStyle(fontWeight: FontWeight.bold, color: ColorConstant.default_color),
+                                                                                ))
+                                                                          ],
                                                                         ),
-                                                                        Divider(),
-                                                                        Card(
-                                                                          elevation:
-                                                                              0,
-                                                                          child:
-                                                                              Row(
-                                                                            children: [
-                                                                              Icon(
-                                                                                Icons.person_pin_circle_rounded,
-                                                                                color: Colors.grey,
-                                                                              ),
-                                                                              TextButton(
-                                                                                  onPressed: () {},
-                                                                                  child: Text(
-                                                                                    "Wauzaji",
-                                                                                    style: TextStyle(fontWeight: FontWeight.bold, color: ColorConstant.default_color),
-                                                                                  ))
-                                                                            ],
-                                                                          ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              );
+                                                            },
+                                                            child: Card(
+                                                                color: ColorConstant
+                                                                    .default_color,
+                                                                shadowColor:
+                                                                    Colors.grey,
+                                                                shape:
+                                                                    RoundedRectangleBorder(
+                                                                        borderRadius:
+                                                                            BorderRadiusDirectional
+                                                                                .only(
+                                                                          topEnd:
+                                                                              Radius.circular(15),
+                                                                          topStart:
+                                                                              Radius.circular(15),
+                                                                          bottomEnd:
+                                                                              Radius.circular(15),
+                                                                          bottomStart:
+                                                                              Radius.circular(15),
                                                                         ),
-                                                                        Divider(),
-                                                                        Card(
-                                                                          elevation:
-                                                                              0,
-                                                                          child:
-                                                                              Row(
-                                                                            children: [
-                                                                              Icon(
-                                                                                Icons.person_pin_circle_outlined,
-                                                                                color: Colors.grey,
-                                                                              ),
-                                                                              TextButton(
-                                                                                  onPressed: () {},
-                                                                                  child: Text(
-                                                                                    "Wanunuzi",
-                                                                                    style: TextStyle(fontWeight: FontWeight.bold, color: ColorConstant.default_color),
-                                                                                  ))
-                                                                            ],
-                                                                          ),
-                                                                        ),
-                                                                        Divider(),
-                                                                        Card(
-                                                                          elevation:
-                                                                              0,
-                                                                          child:
-                                                                              Row(
-                                                                            children: [
-                                                                              Icon(
-                                                                                Icons.sell,
-                                                                                color: Colors.grey,
-                                                                              ),
-                                                                              TextButton(
-                                                                                  onPressed: () {
-                                                                                    buySell();
-                                                                                  },
-                                                                                  child: Text(
-                                                                                    "Nunua Mazao",
-                                                                                    style: TextStyle(fontWeight: FontWeight.bold, color: ColorConstant.default_color),
-                                                                                  ))
-                                                                            ],
-                                                                          ),
-                                                                        ),
-                                                                      ],
+                                                                        side: BorderSide(
+                                                                            color:
+                                                                                ColorConstant.default_color)),
+                                                                elevation: 4,
+                                                                child: Container(
+                                                                  height: MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .width *
+                                                                      0.18,
+                                                                  width: MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .width *
+                                                                      0.18,
+                                                                  child: Center(
+                                                                    child:
+                                                                        Image(
+                                                                      image: const AssetImage(
+                                                                          "assets/images/fund.png"),
+                                                                      height:
+                                                                          50,
+                                                                      width: 50,
+                                                                      // fit: BoxFit.cover,
                                                                     ),
                                                                   ),
-                                                                );
-                                                              },
-                                                              child: Card(
-                                                                  color: ColorConstant
-                                                                      .default_color,
-                                                                  shadowColor:
-                                                                      const Color
-                                                                          .fromRGBO(
-                                                                          158,
-                                                                          158,
-                                                                          158,
-                                                                          1),
-                                                                  shape: RoundedRectangleBorder(
-                                                                      borderRadius: BorderRadiusDirectional.only(
-                                                                        topEnd:
-                                                                            Radius.circular(15),
-                                                                        topStart:
-                                                                            Radius.circular(15),
-                                                                        bottomEnd:
-                                                                            Radius.circular(15),
-                                                                        bottomStart:
-                                                                            Radius.circular(15),
+                                                                )),
+                                                          ),
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Text(
+                                                                "Value Chain",
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                                style: TextStyle(
+                                                                    color: ColorConstant
+                                                                        .default_color,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold),
+                                                              )
+                                                            ],
+                                                          )
+                                                        ],
+                                                      ) //Text("Taarifa za Kilimo"),
+                                                      ),
+                                                  Padding(
+                                                      padding: getPadding(
+                                                          left: 10,
+                                                          right: 10,
+                                                          bottom: 20),
+                                                      child: Column(
+                                                        children: [
+                                                          InkWell(
+                                                            onTap: () {
+                                                              showModalBottomSheet(
+                                                                isScrollControlled:
+                                                                    true,
+                                                                context:
+                                                                    context,
+                                                                backgroundColor:
+                                                                    Colors
+                                                                        .white,
+                                                                shape:
+                                                                    RoundedRectangleBorder(
+                                                                  borderRadius:
+                                                                      BorderRadiusDirectional
+                                                                          .only(
+                                                                    topEnd: Radius
+                                                                        .circular(
+                                                                            25),
+                                                                    topStart: Radius
+                                                                        .circular(
+                                                                            25),
+                                                                  ),
+                                                                ),
+                                                                builder:
+                                                                    (context) =>
+                                                                        SingleChildScrollView(
+                                                                  padding:
+                                                                      EdgeInsetsDirectional
+                                                                          .only(
+                                                                    bottom: 0,
+                                                                    top: 8,
+                                                                  ),
+                                                                  child: Column(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .start,
+                                                                    crossAxisAlignment:
+                                                                        CrossAxisAlignment
+                                                                            .center,
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .min,
+                                                                    children: [
+                                                                      Row(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.center,
+                                                                        children: [
+                                                                          Container(
+                                                                            decoration: BoxDecoration(
+                                                                                borderRadius: BorderRadius.all(
+                                                                                  Radius.circular(10),
+                                                                                ),
+                                                                                color: ColorConstant.default_color,
+                                                                                boxShadow: [
+                                                                                  BoxShadow(
+                                                                                    color: ColorConstant.default_color,
+                                                                                    blurRadius: 3,
+                                                                                  ),
+                                                                                ]),
+                                                                            child:
+                                                                                Text("                            "),
+                                                                          ),
+                                                                        ],
                                                                       ),
-                                                                      side: BorderSide(color: ColorConstant.default_color)),
-                                                                  elevation: 4,
-                                                                  child: Container(
-                                                                    height: MediaQuery.of(context)
-                                                                            .size
-                                                                            .width *
-                                                                        0.18,
-                                                                    width: MediaQuery.of(context)
-                                                                            .size
-                                                                            .width *
-                                                                        0.18,
+                                                                      Card(
+                                                                        elevation:
+                                                                            0,
+                                                                        child:
+                                                                            Row(
+                                                                          children: [
+                                                                            Icon(
+                                                                              Icons.category_outlined,
+                                                                              color: Colors.grey,
+                                                                            ),
+                                                                            TextButton(
+                                                                                onPressed: () {
+                                                                                 // pembejeo();
+                                                                                },
+                                                                                child: Text(
+                                                                                  "Ndani",
+                                                                                  style: TextStyle(fontWeight: FontWeight.bold, color: ColorConstant.default_color),
+                                                                                ))
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                      Divider(),
+                                                                      Card(
+                                                                        elevation:
+                                                                            0,
+                                                                        child:
+                                                                            Row(
+                                                                          children: [
+                                                                            Icon(
+                                                                              Icons.ac_unit,
+                                                                              color: Colors.grey,
+                                                                            ),
+                                                                            TextButton(
+                                                                                onPressed: () {},
+                                                                                child: Text(
+                                                                                  "Nnje",
+                                                                                  style: TextStyle(fontWeight: FontWeight.bold, color: ColorConstant.default_color),
+                                                                                ))
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              );
+                                                            },
+                                                            child: Card(
+                                                                color: ColorConstant
+                                                                    .default_color,
+                                                                shadowColor:
+                                                                    Colors.grey,
+                                                                shape:
+                                                                    RoundedRectangleBorder(
+                                                                        borderRadius:
+                                                                            BorderRadiusDirectional
+                                                                                .only(
+                                                                          topEnd:
+                                                                              Radius.circular(15),
+                                                                          topStart:
+                                                                              Radius.circular(15),
+                                                                          bottomEnd:
+                                                                              Radius.circular(15),
+                                                                          bottomStart:
+                                                                              Radius.circular(15),
+                                                                        ),
+                                                                        side: BorderSide(
+                                                                            color:
+                                                                                ColorConstant.default_color)),
+                                                                elevation: 4,
+                                                                child: Container(
+                                                                  height: MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .width *
+                                                                      0.18,
+                                                                  width: MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .width *
+                                                                      0.18,
+                                                                  child: Center(
                                                                     child:
-                                                                        Center(
-                                                                      child:
-                                                                          Image(
-                                                                        image: const AssetImage(
-                                                                            "assets/images/shopping.png"),
-                                                                        height:
-                                                                            40,
-                                                                        width:
-                                                                            40,
-                                                                        // fit: BoxFit.cover,
-                                                                      ),
+                                                                        Image(
+                                                                      image: const AssetImage(
+                                                                          "assets/images/categories.png"),
+                                                                      height:
+                                                                          40,
+                                                                      width: 40,
+                                                                      // fit: BoxFit.cover,
                                                                     ),
-                                                                  )),
-                                                            ),
-                                                            Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .center,
-                                                              children: [
-                                                                Text(
-                                                                  "Kununua",
-                                                                  style: TextStyle(
-                                                                      color: ColorConstant
-                                                                          .default_color,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold),
-                                                                )
-                                                              ],
-                                                            )
-                                                          ],
-                                                        ) //Text("Taarifa za Kilimo"),
-                                                        ),
-                                                  ],
-                                                ))
+                                                                  ),
+                                                                )),
+                                                          ),
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Text(
+                                                                "Zabuni",
+                                                                style: TextStyle(
+                                                                    color: ColorConstant
+                                                                        .default_color,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold),
+                                                              )
+                                                            ],
+                                                          )
+                                                        ],
+                                                      ) //Text("Taarifa za Kilimo"),
+                                                      ),
+                                                  Padding(
+                                                      padding: getPadding(
+                                                          left: 10,
+                                                          right: 10,
+                                                          bottom: 20),
+                                                      child: Column(
+                                                        children: [
+                                                          InkWell(
+                                                            onTap: () {
+                                                              showModalBottomSheet(
+                                                                isScrollControlled:
+                                                                    true,
+                                                                context:
+                                                                    context,
+                                                                backgroundColor:
+                                                                    Colors
+                                                                        .white,
+                                                                shape:
+                                                                    RoundedRectangleBorder(
+                                                                  borderRadius:
+                                                                      BorderRadiusDirectional
+                                                                          .only(
+                                                                    topEnd: Radius
+                                                                        .circular(
+                                                                            25),
+                                                                    topStart: Radius
+                                                                        .circular(
+                                                                            25),
+                                                                  ),
+                                                                ),
+                                                                builder:
+                                                                    (context) =>
+                                                                        SingleChildScrollView(
+                                                                  padding:
+                                                                      EdgeInsetsDirectional
+                                                                          .only(
+                                                                    bottom: 0,
+                                                                    top: 8,
+                                                                  ),
+                                                                  child: Column(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .start,
+                                                                    crossAxisAlignment:
+                                                                        CrossAxisAlignment
+                                                                            .center,
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .min,
+                                                                    children: [
+                                                                      Row(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.center,
+                                                                        children: [
+                                                                          Container(
+                                                                            decoration: BoxDecoration(
+                                                                                borderRadius: BorderRadius.all(
+                                                                                  Radius.circular(10),
+                                                                                ),
+                                                                                color: ColorConstant.default_color,
+                                                                                boxShadow: [
+                                                                                  BoxShadow(
+                                                                                    color: ColorConstant.default_color,
+                                                                                    blurRadius: 3,
+                                                                                  ),
+                                                                                ]),
+                                                                            child:
+                                                                                Text("                            "),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                      Card(
+                                                                        elevation:
+                                                                            0,
+                                                                        child:
+                                                                            Row(
+                                                                          children: [
+                                                                            Icon(
+                                                                              Icons.add_business_outlined,
+                                                                              color: Colors.grey,
+                                                                            ),
+                                                                            TextButton(
+                                                                                onPressed: () {},
+                                                                                child: Text(
+                                                                                  "Aina ya Masoko",
+                                                                                  style: TextStyle(fontWeight: FontWeight.bold, color: ColorConstant.default_color),
+                                                                                ))
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                      Divider(),
+                                                                      Card(
+                                                                        elevation:
+                                                                            0,
+                                                                        child:
+                                                                            Row(
+                                                                          children: [
+                                                                            Icon(
+                                                                              Icons.add_chart,
+                                                                              color: Colors.grey,
+                                                                            ),
+                                                                            TextButton(
+                                                                                onPressed: () {},
+                                                                                child: Text(
+                                                                                  "Bei za Mazao",
+                                                                                  style: TextStyle(fontWeight: FontWeight.bold, color: ColorConstant.default_color),
+                                                                                ))
+                                                                          ],
+                                                                        ),
+                                                                      ),
 
-                                        //----------------------------------------------------------------------------------------------------------------------------------------------------
-                                        )
-                                  ])),
-                          Padding(
-                            padding: getPadding(left: 15),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "News and Events",
-                                  style: TextStyle(
-                                      color: ColorConstant.default_color,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ],
-                            ),
+                                                                            Divider(),
+                                                                      Card(
+                                                                        elevation:
+                                                                            0,
+                                                                        child:
+                                                                            Row(
+                                                                          children: [
+                                                                            Icon(
+                                                                              Icons.add_chart,
+                                                                              color: Colors.grey,
+                                                                            ),
+                                                                            TextButton(
+                                                                                onPressed: () {},
+                                                                                child: Text(
+                                                                                  "Wateja Wakubwa",
+                                                                                  style: TextStyle(fontWeight: FontWeight.bold, color: ColorConstant.default_color),
+                                                                                ))
+                                                                          ],
+                                                                        ),
+                                                                      ),
+
+                                                                      
+                                                                            Divider(),
+                                                                      Card(
+                                                                        elevation:
+                                                                            0,
+                                                                        child:
+                                                                            Row(
+                                                                          children: [
+                                                                            Icon(
+                                                                              Icons.add_chart,
+                                                                              color: Colors.grey,
+                                                                            ),
+                                                                            TextButton(
+                                                                                onPressed: () {},
+                                                                                child: Text(
+                                                                                  "Wauzaji / Wanunuzi",
+                                                                                  style: TextStyle(fontWeight: FontWeight.bold, color: ColorConstant.default_color),
+                                                                                ))
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              );
+                                                            },
+                                                            child: Card(
+                                                                color: ColorConstant
+                                                                    .default_color,
+                                                                shadowColor:
+                                                                    Colors.grey,
+                                                                shape:
+                                                                    RoundedRectangleBorder(
+                                                                        borderRadius:
+                                                                            BorderRadiusDirectional
+                                                                                .only(
+                                                                          topEnd:
+                                                                              Radius.circular(15),
+                                                                          topStart:
+                                                                              Radius.circular(15),
+                                                                          bottomEnd:
+                                                                              Radius.circular(15),
+                                                                          bottomStart:
+                                                                              Radius.circular(15),
+                                                                        ),
+                                                                        side: BorderSide(
+                                                                            color:
+                                                                                ColorConstant.default_color)),
+                                                                elevation: 4,
+                                                                child: Container(
+                                                                  height: MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .width *
+                                                                      0.18,
+                                                                  width: MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .width *
+                                                                      0.18,
+                                                                  child: Center(
+                                                                    child:
+                                                                        Image(
+                                                                      image: const AssetImage(
+                                                                          "assets/images/market.png"),
+                                                                      height:
+                                                                          40,
+                                                                      width: 40,
+                                                                      // fit: BoxFit.cover,
+                                                                    ),
+                                                                  ),
+                                                                )),
+                                                          ),
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Text(
+                                                                "Masoko",
+                                                                style: TextStyle(
+                                                                    color: ColorConstant
+                                                                        .default_color,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold),
+                                                              )
+                                                            ],
+                                                          )
+                                                        ],
+                                                      ) //Text("Taarifa za Kilimo"),
+                                                      ),
+                                                  Padding(
+                                                      padding: getPadding(
+                                                          left: 10,
+                                                          right: 10,
+                                                          bottom: 20),
+                                                      child: Column(
+                                                        children: [
+                                                          InkWell(
+                                                            onTap: () {
+                                                              showModalBottomSheet(
+                                                                isScrollControlled:
+                                                                    true,
+                                                                context:
+                                                                    context,
+                                                                backgroundColor:
+                                                                    Colors
+                                                                        .white,
+                                                                shape:
+                                                                    RoundedRectangleBorder(
+                                                                  borderRadius:
+                                                                      BorderRadiusDirectional
+                                                                          .only(
+                                                                    topEnd: Radius
+                                                                        .circular(
+                                                                            25),
+                                                                    topStart: Radius
+                                                                        .circular(
+                                                                            25),
+                                                                  ),
+                                                                ),
+                                                                builder:
+                                                                    (context) =>
+                                                                        SingleChildScrollView(
+                                                                  padding:
+                                                                      EdgeInsetsDirectional
+                                                                          .only(
+                                                                    bottom: 0,
+                                                                    top: 8,
+                                                                  ),
+                                                                  child: Column(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .start,
+                                                                    crossAxisAlignment:
+                                                                        CrossAxisAlignment
+                                                                            .center,
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .min,
+                                                                    children: [
+                                                                      Row(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.center,
+                                                                        children: [
+                                                                          Container(
+                                                                            decoration: BoxDecoration(
+                                                                                borderRadius: BorderRadius.all(
+                                                                                  Radius.circular(10),
+                                                                                ),
+                                                                                color: ColorConstant.default_color,
+                                                                                boxShadow: [
+                                                                                  BoxShadow(
+                                                                                    color: ColorConstant.default_color,
+                                                                                    blurRadius: 3,
+                                                                                  ),
+                                                                                ]),
+                                                                            child:
+                                                                                Text("                            "),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                      Card(
+                                                                        elevation:
+                                                                            0,
+                                                                        child:
+                                                                            Row(
+                                                                          children: [
+                                                                            Icon(
+                                                                              Icons.price_change_outlined,
+                                                                              color: Colors.grey,
+                                                                            ),
+                                                                            TextButton(
+                                                                                onPressed: () {},
+                                                                                child: Text(
+                                                                                  "Bidhaa",
+                                                                                  style: TextStyle(fontWeight: FontWeight.bold, color: ColorConstant.default_color),
+                                                                                ))
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                      Divider(),
+                                                                      Card(
+                                                                        elevation:
+                                                                            0,
+                                                                        child:
+                                                                            Row(
+                                                                          children: [
+                                                                            Icon(
+                                                                              Icons.person_pin_circle_rounded,
+                                                                              color: Colors.grey,
+                                                                            ),
+                                                                            TextButton(
+                                                                                onPressed: () {},
+                                                                                child: Text(
+                                                                                  "Wanunuzi",
+                                                                                  style: TextStyle(fontWeight: FontWeight.bold, color: ColorConstant.default_color),
+                                                                                ))
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                      Divider(),
+                                                                      Card(
+                                                                        elevation:
+                                                                            0,
+                                                                        child:
+                                                                            Row(
+                                                                          children: [
+                                                                            Icon(
+                                                                              Icons.person_pin_circle_outlined,
+                                                                              color: Colors.grey,
+                                                                            ),
+                                                                            TextButton(
+                                                                                onPressed: () {},
+                                                                                child: Text(
+                                                                                  "Wanunuzi",
+                                                                                  style: TextStyle(fontWeight: FontWeight.bold, color: ColorConstant.default_color),
+                                                                                ))
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                      Divider(),
+                                                                      Card(
+                                                                        elevation:
+                                                                            0,
+                                                                        child:
+                                                                            Row(
+                                                                          children: [
+                                                                            Icon(
+                                                                              Icons.sell,
+                                                                              color: Colors.grey,
+                                                                            ),
+                                                                            TextButton(
+                                                                                onPressed: () {
+                                                                                  //buySell();
+                                                                                },
+                                                                                child: Text(
+                                                                                  "Wauzajaji",
+                                                                                  style: TextStyle(fontWeight: FontWeight.bold, color: ColorConstant.default_color),
+                                                                                ))
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              );
+                                                            },
+                                                            child: Card(
+                                                                color: ColorConstant
+                                                                    .default_color,
+                                                                shadowColor:
+                                                                    const Color
+                                                                        .fromRGBO(
+                                                                        158,
+                                                                        158,
+                                                                        158,
+                                                                        1),
+                                                                shape:
+                                                                    RoundedRectangleBorder(
+                                                                        borderRadius:
+                                                                            BorderRadiusDirectional
+                                                                                .only(
+                                                                          topEnd:
+                                                                              Radius.circular(15),
+                                                                          topStart:
+                                                                              Radius.circular(15),
+                                                                          bottomEnd:
+                                                                              Radius.circular(15),
+                                                                          bottomStart:
+                                                                              Radius.circular(15),
+                                                                        ),
+                                                                        side: BorderSide(
+                                                                            color:
+                                                                                ColorConstant.default_color)),
+                                                                elevation: 4,
+                                                                child: Container(
+                                                                  height: MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .width *
+                                                                      0.18,
+                                                                  width: MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .width *
+                                                                      0.18,
+                                                                  child: Center(
+                                                                    child:
+                                                                        Image(
+                                                                      image: const AssetImage(
+                                                                          "assets/images/shopping.png"),
+                                                                      height:
+                                                                          40,
+                                                                      width: 40,
+                                                                      // fit: BoxFit.cover,
+                                                                    ),
+                                                                  ),
+                                                                )),
+                                                          ),
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Text(
+                                                                "Kununua",
+                                                                style: TextStyle(
+                                                                    color: ColorConstant
+                                                                        .default_color,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold),
+                                                              )
+                                                            ],
+                                                          )
+                                                        ],
+                                                      ) //Text("Taarifa za Kilimo"),
+                                                      ),
+                                                ],
+                                              ))
+
+                                      //----------------------------------------------------------------------------------------------------------------------------------------------------
+                                      )
+                                ])),
+                        Padding(
+                          padding: getPadding(left: 15),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                "News and Events",
+                                style: TextStyle(
+                                    color: ColorConstant.default_color,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
                           ),
-                          Divider(),
-                          Container(
-                            height:
-                                200.0, // Set the height of the card container
-                            child: ListView(
-                              scrollDirection: Axis.horizontal,
-                              children: [
-                                buildCard(
-                                    'assets/images/top3.png', 'Shinyanga'),
-                                buildCard('assets/images/top.png', 'Dodoma'),
-                                buildCard('assets/images/top.jpg', 'Mbeya'),
-                              ],
-                            ),
+                        ),
+                        Divider(),
+                        Container(
+                          height: 200.0, // Set the height of the card container
+                          child: ListView(
+                            scrollDirection: Axis.horizontal,
+                            children: [
+                              buildCard('assets/images/top3.png', 'Shinyanga'),
+                              buildCard('assets/images/top.png', 'Dodoma'),
+                              buildCard('assets/images/top.jpg', 'Mbeya'),
+                            ],
                           ),
-                        ],
-                      )),
+                        ),
+                      ])),
                 )),
           ]),
         ),
@@ -1518,27 +1588,38 @@ class ServicesScreen extends StatelessWidget {
           items: [
             BottomNavigationBarItem(
                 icon: InkWell(
+                  onTap: () {
+                    // Get.to(HomePage(),
+                    //     duration: Duration(seconds: 1),
+                    //     transition: Transition.rightToLeft //transition effect
+                    //     );
+
+                    Get.to(() => HomePage());
+                  },
                   child: Icon(
-                    Icons.notifications,
+                    Icons.shop_2,
                     color: ColorConstant.default_color,
+                  ),
+                ),
+                label: 'Shop'),
+            BottomNavigationBarItem(
+                icon: InkWell(
+                  child: Badge(
+                    label: Text("0"),
+                    child: Icon(
+                      Icons.notification_important_rounded,
+                      color: ColorConstant.default_color,
+                    ),
                   ),
                 ),
                 label: 'Notification'),
-            BottomNavigationBarItem(
-                icon: InkWell(
-                  child: Icon(
-                    Icons.tv_rounded,
-                    color: ColorConstant.default_color,
-                  ),
-                ),
-                label: 'MKonekt TV'),
             BottomNavigationBarItem(
                 icon: InkWell(
                   onTap: () {
                     Get.toNamed(AppRoutes.transactionTabContainerPage);
                   },
                   child: Icon(
-                    Icons.account_circle_outlined,
+                    Icons.person_3_rounded,
                     color: ColorConstant.default_color,
                   ),
                 ),
