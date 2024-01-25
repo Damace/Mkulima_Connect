@@ -36,14 +36,15 @@ class EditProfileController extends GetxController
   final passwordcodekey = GlobalKey<FormState>();
   final confirmpasswordcodekey = GlobalKey<FormState>();
 
+  var selectedItem = "".obs;
+  void upDateSelectedItem(String value) {
+    selectedItem.value = value;
+  }
+
   validateFullname(fullName) {
     if (fullName == null || fullName.trim().isEmpty) {
       return 'Full name is Required';
     }
-    // if (fullName.trim().length < 3) {
-    //   return 'Password must be at least 8 characters in length';
-    // }
-    // Return null if the entered password is valid
     return null;
   }
 

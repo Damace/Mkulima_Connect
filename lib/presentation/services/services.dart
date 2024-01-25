@@ -115,14 +115,75 @@ class ServicesScreen extends StatelessWidget {
                                     fontWeight: FontWeight.bold,
                                     fontFamily:
                                         GoogleFonts.montserrat().fontFamily,
-                                    color: Colors.yellow))
+                                    color: Colors.yellow)),
                           ])),
                       SizedBox(
                         height: 1,
                       ),
-                      Text(
-                        "Crops Buyers & Sellers Platform",
-                        style: TextStyle(letterSpacing: 1, color: Colors.white),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Crops Buyers & Sellers Platform",
+                            style: TextStyle(
+                                letterSpacing: 1, color: Colors.white),
+                          ),
+                          Padding(
+                              padding: const EdgeInsets.only(right: 5),
+                              child: PopupMenuButton(
+                                child: Icon(
+                                  Icons.more_vert,
+                                  color: Colors.white,
+                                  size: 35,
+                                ),
+                                itemBuilder: (context) => [
+                                  PopupMenuItem(
+                                      child: Row(
+                                    children: [
+                                      Icon(Icons.offline_bolt),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 10),
+                                        child: Text("Item One"),
+                                      )
+                                    ],
+                                  )),
+                                  PopupMenuItem(
+                                      child: Row(
+                                    children: [
+                                      Icon(Icons.offline_bolt),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 10),
+                                        child: Text("Item Two"),
+                                      )
+                                    ],
+                                  )),
+                                  PopupMenuItem(
+                                      child: Row(
+                                    children: [
+                                      Icon(Icons.offline_bolt),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 10),
+                                        child: Text("Item Three"),
+                                      )
+                                    ],
+                                  )),
+                                  PopupMenuItem(
+                                      child: Row(
+                                    children: [
+                                      Icon(Icons.offline_bolt),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 10),
+                                        child: Text("Item One"),
+                                      )
+                                    ],
+                                  ))
+                                ],
+                              ))
+                        ],
                       )
                     ],
                   ),
@@ -170,9 +231,17 @@ class ServicesScreen extends StatelessWidget {
                               color: ColorConstant.default_color,
                             ),
                             InkWell(
+                              onTap: () {
+                                // Get.to(HomePage(),
+                                //     duration: Duration(seconds: 1),
+                                //     transition: Transition.rightToLeft //transition effect
+                                //     );
+
+                                Get.to(() => HomePage());
+                              },
                               child: Icon(
-                                Icons.sunny_snowing,
-                                size: 25,
+                                Icons.shop_2,
+                                 size: 25,
                                 color: ColorConstant.default_color,
                               ),
                             ),
@@ -815,7 +884,7 @@ class ServicesScreen extends StatelessWidget {
                                                                           ],
                                                                         ),
                                                                       ),
-                                                                         Divider(),
+                                                                      Divider(),
                                                                       Card(
                                                                         elevation:
                                                                             0,
@@ -992,7 +1061,7 @@ class ServicesScreen extends StatelessWidget {
                                                                             ),
                                                                             TextButton(
                                                                                 onPressed: () {
-                                                                                 // pembejeo();
+                                                                                  // pembejeo();
                                                                                 },
                                                                                 child: Text(
                                                                                   "Ndani",
@@ -1202,8 +1271,7 @@ class ServicesScreen extends StatelessWidget {
                                                                           ],
                                                                         ),
                                                                       ),
-
-                                                                            Divider(),
+                                                                      Divider(),
                                                                       Card(
                                                                         elevation:
                                                                             0,
@@ -1223,9 +1291,7 @@ class ServicesScreen extends StatelessWidget {
                                                                           ],
                                                                         ),
                                                                       ),
-
-                                                                      
-                                                                            Divider(),
+                                                                      Divider(),
                                                                       Card(
                                                                         elevation:
                                                                             0,
@@ -1580,6 +1646,7 @@ class ServicesScreen extends StatelessWidget {
                 )),
           ]),
         ),
+       
         bottomNavigationBar: BottomNavigationBar(
           elevation: 50,
           backgroundColor: ColorConstant.whiteA700,
@@ -1594,14 +1661,14 @@ class ServicesScreen extends StatelessWidget {
                     //     transition: Transition.rightToLeft //transition effect
                     //     );
 
-                    Get.to(() => HomePage());
+                    // Get.to(() => HomePage());
                   },
                   child: Icon(
-                    Icons.shop_2,
+                    Icons.tv,
                     color: ColorConstant.default_color,
                   ),
                 ),
-                label: 'Shop'),
+                label: 'Mkulima TV'),
             BottomNavigationBarItem(
                 icon: InkWell(
                   child: Badge(

@@ -28,11 +28,11 @@ class SplashController extends GetxController {
     var onboarding = pref.getString("onboarding");
 
     if (onboarding == "true") {
-      Future.delayed(const Duration(milliseconds: 8000), () {
+      Future.delayed(const Duration(milliseconds: 4000), () {
         Get.offNamed(AppRoutes.services);
       });
     } else {
-      Future.delayed(const Duration(milliseconds: 8000), () {
+      Future.delayed(const Duration(milliseconds: 4000), () {
         Get.offNamed(AppRoutes.productTourOneScreen);
       });
     }

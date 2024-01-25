@@ -1,4 +1,5 @@
 import 'package:flutter/services.dart';
+import 'package:mkulima_connect/presentation/home_page/home_page.dart';
 
 import 'controller/edit_profile_controller.dart';
 import 'package:flutter/material.dart';
@@ -66,10 +67,55 @@ class EditProfileScreen extends GetWidget<EditProfileController> {
           ],
         ),
 
+        bottomNavigationBar: BottomNavigationBar(
+          elevation: 50,
+          backgroundColor: ColorConstant.default_color,
+          selectedLabelStyle: TextStyle(color: Colors.white),
+          unselectedLabelStyle: TextStyle(color: Colors.white),
+          items: [
+            BottomNavigationBarItem(
+                icon: InkWell(
+                  onTap: () {
+                    // Get.to(HomePage(),
+                    //     duration: Duration(seconds: 1),
+                    //     transition: Transition.rightToLeft //transition effect
+                    //     );
+
+                    Get.to(() => HomePage());
+                  },
+                  child: Icon(
+                    Icons.shop_2,
+                    color: ColorConstant.whiteA700,
+                  ),
+                ),
+                label: 'Shop'),
+            BottomNavigationBarItem(
+                icon: InkWell(
+                  child: Badge(
+                    label: Text("0"),
+                    child: Icon(
+                      Icons.notification_important_rounded,
+                      color: ColorConstant.whiteA700,
+                    ),
+                  ),
+                ),
+                label: 'Notification'),
+            BottomNavigationBarItem(
+                icon: InkWell(
+                  onTap: () {},
+                  child: Icon(
+                    Icons.person_3_rounded,
+                    color: ColorConstant.default_color,
+                  ),
+                ),
+                label: ''),
+          ],
+        ),
+
         floatingActionButtonLocation: FloatingActionButtonLocation.endContained,
         floatingActionButton: Card(
             color: ColorConstant.default_color,
-            shadowColor: Colors.grey,
+            shadowColor: Colors.white,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadiusDirectional.only(
                   topEnd: Radius.circular(50),
@@ -80,8 +126,8 @@ class EditProfileScreen extends GetWidget<EditProfileController> {
 
                 // --------------------------------------------------------------------------------------------------------------------------
 
-                side: BorderSide(color: ColorConstant.default_color)),
-            elevation: 4,
+                side: BorderSide(color: ColorConstant.whiteA700)),
+            elevation: 15,
             child: InkWell(
               onTap: () {
                 if (formController.fullnamekey.currentState!.validate() ||
@@ -123,6 +169,7 @@ class EditProfileScreen extends GetWidget<EditProfileController> {
         //     },
         //     child: Text("Update Account"),
         //   ),
+
         // ),
       ),
     );
@@ -158,6 +205,35 @@ class EditProfileScreen extends GetWidget<EditProfileController> {
                         controller: formController.fullnameController,
                         validator: (fullName) =>
                             formController.validateFullname(fullName)),
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.015),
+                  Obx(
+                    () => Container(
+                      height: 60,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          border: Border.all(color: Colors.grey)),
+                      child: DropdownButton<String>(
+                        padding: EdgeInsets.all(10),
+                        isExpanded: true,
+                        underline: SizedBox(),
+                        value: formController.selectedItem.value == ""
+                            ? null
+                            : formController.selectedItem.value,
+                        onChanged: (newValue) {
+                          formController
+                              .upDateSelectedItem(newValue.toString());
+                        },
+                        items: ['Option 1', 'Option 2', 'Option 3']
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      ),
+                    ),
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.015),
                   Form(
@@ -259,6 +335,7 @@ class EditProfileScreen extends GetWidget<EditProfileController> {
                     // key: formkey,
                     child: TextFormField(
                       decoration: InputDecoration(
+                        isDense: true,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
