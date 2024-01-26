@@ -36,57 +36,18 @@ class EditProfileController extends GetxController
   final passwordcodekey = GlobalKey<FormState>();
   final confirmpasswordcodekey = GlobalKey<FormState>();
 
+  RxBool isVisible = false.obs;
+
   var selectedItem = "".obs;
-  void upDateSelectedItem(String value) {
-    selectedItem.value = value;
-  }
 
-  validateFullname(fullName) {
-    if (fullName == null || fullName.trim().isEmpty) {
-      return 'Full name is Required';
-    }
-    return null;
-  }
+  Future<void> updateRecord(String value) async {
+    var gender = selectedItem.value = value;
+    print(gender);
 
-  validateCountry(country) {
-    if (country == null || country.trim().isEmpty) {
-      return 'Country name is Required';
+    if (gender == "Male") {
+      isVisible.toggle();
     }
-    // if (country.trim().length < 3) {
-    //   return 'Password must be at least 8 characters in length';
-    // }
-    // Return null if the entered password is valid
-    return null;
-  }
 
-  validateRegion(region) {
-    if (region == null || region.trim().isEmpty) {
-      return 'Region name is Required';
-    }
-    return null;
-  }
-
-  validatepostalCode(postalCode) {
-    if (postalCode == null || postalCode.trim().isEmpty) {
-      return 'Postal code is Required';
-    }
-    if (postalCode.trim().length > 4 || postalCode.trim().length < 6) {
-      return 'Postal Codes required is 6 Character';
-    }
-    return null;
-  }
-
-  validateselling(selling) {
-    if (selling == null || selling.trim().isEmpty) {
-      return 'Selling field required';
-    }
-    // if (.trim().length > 4 || postalCode.trim().length < 6) {
-    //   return 'Postal Codes required is 6 Character';
-    // }
-    return null;
-  }
-
-  Future<void> updateRecord() async {
     if (fullnameController.text.isEmpty ||
         genderController.text.isEmpty ||
         countryController.text.isEmpty ||
@@ -94,16 +55,16 @@ class EditProfileController extends GetxController
         postalcodeController.text.isEmpty ||
         passwordController.text.isEmpty ||
         confirmpasswordController.text.isEmpty) {
-      Get.snackbar(
-        "Not Inserted",
-        "Error",
-        snackPosition: SnackPosition.TOP,
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
-        icon: const Icon(Icons.error, color: Colors.white),
-        shouldIconPulse: true,
-        barBlur: 20,
-      );
+      // Get.snackbar(
+      //   "Not Inserted",
+      //   "Error",
+      //   snackPosition: SnackPosition.TOP,
+      //   backgroundColor: Colors.red,
+      //   colorText: Colors.white,
+      //   icon: const Icon(Icons.error, color: Colors.white),
+      //   shouldIconPulse: true,
+      //   barBlur: 20,
+      // );
     }
 
     try {
@@ -113,7 +74,7 @@ class EditProfileController extends GetxController
         "phoneid": "0762700405",
         "fullname": fullnameController.text,
         "category": "buyer",
-        "gender": genderController.text,
+        "gender": gender,
         "country": countryController.text,
         "region": regionController.text,
         "postalcode": postalcodeController.text,
@@ -172,5 +133,57 @@ class EditProfileController extends GetxController
       });
       editProfileModelObj.value.dropdownItemList.refresh();
     }
+  }
+
+  var selectedSeling = "".obs;
+  void upDateSellingItem(String value) {
+    selectedItem.value = value;
+  }
+
+  bool passwordSecured = true;
+
+  validateFullname(fullName) {
+    if (fullName == null || fullName.trim().isEmpty) {
+      return 'Full name is Required';
+    }
+    return null;
+  }
+
+  validateCountry(country) {
+    if (country == null || country.trim().isEmpty) {
+      return 'Country name is Required';
+    }
+    // if (country.trim().length < 3) {
+    //   return 'Password must be at least 8 characters in length';
+    // }
+    // Return null if the entered password is valid
+    return null;
+  }
+
+  validateRegion(region) {
+    if (region == null || region.trim().isEmpty) {
+      return 'Region name is Required';
+    }
+    return null;
+  }
+
+  validatepostalCode(postalCode) {
+    if (postalCode == null || postalCode.trim().isEmpty) {
+      return 'Postal code is Required';
+    }
+    if (postalCode.trim().length > 4 || postalCode.trim().length < 6) {
+      return 'Postal Codes required is 6 Character';
+    }
+    return null;
+  }
+
+  validateselling(selling) {
+    if (selling == null || selling.trim().isEmpty) {
+      return 'Selling field required';
+    }
+    // if (.trim().length > 4 || postalCode.trim().length < 6) {
+    //   return 'Postal Codes required is 6 Character';
+    // }
+    return null;
   }
 }
