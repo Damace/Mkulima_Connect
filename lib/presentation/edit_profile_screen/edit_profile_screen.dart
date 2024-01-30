@@ -16,7 +16,7 @@ class EditProfileScreen extends GetWidget<EditProfileController> {
       statusBarIconBrightness: Brightness.light,
     ));
     return DefaultTabController(
-      length: 5,
+      length: 4,
       child: Scaffold(
         appBar: AppBar(
           title: const Text(
@@ -28,40 +28,29 @@ class EditProfileScreen extends GetWidget<EditProfileController> {
             tabs: [
               Tab(
                 icon: Icon(Icons.sell_rounded),
-                text: "Seller",
+                text: "Seller\n",
               ),
               Tab(
                 icon: Icon(Icons.shopping_cart),
-                text: "Buyer",
-              ),
-              Tab(
-                icon: Icon(Icons.category),
-                text: "Service",
+                text: "Buyer\n",
               ),
               Tab(
                 icon: Icon(Icons.add),
-                text: "Agent",
+                text: "Agent\n",
               ),
               Tab(
-                icon: Icon(Icons.person),
-                text: "Other",
-              )
+                icon: Icon(Icons.category),
+                text: "Service\nProvider",
+              ),
             ],
           ),
         ),
         body: TabBarView(
           children: [
             sellerForm(context),
-            buyerForm(context),
-            Center(
-              child: Text("Settings"),
-            ),
-            Center(
-              child: Text("Settings"),
-            ),
-            Center(
-              child: Text("Settings"),
-            ),
+            buyerForm2(context),
+            agentForm(context),
+            serviceForm(context)
           ],
         ),
 
@@ -87,17 +76,17 @@ class EditProfileScreen extends GetWidget<EditProfileController> {
                   ),
                 ),
                 label: 'Shop'),
-            BottomNavigationBarItem(
-                icon: InkWell(
-                  child: Badge(
-                    label: Text("0"),
-                    child: Icon(
-                      Icons.notification_important_rounded,
-                      color: ColorConstant.whiteA700,
-                    ),
-                  ),
-                ),
-                label: 'Notification'),
+            // BottomNavigationBarItem(
+            //     icon: InkWell(
+            //       child: Badge(
+            //         label: Text("0"),
+            //         child: Icon(
+            //           Icons.notification_important_rounded,
+            //           color: ColorConstant.whiteA700,
+            //         ),
+            //       ),
+            //     ),
+            //     label: 'Notification'),
             BottomNavigationBarItem(
                 icon: InkWell(
                   onTap: () {},
@@ -130,8 +119,9 @@ class EditProfileScreen extends GetWidget<EditProfileController> {
               onTap: () {
                 if (formController.fullnamekey.currentState!.validate() ||
                     formController.regionkey.currentState!.validate() ||
-                    formController.postalcodekey.currentState!.validate()) {}
-                //formController.updateRecord(value);
+                    formController.postalcodekey.currentState!.validate() ||
+                    formController.countrykey.currentState!.validate()) {}
+                formController.updateRecord();
               },
               child: Container(
                 height: MediaQuery.of(context).size.width * 0.18,
@@ -213,54 +203,57 @@ class EditProfileScreen extends GetWidget<EditProfileController> {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
                           border: Border.all(color: Colors.grey)),
-                      child: DropdownButton<String>(
-                        isDense: true,
-                        hint: Row(children: [
-                          Icon(Icons.person_2, color: Colors.grey),
-                          SizedBox(
-                            width: 8,
-                          ),
-                          Text(
-                            "Gender",
-                            style: TextStyle(color: Colors.grey),
-                          )
-                        ]),
-                        padding: EdgeInsets.all(10),
-                        isExpanded: true,
-                        underline: SizedBox(),
-                        value: formController.selectedItem.value == ""
-                            ? null
-                            : formController.selectedItem.value,
-                        onChanged: (newValue) {
-                          formController.updateRecord(newValue.toString());
-                        },
-                        items: ['Male', 'Female']
-                            .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
+                      child: Form(
+                        key: formController.genderkey,
+                        child: DropdownButton<String>(
+                          isDense: true,
+                          hint: Row(children: [
+                            Icon(Icons.person_2, color: Colors.grey),
+                            SizedBox(
+                              width: 8,
+                            ),
+                            Text(
+                              "Gender",
+                              style: TextStyle(color: Colors.grey),
+                            )
+                          ]),
+                          padding: EdgeInsets.all(10),
+                          isExpanded: true,
+                          underline: SizedBox(),
+                          value: formController.selectedItem.value == ""
+                              ? null
+                              : formController.selectedItem.value,
+                          onChanged: (newValue) {
+                            formController.updateGender(newValue.toString());
+                          },
+                          items: ['Male', 'Female']
+                              .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                        ),
                       ),
                     ),
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.015),
-                 Obx(
-                () => Visibility(
-                  visible: formController.isVisible.value,
-                  child: Text(
-                    'This text is visible!',
-                    style: TextStyle(fontSize: 18.0),
+                  Obx(
+                    () => Visibility(
+                      visible: formController.isVisible.value,
+                      child: Text(
+                        'This text is visible!',
+                        style: TextStyle(fontSize: 18.0),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              //    ElevatedButton(
-              //   onPressed: () {
-              //     // Toggle visibility when the button is pressed
-              //     formController.isVisible.toggle();
-              //   },
-              //   child: Text('Toggle Visibility'),
-              // ),
+                  //    ElevatedButton(
+                  //   onPressed: () {
+                  //     // Toggle visibility when the button is pressed
+                  //     formController.isVisible.toggle();
+                  //   },
+                  //   child: Text('Toggle Visibility'),
+                  // ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.015),
                   Form(
                     key: formController.countrykey,
@@ -276,7 +269,7 @@ class EditProfileScreen extends GetWidget<EditProfileController> {
                         keyboardType: TextInputType.text,
                         controller: formController.countryController,
                         validator: (country) =>
-                            formController.validateFullname(country)),
+                            formController.validateCountry(country)),
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.015),
                   Form(
@@ -330,22 +323,27 @@ class EditProfileScreen extends GetWidget<EditProfileController> {
                               width: 8,
                             ),
                             Text(
-                              "Selling",
+                              "Selling interest",
                               style: TextStyle(color: Colors.grey),
                             )
                           ]),
                           padding: EdgeInsets.all(10),
                           isExpanded: true,
                           underline: SizedBox(),
-                          value: formController.selectedSeling.value == ""
+                          value: formController.selectedSelling.value == ""
                               ? null
-                              : formController.selectedSeling.value,
+                              : formController.selectedSelling.value,
                           onChanged: (newValue) {
-                            formController
-                                .upDateSellingItem(newValue.toString());
+                            formController.updateSelling(newValue.toString());
                           },
-                          items: ['Male', 'Female']
-                              .map<DropdownMenuItem<String>>((String value) {
+                          items: [
+                            'Food Crops',
+                            'Cash Crops',
+                            'Nuts Spices',
+                            'Livestock',
+                            'Fish',
+                            'Cooking Oils'
+                          ].map<DropdownMenuItem<String>>((String value) {
                             return DropdownMenuItem<String>(
                               value: value,
                               child: Text(value),
@@ -426,6 +424,744 @@ class EditProfileScreen extends GetWidget<EditProfileController> {
     );
   }
 
+  buyerForm2(context) {
+    return Padding(
+        padding: const EdgeInsets.only(top: 10),
+        child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Padding(
+                padding: const EdgeInsets.only(left: 20, right: 20),
+                child: Container(
+                  // color: Colors.red,
+                  height: MediaQuery.of(context).size.height * 1.05,
+                  // height: 80,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        Form(
+                          // key: formController.fullnamekey,
+                          child: TextFormField(
+                              decoration: InputDecoration(
+                                isDense: true,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                labelText: "Full name",
+                                prefixIcon: Icon(Icons.person),
+                              ),
+                              keyboardType: TextInputType.name,
+                              controller: formController.fullnameController,
+                              validator: (fullName) =>
+                                  formController.validateFullname(fullName)),
+                        ),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.015),
+                        Obx(
+                          () => Container(
+                            height: 50,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                border: Border.all(color: Colors.grey)),
+                            child: DropdownButton<String>(
+                              isDense: true,
+                              hint: Row(children: [
+                                Icon(Icons.person_2, color: Colors.grey),
+                                SizedBox(
+                                  width: 8,
+                                ),
+                                Text(
+                                  "Gender",
+                                  style: TextStyle(color: Colors.grey),
+                                )
+                              ]),
+                              padding: EdgeInsets.all(10),
+                              isExpanded: true,
+                              underline: SizedBox(),
+                              value: formController.selectedItem.value == ""
+                                  ? null
+                                  : formController.selectedItem.value,
+                              onChanged: (newValue) {
+                                formController
+                                    .updateGender(newValue.toString());
+                              },
+                              items: [
+                                'Male',
+                                'Female'
+                              ].map<DropdownMenuItem<String>>((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.015),
+                        Form(
+                          // key: formController.countrykey,
+                          child: TextFormField(
+                              decoration: InputDecoration(
+                                isDense: true,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                labelText: "Country",
+                                prefixIcon: Icon(Icons.location_on),
+                              ),
+                              keyboardType: TextInputType.text,
+                              controller: formController.countryController,
+                              validator: (country) =>
+                                  formController.validateFullname(country)),
+                        ),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.015),
+                        Form(
+                          // key: formController.regionkey,
+                          child: TextFormField(
+                              decoration: InputDecoration(
+                                isDense: true,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                labelText: "Region",
+                                prefixIcon: Icon(Icons.location_on),
+                              ),
+                              keyboardType: TextInputType.text,
+                              controller: formController.regionController,
+                              validator: (region) =>
+                                  formController.validateRegion(region)),
+                        ),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.015),
+                        Form(
+                          // key: formController.postalcodekey,
+                          child: TextFormField(
+                              decoration: InputDecoration(
+                                isDense: true,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                labelText: "Postal Code",
+                                prefixIcon: Icon(Icons.location_on),
+                              ),
+                              keyboardType: TextInputType.phone,
+                              controller: formController.postalcodeController,
+                              validator: (postalCode) =>
+                                  formController.validateRegion(postalCode)),
+                        ),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.015),
+                        Form(
+                          // key: formController.sellingcodekey,
+                          child: Obx(
+                            () => Container(
+                              height: 50,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  border: Border.all(color: Colors.grey)),
+                              child: DropdownButton(
+                                isDense: true,
+                                hint: Row(children: [
+                                  Icon(Icons.sell_rounded, color: Colors.grey),
+                                  SizedBox(
+                                    width: 8,
+                                  ),
+                                  Text(
+                                    "Selling",
+                                    style: TextStyle(color: Colors.grey),
+                                  )
+                                ]),
+                                padding: EdgeInsets.all(10),
+                                isExpanded: true,
+                                underline: SizedBox(),
+                                value: formController.selectedSeling.value == ""
+                                    ? null
+                                    : formController.selectedSeling.value,
+                                onChanged: (newValue) {
+                                  formController
+                                      .upDateSellingItem(newValue.toString());
+                                },
+                                items: [
+                                  'Male',
+                                  'Female'
+                                ].map<DropdownMenuItem<String>>((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  );
+                                }).toList(),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.015),
+                        Form(
+                          // key: formkey,
+                          child: TextFormField(
+                            decoration: InputDecoration(
+                              isDense: true,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              labelText: "Email",
+                              prefixIcon: Icon(Icons.email_outlined),
+                            ),
+                            keyboardType: TextInputType.emailAddress,
+                            controller: formController.emailController,
+                          ),
+                        ),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.015),
+                        Form(
+                          // key: formkey,
+                          child: TextFormField(
+                            obscureText: formController.passwordSecured,
+                            decoration: InputDecoration(
+                              isDense: true,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              labelText: "Password",
+                              prefixIcon: Icon(Icons.lock),
+                              suffixIcon: IconButton(
+                                onPressed: () {
+                                  // Obx(() =>  formController.passwordSecured.)
+                                },
+                                icon: Icon(Icons.visibility_off),
+                              ),
+                            ),
+                            keyboardType: TextInputType.text,
+                            controller: formController.passwordController,
+                          ),
+                        ),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.015),
+                        Form(
+                          // key: formkey,
+                          child: TextFormField(
+                            obscureText: true,
+                            decoration: InputDecoration(
+                              isDense: true,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              labelText: "Confirm password",
+                              prefixIcon: Icon(Icons.lock),
+                              suffixIcon: IconButton(
+                                onPressed: () {
+                                  // Obx(() =>  formController.passwordSecured.)
+                                },
+                                icon: Icon(Icons.visibility_off),
+                              ),
+                            ),
+                            keyboardType: TextInputType.text,
+                            controller:
+                                formController.confirmpasswordController,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ))));
+  }
+
+  agentForm(context) {
+    return Padding(
+        padding: const EdgeInsets.only(top: 10),
+        child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Padding(
+                padding: const EdgeInsets.only(left: 20, right: 20),
+                child: Container(
+                  // color: Colors.red,
+                  height: MediaQuery.of(context).size.height * 1.05,
+                  // height: 80,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        Form(
+                          // key: formController.fullnamekey,
+                          child: TextFormField(
+                              decoration: InputDecoration(
+                                isDense: true,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                labelText: "Full name",
+                                prefixIcon: Icon(Icons.person),
+                              ),
+                              keyboardType: TextInputType.name,
+                              controller: formController.fullnameController,
+                              validator: (fullName) =>
+                                  formController.validateFullname(fullName)),
+                        ),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.015),
+                        Obx(
+                          () => Container(
+                            height: 50,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                border: Border.all(color: Colors.grey)),
+                            child: DropdownButton<String>(
+                              isDense: true,
+                              hint: Row(children: [
+                                Icon(Icons.person_2, color: Colors.grey),
+                                SizedBox(
+                                  width: 8,
+                                ),
+                                Text(
+                                  "Gender",
+                                  style: TextStyle(color: Colors.grey),
+                                )
+                              ]),
+                              padding: EdgeInsets.all(10),
+                              isExpanded: true,
+                              underline: SizedBox(),
+                              value: formController.selectedItem.value == ""
+                                  ? null
+                                  : formController.selectedItem.value,
+                              onChanged: (newValue) {
+                                formController
+                                    .updateGender(newValue.toString());
+                              },
+                              items: [
+                                'Male',
+                                'Female'
+                              ].map<DropdownMenuItem<String>>((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.015),
+                        Form(
+                          // key: formController.countrykey,
+                          child: TextFormField(
+                              decoration: InputDecoration(
+                                isDense: true,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                labelText: "Country",
+                                prefixIcon: Icon(Icons.location_on),
+                              ),
+                              keyboardType: TextInputType.text,
+                              controller: formController.countryController,
+                              validator: (country) =>
+                                  formController.validateFullname(country)),
+                        ),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.015),
+                        Form(
+                          // key: formController.regionkey,
+                          child: TextFormField(
+                              decoration: InputDecoration(
+                                isDense: true,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                labelText: "Region",
+                                prefixIcon: Icon(Icons.location_on),
+                              ),
+                              keyboardType: TextInputType.text,
+                              controller: formController.regionController,
+                              validator: (region) =>
+                                  formController.validateRegion(region)),
+                        ),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.015),
+                        Form(
+                          // key: formController.postalcodekey,
+                          child: TextFormField(
+                              decoration: InputDecoration(
+                                isDense: true,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                labelText: "Postal Code",
+                                prefixIcon: Icon(Icons.location_on),
+                              ),
+                              keyboardType: TextInputType.phone,
+                              controller: formController.postalcodeController,
+                              validator: (postalCode) =>
+                                  formController.validateRegion(postalCode)),
+                        ),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.015),
+                        Form(
+                          // key: formController.sellingcodekey,
+                          child: Obx(
+                            () => Container(
+                              height: 50,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  border: Border.all(color: Colors.grey)),
+                              child: DropdownButton(
+                                isDense: true,
+                                hint: Row(children: [
+                                  Icon(Icons.sell_rounded, color: Colors.grey),
+                                  SizedBox(
+                                    width: 8,
+                                  ),
+                                  Text(
+                                    "Selling",
+                                    style: TextStyle(color: Colors.grey),
+                                  )
+                                ]),
+                                padding: EdgeInsets.all(10),
+                                isExpanded: true,
+                                underline: SizedBox(),
+                                value: formController.selectedSeling.value == ""
+                                    ? null
+                                    : formController.selectedSeling.value,
+                                onChanged: (newValue) {
+                                  formController
+                                      .upDateSellingItem(newValue.toString());
+                                },
+                                items: [
+                                  'Male',
+                                  'Female'
+                                ].map<DropdownMenuItem<String>>((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  );
+                                }).toList(),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.015),
+                        Form(
+                          // key: formkey,
+                          child: TextFormField(
+                            decoration: InputDecoration(
+                              isDense: true,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              labelText: "Email",
+                              prefixIcon: Icon(Icons.email_outlined),
+                            ),
+                            keyboardType: TextInputType.emailAddress,
+                            controller: formController.emailController,
+                          ),
+                        ),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.015),
+                        Form(
+                          // key: formkey,
+                          child: TextFormField(
+                            obscureText: formController.passwordSecured,
+                            decoration: InputDecoration(
+                              isDense: true,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              labelText: "Password",
+                              prefixIcon: Icon(Icons.lock),
+                              suffixIcon: IconButton(
+                                onPressed: () {
+                                  // Obx(() =>  formController.passwordSecured.)
+                                },
+                                icon: Icon(Icons.visibility_off),
+                              ),
+                            ),
+                            keyboardType: TextInputType.text,
+                            controller: formController.passwordController,
+                          ),
+                        ),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.015),
+                        Form(
+                          // key: formkey,
+                          child: TextFormField(
+                            obscureText: true,
+                            decoration: InputDecoration(
+                              isDense: true,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              labelText: "Confirm password",
+                              prefixIcon: Icon(Icons.lock),
+                              suffixIcon: IconButton(
+                                onPressed: () {
+                                  // Obx(() =>  formController.passwordSecured.)
+                                },
+                                icon: Icon(Icons.visibility_off),
+                              ),
+                            ),
+                            keyboardType: TextInputType.text,
+                            controller:
+                                formController.confirmpasswordController,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ))));
+  }
+
+  serviceForm(context) {
+    return Padding(
+        padding: const EdgeInsets.only(top: 10),
+        child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Padding(
+                padding: const EdgeInsets.only(left: 20, right: 20),
+                child: Container(
+                  // color: Colors.red,
+                  height: MediaQuery.of(context).size.height * 1.05,
+                  // height: 80,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        Form(
+                          // key: formController.fullnamekey,
+                          child: TextFormField(
+                              decoration: InputDecoration(
+                                isDense: true,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                labelText: "Full name",
+                                prefixIcon: Icon(Icons.person),
+                              ),
+                              keyboardType: TextInputType.name,
+                              controller: formController.fullnameController,
+                              validator: (fullName) =>
+                                  formController.validateFullname(fullName)),
+                        ),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.015),
+                        Obx(
+                          () => Container(
+                            height: 50,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                border: Border.all(color: Colors.grey)),
+                            child: DropdownButton<String>(
+                              isDense: true,
+                              hint: Row(children: [
+                                Icon(Icons.person_2, color: Colors.grey),
+                                SizedBox(
+                                  width: 8,
+                                ),
+                                Text(
+                                  "Gender",
+                                  style: TextStyle(color: Colors.grey),
+                                )
+                              ]),
+                              padding: EdgeInsets.all(10),
+                              isExpanded: true,
+                              underline: SizedBox(),
+                              value: formController.selectedItem.value == ""
+                                  ? null
+                                  : formController.selectedItem.value,
+                              onChanged: (newValue) {
+                                formController
+                                    .updateGender(newValue.toString());
+                              },
+                              items: [
+                                'Male',
+                                'Female'
+                              ].map<DropdownMenuItem<String>>((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.015),
+                        Form(
+                          // key: formController.countrykey,
+                          child: TextFormField(
+                              decoration: InputDecoration(
+                                isDense: true,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                labelText: "Country",
+                                prefixIcon: Icon(Icons.location_on),
+                              ),
+                              keyboardType: TextInputType.text,
+                              controller: formController.countryController,
+                              validator: (country) =>
+                                  formController.validateFullname(country)),
+                        ),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.015),
+                        Form(
+                          // key: formController.regionkey,
+                          child: TextFormField(
+                              decoration: InputDecoration(
+                                isDense: true,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                labelText: "Region",
+                                prefixIcon: Icon(Icons.location_on),
+                              ),
+                              keyboardType: TextInputType.text,
+                              controller: formController.regionController,
+                              validator: (region) =>
+                                  formController.validateRegion(region)),
+                        ),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.015),
+                        Form(
+                          // key: formController.postalcodekey,
+                          child: TextFormField(
+                              decoration: InputDecoration(
+                                isDense: true,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                labelText: "Postal Code",
+                                prefixIcon: Icon(Icons.location_on),
+                              ),
+                              keyboardType: TextInputType.phone,
+                              controller: formController.postalcodeController,
+                              validator: (postalCode) =>
+                                  formController.validateRegion(postalCode)),
+                        ),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.015),
+                        Form(
+                          // key: formController.sellingcodekey,
+                          child: Obx(
+                            () => Container(
+                              height: 50,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  border: Border.all(color: Colors.grey)),
+                              child: DropdownButton(
+                                isDense: true,
+                                hint: Row(children: [
+                                  Icon(Icons.sell_rounded, color: Colors.grey),
+                                  SizedBox(
+                                    width: 8,
+                                  ),
+                                  Text(
+                                    "Selling",
+                                    style: TextStyle(color: Colors.grey),
+                                  )
+                                ]),
+                                padding: EdgeInsets.all(10),
+                                isExpanded: true,
+                                underline: SizedBox(),
+                                value: formController.selectedSeling.value == ""
+                                    ? null
+                                    : formController.selectedSeling.value,
+                                onChanged: (newValue) {
+                                  formController
+                                      .upDateSellingItem(newValue.toString());
+                                },
+                                items: [
+                                  'Male',
+                                  'Female'
+                                ].map<DropdownMenuItem<String>>((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  );
+                                }).toList(),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.015),
+                        Form(
+                          // key: formkey,
+                          child: TextFormField(
+                            decoration: InputDecoration(
+                              isDense: true,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              labelText: "Email",
+                              prefixIcon: Icon(Icons.email_outlined),
+                            ),
+                            keyboardType: TextInputType.emailAddress,
+                            controller: formController.emailController,
+                          ),
+                        ),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.015),
+                        Form(
+                          // key: formkey,
+                          child: TextFormField(
+                            obscureText: formController.passwordSecured,
+                            decoration: InputDecoration(
+                              isDense: true,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              labelText: "Password",
+                              prefixIcon: Icon(Icons.lock),
+                              suffixIcon: IconButton(
+                                onPressed: () {
+                                  // Obx(() =>  formController.passwordSecured.)
+                                },
+                                icon: Icon(Icons.visibility_off),
+                              ),
+                            ),
+                            keyboardType: TextInputType.text,
+                            controller: formController.passwordController,
+                          ),
+                        ),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.015),
+                        Form(
+                          // key: formkey,
+                          child: TextFormField(
+                            obscureText: true,
+                            decoration: InputDecoration(
+                              isDense: true,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              labelText: "Confirm password",
+                              prefixIcon: Icon(Icons.lock),
+                              suffixIcon: IconButton(
+                                onPressed: () {
+                                  // Obx(() =>  formController.passwordSecured.)
+                                },
+                                icon: Icon(Icons.visibility_off),
+                              ),
+                            ),
+                            keyboardType: TextInputType.text,
+                            controller:
+                                formController.confirmpasswordController,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ))));
+  }
+
   buyerForm(context) {
     return Padding(
       padding: const EdgeInsets.only(top: 10),
@@ -485,7 +1221,7 @@ class EditProfileScreen extends GetWidget<EditProfileController> {
                             ? null
                             : formController.selectedItem.value,
                         onChanged: (newValue) {
-                          formController.updateRecord(newValue.toString());
+                          formController.updateGender(newValue.toString());
                         },
                         items: ['Male', 'Female']
                             .map<DropdownMenuItem<String>>((String value) {

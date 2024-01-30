@@ -10,6 +10,7 @@ import 'package:mkulima_connect/presentation/home_page/controller/product_contro
 import 'package:mkulima_connect/presentation/home_page/home_page.dart';
 import 'package:mkulima_connect/presentation/my_cart/cart_page.dart';
 import 'package:mkulima_connect/presentation/provider/cart_provider.dart';
+import 'package:mkulima_connect/presentation/service_provider_screen/services_providers.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -144,7 +145,7 @@ class ServicesScreen extends StatelessWidget {
                                       Padding(
                                         padding:
                                             const EdgeInsets.only(left: 10),
-                                        child: Text("Item One"),
+                                        child: Text("About Us"),
                                       )
                                     ],
                                   )),
@@ -155,29 +156,51 @@ class ServicesScreen extends StatelessWidget {
                                       Padding(
                                         padding:
                                             const EdgeInsets.only(left: 10),
-                                        child: Text("Item Two"),
+                                        child: Text("Contacts"),
                                       )
                                     ],
                                   )),
                                   PopupMenuItem(
                                       child: Row(
                                     children: [
-                                      Icon(Icons.offline_bolt),
+                                      Icon(Icons.share),
                                       Padding(
                                         padding:
                                             const EdgeInsets.only(left: 10),
-                                        child: Text("Item Three"),
+                                        child: Text("Share"),
                                       )
                                     ],
                                   )),
                                   PopupMenuItem(
                                       child: Row(
                                     children: [
-                                      Icon(Icons.offline_bolt),
+                                      Icon(Icons.info),
                                       Padding(
                                         padding:
                                             const EdgeInsets.only(left: 10),
-                                        child: Text("Item One"),
+                                        child: Text("Help"),
+                                      )
+                                    ],
+                                  )),
+                                    PopupMenuItem(
+                                      child: Row(
+                                    children: [
+                                      Icon(Icons.info),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 10),
+                                        child: Text("Private policy"),
+                                      )
+                                    ],
+                                  )),
+                                    PopupMenuItem(
+                                      child: Row(
+                                    children: [
+                                      Icon(Icons.info),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 10),
+                                        child: Text("Terms and Condotion"),
                                       )
                                     ],
                                   ))
@@ -220,7 +243,7 @@ class ServicesScreen extends StatelessWidget {
                           children: [
                             InkWell(
                               child: Icon(
-                                Icons.agriculture_outlined,
+                                Icons.sunny_snowing,
                                 size: 25,
                                 color: ColorConstant.default_color,
                                 // semanticLabel: 'Shop now',
@@ -306,9 +329,14 @@ class ServicesScreen extends StatelessWidget {
                           ),
                           child: TextButton(
                               onPressed: () {
-                                Get.toNamed(
-                                  AppRoutes.cart_page,
-                                );
+                                // 
+                                
+                             Get.to(ServicesProviders(),
+                        duration: Duration(milliseconds:500),
+                       transition: Transition.fadeIn //transition effect
+                     );
+
+                    // Get.to(() => HomePage());
                               },
                               child: Text(
                                 "Get more Services >>",
@@ -677,7 +705,7 @@ class ServicesScreen extends StatelessWidget {
                                                                             TextButton(
                                                                                 onPressed: () {},
                                                                                 child: Text(
-                                                                                  "Ujasilia Mali",
+                                                                                  "Mnyororo wa Thamani",
                                                                                   style: TextStyle(fontWeight: FontWeight.bold, color: ColorConstant.default_color),
                                                                                 ))
                                                                           ],
@@ -1472,26 +1500,7 @@ class ServicesScreen extends StatelessWidget {
                                                                           ],
                                                                         ),
                                                                       ),
-                                                                      Divider(),
-                                                                      Card(
-                                                                        elevation:
-                                                                            0,
-                                                                        child:
-                                                                            Row(
-                                                                          children: [
-                                                                            Icon(
-                                                                              Icons.person_pin_circle_rounded,
-                                                                              color: Colors.grey,
-                                                                            ),
-                                                                            TextButton(
-                                                                                onPressed: () {},
-                                                                                child: Text(
-                                                                                  "Wanunuzi",
-                                                                                  style: TextStyle(fontWeight: FontWeight.bold, color: ColorConstant.default_color),
-                                                                                ))
-                                                                          ],
-                                                                        ),
-                                                                      ),
+                                                                 
                                                                       Divider(),
                                                                       Card(
                                                                         elevation:
@@ -1506,7 +1515,7 @@ class ServicesScreen extends StatelessWidget {
                                                                             TextButton(
                                                                                 onPressed: () {},
                                                                                 child: Text(
-                                                                                  "Wanunuzi",
+                                                                                  "Mazao",
                                                                                   style: TextStyle(fontWeight: FontWeight.bold, color: ColorConstant.default_color),
                                                                                 ))
                                                                           ],
@@ -1528,7 +1537,7 @@ class ServicesScreen extends StatelessWidget {
                                                                                   //buySell();
                                                                                 },
                                                                                 child: Text(
-                                                                                  "Wauzajaji",
+                                                                                  "Pembejeo",
                                                                                   style: TextStyle(fontWeight: FontWeight.bold, color: ColorConstant.default_color),
                                                                                 ))
                                                                           ],
@@ -1597,7 +1606,7 @@ class ServicesScreen extends StatelessWidget {
                                                                     .center,
                                                             children: [
                                                               Text(
-                                                                "Kununua",
+                                                                "Nunua / Uza",
                                                                 style: TextStyle(
                                                                     color: ColorConstant
                                                                         .default_color,

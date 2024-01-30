@@ -1,6 +1,5 @@
 import 'package:mkulima_connect/presentation/category_list/binding/categoryList_binding.dart';
 import 'package:mkulima_connect/presentation/category_list/categoryList.dart';
-import 'package:mkulima_connect/presentation/home_page/models/products_model.dart';
 import 'package:mkulima_connect/presentation/loading_page/binding/loading_binding.dart';
 import 'package:mkulima_connect/presentation/loading_page/loading_page.dart';
 import 'package:mkulima_connect/presentation/my_cart/binding/cartBinding.dart';
@@ -9,6 +8,7 @@ import 'package:mkulima_connect/presentation/partiners/binding/partiner_binding.
 import 'package:mkulima_connect/presentation/partiners/partnersList.dart';
 import 'package:mkulima_connect/presentation/productListView/binding/productList_binding.dart';
 import 'package:mkulima_connect/presentation/productListView/productList_screen.dart';
+import 'package:mkulima_connect/presentation/service_provider_screen/services_providers.dart';
 import 'package:mkulima_connect/presentation/services/binding/services_binding.dart';
 import 'package:mkulima_connect/presentation/services/services.dart';
 import 'package:mkulima_connect/presentation/splash_screen/splash_screen.dart';
@@ -53,8 +53,7 @@ import 'package:mkulima_connect/presentation/notification_list_tab_container_scr
 import 'package:mkulima_connect/presentation/notification_list_tab_container_screen/binding/notification_list_tab_container_binding.dart';
 import 'package:mkulima_connect/presentation/chat_screen/chat_screen.dart';
 import 'package:mkulima_connect/presentation/chat_screen/binding/chat_binding.dart';
-import 'package:mkulima_connect/presentation/call_screen/call_screen.dart';
-import 'package:mkulima_connect/presentation/call_screen/binding/call_binding.dart';
+import 'package:mkulima_connect/presentation/service_provider_screen/binding/serviceProvider_Binding.dart';
 import 'package:mkulima_connect/presentation/favourite_empty_screen/favourite_empty_screen.dart';
 import 'package:mkulima_connect/presentation/favourite_empty_screen/binding/favourite_empty_binding.dart';
 import 'package:mkulima_connect/presentation/horizontal_screen/horizontal_screen.dart';
@@ -175,7 +174,7 @@ class AppRoutes {
 
   static const String chatScreen = '/chat_screen';
 
-  static const String callScreen = '/call_screen';
+  static const String services_providers = '/services_providers ';
 
   static const String favouriteEmptyScreen = '/favourite_empty_screen';
 
@@ -427,10 +426,10 @@ class AppRoutes {
       ],
     ),
     GetPage(
-      name: callScreen,
-      page: () => CallScreen(),
+      name: services_providers,
+      page: () => ServicesProviders(),
       bindings: [
-        CallBinding(),
+       ServiceProviderBinding(),
       ],
     ),
     GetPage(
@@ -601,7 +600,7 @@ class AppRoutes {
         PropertyDetailsBinding(),
       ],
     ),
-    
+
     GetPage(
       name: viewScreen,
       page: () => ViewScreen(),
@@ -714,7 +713,6 @@ class AppRoutes {
       ],
     ),
   ];
-  
-  static get product => null;
 
+  static get product => null;
 }

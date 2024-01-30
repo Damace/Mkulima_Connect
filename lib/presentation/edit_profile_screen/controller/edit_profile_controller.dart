@@ -5,6 +5,7 @@ import 'package:mkulima_connect/presentation/edit_profile_screen/models/edit_pro
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:mkulima_connect/presentation/transaction_tab_container_page/models/transaction_tab_container_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class EditProfileController extends GetxController
     with GetSingleTickerProviderStateMixin {
@@ -35,18 +36,48 @@ class EditProfileController extends GetxController
   final emailcodekey = GlobalKey<FormState>();
   final passwordcodekey = GlobalKey<FormState>();
   final confirmpasswordcodekey = GlobalKey<FormState>();
+  final genderkey = GlobalKey<FormState>();
 
   RxBool isVisible = false.obs;
 
   var selectedItem = "".obs;
+  var selectedSelling = "".obs;
 
-  Future<void> updateRecord(String value) async {
+  updateGender(String value) {
     var gender = selectedItem.value = value;
-    print(gender);
+  }
 
-    if (gender == "Male") {
-      isVisible.toggle();
-    }
+  updateSelling(String value){
+    var selling_interest = selectedSelling.value = value;
+    print(selling_interest);
+
+    return selling_interest;
+  }
+
+  num(String value){
+
+    return 8;
+  }
+
+  Future<void> updateRecord() async {
+    var selling_interest2 = updateSelling("");
+
+    print(selling_interest2);
+    // final SharedPreferences pref = await SharedPreferences.getInstance();
+    // var selling_interest2 = pref.getString("selling_interest");
+
+    // if (selling_interest == "Food Crops") {
+     Get.snackbar(
+      "Not Inserted",
+         "Error",
+       snackPosition: SnackPosition.TOP,
+       backgroundColor: Colors.red,
+       colorText: Colors.white,
+         icon: const Icon(Icons.error, color: Colors.white),
+         shouldIconPulse: true,
+         barBlur: 20,
+       );
+    
 
     if (fullnameController.text.isEmpty ||
         genderController.text.isEmpty ||
@@ -54,18 +85,7 @@ class EditProfileController extends GetxController
         regionController.text.isEmpty ||
         postalcodeController.text.isEmpty ||
         passwordController.text.isEmpty ||
-        confirmpasswordController.text.isEmpty) {
-      // Get.snackbar(
-      //   "Not Inserted",
-      //   "Error",
-      //   snackPosition: SnackPosition.TOP,
-      //   backgroundColor: Colors.red,
-      //   colorText: Colors.white,
-      //   icon: const Icon(Icons.error, color: Colors.white),
-      //   shouldIconPulse: true,
-      //   barBlur: 20,
-      // );
-    }
+        confirmpasswordController.text.isEmpty) {}
 
     try {
       String uri =
@@ -74,7 +94,7 @@ class EditProfileController extends GetxController
         "phoneid": "0762700405",
         "fullname": fullnameController.text,
         "category": "buyer",
-        "gender": gender,
+        // "gender": gender,
         "country": countryController.text,
         "region": regionController.text,
         "postalcode": postalcodeController.text,
@@ -112,27 +132,16 @@ class EditProfileController extends GetxController
     } catch (e) {
       print(e);
     }
+  }
 
-    @override
-    void onReady() {
-      super.onReady();
-    }
+  @override
+  void onReady() {
+    super.onReady();
+  }
 
-    @override
-    void onClose() {
-      super.onClose();
-    }
-
-    onSelected(dynamic value) {
-      selectedDropDownValue = value as SelectionPopupModel;
-      editProfileModelObj.value.dropdownItemList.value.forEach((element) {
-        element.isSelected = false;
-        if (element.id == value.id) {
-          element.isSelected = true;
-        }
-      });
-      editProfileModelObj.value.dropdownItemList.refresh();
-    }
+  @override
+  void onClose() {
+    super.onClose();
   }
 
   var selectedSeling = "".obs;
