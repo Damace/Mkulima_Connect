@@ -15,7 +15,7 @@ class NotificationListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.white,
         body: SizedBox(
           width: size.width,
           child: SingleChildScrollView(

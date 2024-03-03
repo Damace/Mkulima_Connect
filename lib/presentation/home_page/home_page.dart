@@ -792,7 +792,11 @@ class _MyHomePage extends State<HomePage> {
         : Scaffold(
             backgroundColor: Colors.white,
             body: Center(
-              child: Text(" Is EMpty "),
+              child:  Image(
+                          image: AssetImage("assets/images/mclogo.png"),
+                          height: 100,
+                          width: 100,
+                        ),
             )));
   }
 

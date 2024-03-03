@@ -8,9 +8,13 @@ import 'package:mkulima_connect/presentation/home_container_screen/home_containe
 import 'package:mkulima_connect/presentation/home_page/controller/category_controller.dart';
 import 'package:mkulima_connect/presentation/home_page/controller/product_controller.dart';
 import 'package:mkulima_connect/presentation/home_page/home_page.dart';
+import 'package:mkulima_connect/presentation/loading_page/loading_page.dart';
 import 'package:mkulima_connect/presentation/my_cart/cart_page.dart';
+import 'package:mkulima_connect/presentation/notification_list_page/notification_list_page.dart';
+import 'package:mkulima_connect/presentation/preferable_screen/preferable_screen.dart';
 import 'package:mkulima_connect/presentation/provider/cart_provider.dart';
 import 'package:mkulima_connect/presentation/service_provider_screen/services_providers.dart';
+import 'package:mkulima_connect/presentation/transaction_tab_container_page/transaction_tab_container_page.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -56,18 +60,9 @@ class ServicesScreen extends StatelessWidget {
                   height: MediaQuery.of(context).size.height * 0.26,
                   child: CarouselSlider(
                     items: [
-                      // buildImage('https://example.com/image1.jpg'),
-                      //buildImage('https://example.com/image2.jpg'),
-                      //buildImage('https://example.com/image3.jpg'),
-
                       buildImage('assets/images/top.png'),
                       buildImage('assets/images/top2.png'),
                       buildImage('assets/images/top3.png'),
-
-                      // Your carousel items go here (e.g., Image.network, Container, etc.)
-                      // Image.network('https://example.com/image1.jpg'),
-                      //Image.network('https://example.com/image2.jpg'),
-                      //Image.network('https://example.com/image3.jpg'),
                     ],
                     options: CarouselOptions(
                       aspectRatio: 16 / 9,
@@ -182,7 +177,7 @@ class ServicesScreen extends StatelessWidget {
                                       )
                                     ],
                                   )),
-                                    PopupMenuItem(
+                                  PopupMenuItem(
                                       child: Row(
                                     children: [
                                       Icon(Icons.info),
@@ -193,7 +188,7 @@ class ServicesScreen extends StatelessWidget {
                                       )
                                     ],
                                   )),
-                                    PopupMenuItem(
+                                  PopupMenuItem(
                                       child: Row(
                                     children: [
                                       Icon(Icons.info),
@@ -264,7 +259,7 @@ class ServicesScreen extends StatelessWidget {
                               },
                               child: Icon(
                                 Icons.shop_2,
-                                 size: 25,
+                                size: 25,
                                 color: ColorConstant.default_color,
                               ),
                             ),
@@ -329,17 +324,18 @@ class ServicesScreen extends StatelessWidget {
                           ),
                           child: TextButton(
                               onPressed: () {
-                                // 
-                                
-                             Get.to(ServicesProviders(),
-                        duration: Duration(milliseconds:500),
-                       transition: Transition.fadeIn //transition effect
-                     );
+                                //
 
-                    // Get.to(() => HomePage());
+                                Get.to(ServicesProviders(),
+                                    duration: Duration(milliseconds: 500),
+                                    transition:
+                                        Transition.fadeIn //transition effect
+                                    );
+
+                                // Get.to(() => HomePage());
                               },
                               child: Text(
-                                "Get more Services >>",
+                                "Service Providers",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white),
@@ -371,7 +367,7 @@ class ServicesScreen extends StatelessWidget {
                       scrollDirection: Axis.vertical,
                       child: Column(children: [
                         Padding(
-                          padding: getPadding(left: 15, top: 15, right: 18),
+                          padding: getPadding(left: 15, top: 10, right: 18),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -397,13 +393,17 @@ class ServicesScreen extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Padding(
-                                      padding: getPadding(top: 5, right: 24),
+                                      padding: getPadding(top: 0, right: 24),
                                       child:
 
                                           // ----------------------------------------------------------------------------------------------------------------------------------------------------
 
                                           Container(
-                                              height: getVerticalSize(250),
+                                              //height: getVerticalSize(250),
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.29,
                                               decoration: BoxDecoration(
                                                   color: Colors.white),
                                               child: GridView(
@@ -1500,7 +1500,6 @@ class ServicesScreen extends StatelessWidget {
                                                                           ],
                                                                         ),
                                                                       ),
-                                                                 
                                                                       Divider(),
                                                                       Card(
                                                                         elevation:
@@ -1623,10 +1622,53 @@ class ServicesScreen extends StatelessWidget {
                                               ))
 
                                       //----------------------------------------------------------------------------------------------------------------------------------------------------
-                                      )
+                                      ),
+                                  SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width - 20,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          right: 35, left: 18),
+                                      child: Card(
+                                        color: ColorConstant.default_color,
+                                        shape: RoundedRectangleBorder(
+                                          side: BorderSide(
+                                              color:
+                                                  ColorConstant.default_color,
+                                              width: 2.0),
+                                          borderRadius:
+                                              BorderRadiusDirectional.only(
+                                            topEnd: Radius.circular(15),
+                                            topStart: Radius.circular(15),
+                                            bottomEnd: Radius.circular(15),
+                                            bottomStart: Radius.circular(15),
+                                          ),
+                                        ),
+                                        child: TextButton(
+                                            onPressed: () {
+                                              //
+
+                                              Get.to(PreferableScreen(),
+                                                  duration: Duration(
+                                                      milliseconds: 500),
+                                                  transition: Transition
+                                                      .fadeIn //transition effect
+                                                  );
+
+                                              // Get.to(() => HomePage());
+                                            },
+                                            child: Text(
+                                              "List of Buyers / Sellers",
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white),
+                                            )),
+                                      ),
+                                    ),
+                                  )
                                 ])),
                         Padding(
-                          padding: getPadding(left: 15),
+                          padding: getPadding(left: 15, top: 10),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
@@ -1641,7 +1683,8 @@ class ServicesScreen extends StatelessWidget {
                         ),
                         Divider(),
                         Container(
-                          height: 200.0, // Set the height of the card container
+                          height: MediaQuery.of(context).size.height *
+                              0.20, // Set the height of the card container
                           child: ListView(
                             scrollDirection: Axis.horizontal,
                             children: [
@@ -1655,7 +1698,6 @@ class ServicesScreen extends StatelessWidget {
                 )),
           ]),
         ),
-       
         bottomNavigationBar: BottomNavigationBar(
           elevation: 50,
           backgroundColor: ColorConstant.whiteA700,
@@ -1665,10 +1707,10 @@ class ServicesScreen extends StatelessWidget {
             BottomNavigationBarItem(
                 icon: InkWell(
                   onTap: () {
-                    // Get.to(HomePage(),
-                    //     duration: Duration(seconds: 1),
-                    //     transition: Transition.rightToLeft //transition effect
-                    //     );
+                    Get.to(LoadingPageScreen(),
+                        duration: Duration(seconds: 1),
+                        transition: Transition.rightToLeft //transition effect
+                        );
 
                     // Get.to(() => HomePage());
                   },
@@ -1680,6 +1722,12 @@ class ServicesScreen extends StatelessWidget {
                 label: 'Mkulima TV'),
             BottomNavigationBarItem(
                 icon: InkWell(
+                  onTap: () {
+                    Get.to(NotificationListPage(),
+                        duration: Duration(seconds: 1),
+                        transition: Transition.rightToLeft //transition effect
+                        );
+                  },
                   child: Badge(
                     label: Text("0"),
                     child: Icon(
@@ -1692,7 +1740,10 @@ class ServicesScreen extends StatelessWidget {
             BottomNavigationBarItem(
                 icon: InkWell(
                   onTap: () {
-                    Get.toNamed(AppRoutes.transactionTabContainerPage);
+                    Get.to(TransactionTabContainerPage(),
+                        duration: Duration(seconds: 1),
+                        transition: Transition.rightToLeft //transition effect
+                        );
                   },
                   child: Icon(
                     Icons.person_3_rounded,
@@ -1731,62 +1782,65 @@ class ServicesScreen extends StatelessWidget {
   }
 
   Widget buildCard(String cardImage, String region) {
-    return Container(
-      width: 280.0, // Set the width of each card
-      margin: EdgeInsets.all(8.0),
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        elevation: 15,
-        child: Column(
-          children: [
-            ClipRRect(
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(10),
-                topRight: Radius.circular(10),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Image.asset(
-                    cardImage,
-                    height: 80,
-                    fit: BoxFit.fill,
-                  ),
-                  SizedBox(width: 10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Icon(
-                        Icons.location_on_outlined,
-                        color: ColorConstant.default_color,
-                      ),
-                      Text("$region \n Tanzania")
-                    ],
-                  ),
-                  Divider()
-                ],
-              ),
-            ),
-            ListTile(
-              title: const Text(
-                'Wakulima wa Tanzania',
-                style: TextStyle(fontSize: 20),
-              ),
-              trailing: const Text(
-                '',
-                style: TextStyle(fontSize: 20),
-              ),
-              subtitle: SizedBox(
-                height: 50,
-                child: Text(
-                  "Wameaswa kutumia Mbolea zilizo fanyiwa tafiti na Wataalamu wa Kilimo kutoka ndani ya nchi, Pamoja na Pembejeo bora za Kilimo",
-                  overflow: TextOverflow.fade,
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 20),
+      child: Container(
+        width: 280.0, // Set the width of each card
+        margin: EdgeInsets.all(8.0),
+        child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          elevation: 15,
+          child: Column(
+            children: [
+              ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(10),
+                  topRight: Radius.circular(10),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Image.asset(
+                      cardImage,
+                      height: 50,
+                      fit: BoxFit.fill,
+                    ),
+                    SizedBox(width: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Icon(
+                          Icons.location_on_outlined,
+                          color: ColorConstant.default_color,
+                        ),
+                        Text("$region \n Tanzania")
+                      ],
+                    ),
+                    Divider()
+                  ],
                 ),
               ),
-            ),
-          ],
+              ListTile(
+                title: const Text(
+                  'Wakulima wa Tanzania',
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                ),
+                trailing: const Text(
+                  '',
+                  style: TextStyle(fontSize: 12),
+                ),
+                subtitle: SizedBox(
+                  height: 20,
+                  child: Text(
+                    "Wameaswa kutumia Mbolea zilizo fanyiwa tafiti na Wataalamu wa Kilimo kutoka ndani ya nchi, Pamoja na Pembejeo bora za Kilimo",
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -19,27 +19,12 @@ class LoadingPageScreen extends GetWidget<ProductListController> {
     return Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: ColorConstant.whiteA700,
-        body: Obx(
-          () => productController.isLoading.value
-              ? Center(
-                  child: CupertinoActivityIndicator(
-                  color: ColorConstant.default_color,
-                ))
-
-              //);
-              : gohomepage(),
-        ));
+        body: Center(
+          child: Text("Mkulima TV"),
+        )
+    );
   }
 
-  gohomepage() {
-    // Get.toNamed(AppRoutes.promotionScreen);
-   // Get.to(HomeContainerScreen());
-  Get.offNamed(
-         AppRoutes.loading_page
-       // AppRoutes.homeContainerScreen
-      //AppRoutes.propertyDetailsScreen
-      );
-  }
 
   onTapCategory() {
     Get.toNamed(

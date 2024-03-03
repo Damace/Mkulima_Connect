@@ -47,15 +47,14 @@ class EditProfileController extends GetxController
     var gender = selectedItem.value = value;
   }
 
-  updateSelling(String value){
+  updateSelling(String value) {
     var selling_interest = selectedSelling.value = value;
     print(selling_interest);
 
     return selling_interest;
   }
 
-  num(String value){
-
+  num(String value) {
     return 8;
   }
 
@@ -67,17 +66,16 @@ class EditProfileController extends GetxController
     // var selling_interest2 = pref.getString("selling_interest");
 
     // if (selling_interest == "Food Crops") {
-     Get.snackbar(
+    Get.snackbar(
       "Not Inserted",
-         "Error",
-       snackPosition: SnackPosition.TOP,
-       backgroundColor: Colors.red,
-       colorText: Colors.white,
-         icon: const Icon(Icons.error, color: Colors.white),
-         shouldIconPulse: true,
-         barBlur: 20,
-       );
-    
+      "Error",
+      snackPosition: SnackPosition.TOP,
+      backgroundColor: Colors.red,
+      colorText: Colors.white,
+      icon: const Icon(Icons.error, color: Colors.white),
+      shouldIconPulse: true,
+      barBlur: 20,
+    );
 
     if (fullnameController.text.isEmpty ||
         genderController.text.isEmpty ||

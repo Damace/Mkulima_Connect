@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mkulima_connect/firebase_options.dart';
+import 'package:mkulima_connect/presentation/firebase_api/firbase_api.dart';
 import 'package:mkulima_connect/presentation/provider/cart_provider.dart';
 import 'package:provider/provider.dart';
 import 'core/app_export.dart'; 
@@ -13,10 +14,9 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
-
-await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,
-//final fcmToken = await FirebaseMessaging.instance.getToken();
-);
+  
+await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,);
+await FirebaseApi().initNotifications();
 
   Future.wait([
     SystemChrome.setPreferredOrientations([
