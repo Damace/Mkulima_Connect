@@ -1,4 +1,164 @@
-import '../featured_estates_screen/widgets/gridshape_item_widget.dart';import 'controller/featured_estates_controller.dart';import 'models/gridshape_item_model.dart';import 'package:flutter/material.dart';import 'package:mkulima_connect/core/app_export.dart';import 'package:mkulima_connect/widgets/app_bar/appbar_iconbutton.dart';import 'package:mkulima_connect/widgets/app_bar/custom_app_bar.dart';import 'package:mkulima_connect/widgets/custom_icon_button.dart';import 'package:mkulima_connect/widgets/custom_search_view.dart';class FeaturedEstatesScreen extends GetWidget<FeaturedEstatesController> {@override Widget build(BuildContext context) { return SafeArea(child: Scaffold(resizeToAvoidBottomInset: false, backgroundColor: ColorConstant.whiteA700, body: Container(width: double.maxFinite, child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [Container(height: getVerticalSize(320), width: getHorizontalSize(355), margin: getMargin(top: 10), child: Stack(alignment: Alignment.bottomRight, children: [Align(alignment: Alignment.centerLeft, child: Container(height: getVerticalSize(320), width: getHorizontalSize(235), child: Stack(alignment: Alignment.bottomLeft, children: [CustomImageView(imagePath: ImageConstant.imgShape320x2351, height: getVerticalSize(320), width: getHorizontalSize(235), alignment: Alignment.center), CustomIconButton(height: 53, width: 53, margin: getMargin(left: 14, bottom: 24), variant: IconButtonVariant.FillOrange300, shape: IconButtonShape.RoundedBorder17, padding: IconButtonPadding.PaddingAll16, alignment: Alignment.bottomLeft, child: CustomImageView(svgPath: ImageConstant.imgStar))]))), CustomImageView(imagePath: ImageConstant.imgShape100x1101, height: getVerticalSize(100), width: getHorizontalSize(110), alignment: Alignment.bottomRight), CustomImageView(imagePath: ImageConstant.imgShape210x1101, height: getVerticalSize(210), width: getHorizontalSize(110), alignment: Alignment.topRight), CustomAppBar(height: getVerticalSize(64), leadingWidth: 74, leading: AppbarIconbutton(svgPath: ImageConstant.imgArrowleft, margin: getMargin(left: 24), onTap: () {onTapArrowleft();}), actions: [AppbarIconbutton(svgPath: ImageConstant.imgSettings, margin: getMargin(left: 24, right: 24))])])), Expanded(child: SingleChildScrollView(child: Padding(padding: getPadding(left: 24, top: 30, right: 24, bottom: 23), child: Column(crossAxisAlignment: CrossAxisAlignment.start, mainAxisAlignment: MainAxisAlignment.start, children: [Text("msg_featured_estate".tr, overflow: TextOverflow.ellipsis, textAlign: TextAlign.left, style: AppStyle.txtRalewayBold25.copyWith(letterSpacing: getHorizontalSize(0.75))), Padding(padding: getPadding(top: 8), child: Text("msg_our_recommended".tr, overflow: TextOverflow.ellipsis, textAlign: TextAlign.left, style: AppStyle.txtRalewayRomanRegular12.copyWith(letterSpacing: getHorizontalSize(0.36)))), CustomSearchView(focusNode: FocusNode(), controller: controller.formsearchemptyController, hintText: "msg_search_in_featu".tr, margin: getMargin(top: 7), padding: SearchViewPadding.PaddingT26_1, fontStyle: SearchViewFontStyle.RalewayRegular12Indigo200, prefix: Container(margin: getMargin(left: 16, top: 25, right: 10, bottom: 25), child: CustomImageView(svgPath: ImageConstant.imgSearchBlack900)), prefixConstraints: BoxConstraints(maxHeight: getVerticalSize(70)), suffix: Container(margin: getMargin(left: 30, top: 25, right: 16, bottom: 25), child: CustomImageView(svgPath: ImageConstant.imgUpload)), suffixConstraints: BoxConstraints(maxHeight: getVerticalSize(70))), Padding(padding: getPadding(top: 6), child: Row(children: [Padding(padding: getPadding(top: 8, bottom: 9), child: Text("lbl_70".tr, overflow: TextOverflow.ellipsis, textAlign: TextAlign.left, style: AppStyle.txtMontserratBold18.copyWith(letterSpacing: getHorizontalSize(0.54)))), Padding(padding: getPadding(left: 5, top: 8, bottom: 9), child: Text("lbl_estates".tr, overflow: TextOverflow.ellipsis, textAlign: TextAlign.left, style: AppStyle.txtRalewayMedium18.copyWith(letterSpacing: getHorizontalSize(0.54)))), Spacer(), Container(width: getHorizontalSize(93), padding: getPadding(all: 8), decoration: AppDecoration.fillGray100.copyWith(borderRadius: BorderRadiusStyle.circleBorder20), child: Row(children: [Card(clipBehavior: Clip.antiAlias, elevation: 0, margin: EdgeInsets.all(0), color: ColorConstant.whiteA700, shape: RoundedRectangleBorder(borderRadius: BorderRadiusStyle.circleBorder12), child: Container(height: getVerticalSize(24), width: getHorizontalSize(36), padding: getPadding(left: 12, top: 6, right: 12, bottom: 6), decoration: AppDecoration.white.copyWith(borderRadius: BorderRadiusStyle.circleBorder12), child: Stack(children: [CustomImageView(svgPath: ImageConstant.imgUserBlueGray80001, height: getSize(12), width: getSize(12), alignment: Alignment.center)]))), Card(clipBehavior: Clip.antiAlias, elevation: 0, margin: getMargin(left: 5), color: ColorConstant.whiteA700, shape: RoundedRectangleBorder(borderRadius: BorderRadiusStyle.circleBorder12), child: Container(height: getVerticalSize(24), width: getHorizontalSize(36), padding: getPadding(left: 12, top: 6, right: 12, bottom: 6), decoration: AppDecoration.white.copyWith(borderRadius: BorderRadiusStyle.circleBorder12), child: Stack(children: [CustomImageView(svgPath: ImageConstant.imgTelevision, height: getSize(12), width: getSize(12), alignment: Alignment.center)])))]))])), Padding(padding: getPadding(top: 20), child: Obx(() => GridView.builder(shrinkWrap: true, gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(mainAxisExtent: getVerticalSize(232), crossAxisCount: 2, mainAxisSpacing: getHorizontalSize(7), crossAxisSpacing: getHorizontalSize(7)), physics: NeverScrollableScrollPhysics(), itemCount: controller.featuredEstatesModelObj.value.gridshapeItemList.value.length, itemBuilder: (context, index) {GridshapeItemModel model = controller.featuredEstatesModelObj.value.gridshapeItemList.value[index]; return GridshapeItemWidget(model, onTapColumnshape: () {onTapColumnshape();});})))]))))])))); } 
-onTapColumnshape() { Get.toNamed(AppRoutes.realEstatesListByCategoryScreen); } 
-onTapArrowleft() { Get.back(); } 
- }
+import 'package:flutter/services.dart';
+
+import '../featured_estates_screen/widgets/gridshape_item_widget.dart';
+import 'controller/featured_estates_controller.dart';
+import 'models/gridshape_item_model.dart';
+import 'package:flutter/material.dart';
+import 'package:mkulima_connect/core/app_export.dart';
+import 'package:mkulima_connect/widgets/app_bar/appbar_iconbutton.dart';
+import 'package:mkulima_connect/widgets/app_bar/custom_app_bar.dart';
+import 'package:mkulima_connect/widgets/custom_icon_button.dart';
+import 'package:mkulima_connect/widgets/custom_search_view.dart';
+
+class FeaturedEstatesScreen extends StatefulWidget {
+  @override
+  _FeaturedEstatesScreen createState() => _FeaturedEstatesScreen();
+}
+
+class _FeaturedEstatesScreen extends State<FeaturedEstatesScreen> {
+  @override
+  Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: ColorConstant.default_color.withOpacity(0),
+      statusBarBrightness: Brightness.light,
+      statusBarIconBrightness: Brightness.light,
+    ));
+    return SafeArea(
+        child: Scaffold(
+            backgroundColor: ColorConstant.default_color,
+
+              
+            appBar: CustomAppBar(
+                height: getVerticalSize(56),
+                leadingWidth: 74,
+                leading: Container(),
+                centerTitle: true,
+               ),
+           
+            body: Column(
+          children: [
+            // TabBar with TabBarView wrapped in Expanded to allow for dynamic height
+            Expanded(
+              child: DefaultTabController(
+                length: 3, // Number of tabs
+                child: Column(
+                  children: [
+                    TabBar(
+                      tabs: [
+                        Tab(text: 'Tab 1'),
+                        Tab(text: 'Tab 2'),
+                        Tab(text: 'Tab 3'),
+                      ],
+                    ),
+                    // Allow TabBarView to take remaining space in the Column
+                    Expanded(
+                      child: TabBarView(
+                        children: [
+                          // Contents of Tab 1
+                          Container(
+                            color: Colors.red,
+                            child: Center(child: Text('Tab 1')),
+                          ),
+                          // Contents of Tab 2
+                          Container(
+                            color: Colors.green,
+                            child: Center(child: Text('Tab 2')),
+                          ),
+                          // Contents of Tab 3
+                          Container(
+                            color: Colors.blue,
+                            child: Center(child: Text('Tab 3')),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            // Other widgets can be added below the TabBarView
+            // For example:
+            // SomeWidget(),
+          ],
+        ),
+            ));
+  }
+
+  Widget _tabSection(context) {
+    return Padding(
+      padding: getPadding(left: 24, top: 18, right: 25),
+      child: DefaultTabController(
+        length: 3,
+        child: Column(
+          children: <Widget>[
+            Container(
+              constraints: BoxConstraints.expand(height: 50),
+              child: TabBar(tabs: [
+                Tab(text: "Home"),
+                Tab(text: "Articles"),
+                Tab(text: "User"),
+              ]),
+            ),
+            Expanded(
+              child: Container(
+                child: TabBarView(children: [
+                  Container(
+                    child: Text("Home Body"),
+                  ),
+                  Container(
+                    child: Text("Articles Body"),
+                  ),
+                  Container(
+                    child: Text("User Body"),
+                  ),
+                ]),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  onTapArrowleft14() {
+    Get.back();
+  }
+
+  onTapBtnEdit() {
+    Get.toNamed(
+      AppRoutes.editProfileScreen,
+    );
+  }
+
+  functionTransaction(context) {
+    return Container(
+      child: Center(
+        child: Text("Empty"),
+      ),
+    );
+  }
+
+  functionRating(context) {
+    return Container(
+      child: Center(
+        child: Text(
+          "Empty",
+          style: TextStyle(color: Colors.red),
+        ),
+      ),
+    );
+  }
+
+  functionHistory(context) {
+    return Container(
+      child: Center(
+        child: Text(
+          "Empty",
+          style: TextStyle(color: Colors.green),
+        ),
+      ),
+    );
+  }
+}
+
+

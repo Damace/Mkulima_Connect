@@ -22,7 +22,7 @@ dependencies:
   flutter_launcher_icons: ^0.13.1
   http: ^1.1.0
   carousel_slider: ^4.2.1
-  google_fonts: ^6.1.0
+  #google_fonts: ^6.1.0
   hexcolor: ^3.0.1
   rflutter_alert: ^2.0.7
   quickalert: ^1.0.2
@@ -43,6 +43,9 @@ dependencies:
   badges: ^3.1.2
   font_awesome_flutter: ^10.7.0
   like_button: ^2.0.5
+
+  google_fonts: ^5.0.0
+
 dev_dependencies: 
   flutter_test: 
     sdk: flutter
@@ -71,8 +74,6 @@ flutter:
           weight: 600
         - asset: assets/fonts/RalewayRomanSemiBold.ttf
           weight: 600
-        - asset: assets/fonts/RalewayRomanRegular.ttf
-          weight: 400
         - asset: assets/fonts/RalewayRomanBold.ttf
           weight: 700
         - asset: assets/fonts/RalewayRomanMedium.ttf
