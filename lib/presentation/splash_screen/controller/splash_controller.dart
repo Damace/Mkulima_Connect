@@ -29,7 +29,7 @@ class SplashController extends GetxController {
 
     if (onboarding == "true") {
       Future.delayed(const Duration(milliseconds: 4000), () {
-        Get.offNamed(AppRoutes.services);
+        Get.offNamed(AppRoutes.transactionTabContainerPage);
       });
     } else {
       Future.delayed(const Duration(milliseconds: 4000), () {

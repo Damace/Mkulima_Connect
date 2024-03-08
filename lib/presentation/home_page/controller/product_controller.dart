@@ -17,6 +17,7 @@ class ProductController extends GetxController {
   @override
   void onInit() {
     fetchProducts();
+
     super.onInit();
   }
 
@@ -40,9 +41,10 @@ class ProductController extends GetxController {
     cartList.removeWhere((element) => element.productid == item.productid);
   }
 
-  void clearCart(){
+  void clearCart() {
     cartList.clear();
   }
+
   void onTextChanged(String text) {
     searchList.clear();
     if (text.isEmpty) {

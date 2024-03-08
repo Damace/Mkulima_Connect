@@ -1,11 +1,15 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mkulima_connect/core/app_export.dart';
+import 'package:mkulima_connect/presentation/add_location_screen/add_location_screen.dart';
+import 'package:mkulima_connect/presentation/example_data_page/example_data_page.dart';
 import 'package:mkulima_connect/presentation/home_container_screen/home_container_screen.dart';
 import 'package:mkulima_connect/presentation/home_page/controller/category_controller.dart';
+import 'package:mkulima_connect/presentation/home_page/controller/news_events_controller.dart';
 import 'package:mkulima_connect/presentation/home_page/controller/product_controller.dart';
 import 'package:mkulima_connect/presentation/home_page/home_page.dart';
 import 'package:mkulima_connect/presentation/loading_page/loading_page.dart';
@@ -18,9 +22,18 @@ import 'package:mkulima_connect/presentation/transaction_tab_container_page/tran
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class ServicesScreen extends StatelessWidget {
+class ServicesScreen extends StatefulWidget {
+  @override
+  _ServicesScreen createState() => _ServicesScreen();
+}
+
+class _ServicesScreen extends State<ServicesScreen> {
+
   CategoryController categoryController = Get.put(CategoryController());
   ProductController productController = Get.put(ProductController());
+
+  NewsandEventsController newsController = Get.put(NewsandEventsController());
+
   TextEditingController _searchController = TextEditingController();
 
   bool isVisible = true;
@@ -1683,17 +1696,140 @@ class ServicesScreen extends StatelessWidget {
                         ),
                         Divider(),
                         Container(
-                          height: MediaQuery.of(context).size.height *
-                              0.20, // Set the height of the card container
-                          child: ListView(
-                            scrollDirection: Axis.horizontal,
-                            children: [
-                              buildCard('assets/images/top3.png', 'Shinyanga'),
-                              buildCard('assets/images/top.png', 'Dodoma'),
-                              buildCard('assets/images/top.jpg', 'Mbeya'),
-                            ],
-                          ),
-                        ),
+                            height: MediaQuery.of(context).size.height * 0.20,
+                             child: 
+                             Obx(() => newsController.newsandEvents.isNotEmpty
+                              ?
+                            ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                // itemCount: 6,
+                                itemCount: newsController.newsandEvents.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return 
+                                  InkWell(
+
+                                          onTap: () {
+                                              Get.to(AddLocationScreen(),
+                                                  arguments: {
+                                                    "image":
+                                                        newsController
+                                                            .newsandEvents[index]
+                                                            .newsImage,
+                                                    "title":  newsController
+                                                            .newsandEvents[index]
+                                                            .newsTitle,
+                                                    "location": newsController
+                                                        .newsandEvents[index]
+                                                        .newsLocation,
+                                                    "contents": newsController
+                                                        .newsandEvents[index]
+                                                        .newsContent,
+                                                  },
+                                                  duration:
+                                                      Duration(seconds: 1),
+                                                  transition: Transition
+                                                      .rightToLeft //transition effect
+                                                  );
+                                            },
+
+
+
+
+
+
+                                    child:
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 20),
+                                    child: Container(
+                                      width:
+                                          280.0, // Set the width of each card
+                                      margin: EdgeInsets.all(8.0),
+                                      child: Card(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                        elevation: 15,
+                                        child: Column(
+                                          children: [
+                                            ClipRRect(
+                                              borderRadius:
+                                                  const BorderRadius.only(
+                                                topLeft: Radius.circular(10),
+                                                topRight: Radius.circular(10),
+                                              ),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                           
+                                                 SizedBox(
+                                                  height: 50,
+                                                  width: 80,
+                                                    child: Image(
+                                                    image: NetworkImage(
+                                                             newsController.newsandEvents[index].newsImage,
+                                                              )
+                                                      ),
+                                                  ),
+
+                                              
+                                                  SizedBox(width: 10),
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Icon(
+                                                        Icons
+                                                            .location_on_outlined,
+                                                        color: ColorConstant
+                                                            .default_color,
+                                                      ),
+                                                      Text(
+                                                          "${newsController.newsandEvents[index].newsLocation} \n Tanzania")
+                                                    ],
+                                                  ),
+                                                  Divider()
+                                                ],
+                                              ),
+                                            ),
+                                            ListTile(
+                                              title: Text(
+                                                "${newsController.newsandEvents[index].newsTitle}",
+                                                 overflow:
+                                                      TextOverflow.ellipsis,
+                                                style: TextStyle(
+                                                    fontSize: 13,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                              trailing: Text(
+                                                '',
+                                                style: TextStyle(fontSize: 11),
+                                              ),
+                                              subtitle: SizedBox(
+                                                 child: Text(
+                                                  "${newsController.newsandEvents[index].newsContent}",
+                                                  maxLines: 2,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ));
+                                })
+
+                            : Center(child: Text("News and Events",
+                            style: TextStyle(color: Colors.grey),)))
+
+
+
+                            ),
                       ])),
                 )),
           ]),
@@ -1776,71 +1912,6 @@ class ServicesScreen extends StatelessWidget {
           imageUrl,
           fit: BoxFit.fill,
           width: double.infinity,
-        ),
-      ),
-    );
-  }
-
-  Widget buildCard(String cardImage, String region) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 20),
-      child: Container(
-        width: 280.0, // Set the width of each card
-        margin: EdgeInsets.all(8.0),
-        child: Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          elevation: 15,
-          child: Column(
-            children: [
-              ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(10),
-                  topRight: Radius.circular(10),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Image.asset(
-                      cardImage,
-                      height: 50,
-                      fit: BoxFit.fill,
-                    ),
-                    SizedBox(width: 10),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Icon(
-                          Icons.location_on_outlined,
-                          color: ColorConstant.default_color,
-                        ),
-                        Text("$region \n Tanzania")
-                      ],
-                    ),
-                    Divider()
-                  ],
-                ),
-              ),
-              ListTile(
-                title: const Text(
-                  'Wakulima wa Tanzania',
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                ),
-                trailing: const Text(
-                  '',
-                  style: TextStyle(fontSize: 12),
-                ),
-                subtitle: SizedBox(
-                  height: 20,
-                  child: Text(
-                    "Wameaswa kutumia Mbolea zilizo fanyiwa tafiti na Wataalamu wa Kilimo kutoka ndani ya nchi, Pamoja na Pembejeo bora za Kilimo",
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-              ),
-            ],
-          ),
         ),
       ),
     );
